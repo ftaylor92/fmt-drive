@@ -1,0 +1,33 @@
+TODO:
+Compare javascript to android app
+
+JQuery dialogs, sticky Login button
+
+Mongo url ajax on android, debug
+- touchstart and touchend instead on onClick for menus
+- RBAC or CloudBees password DB service or make cloudbees dailybalance work
+- Patent daily balance
+
+https from Android (or MongoDB from Java)
+	try: MongoDB Java file under Simple Project or HttpRetriever.java in GPSDiaryFee
+	http://www.codeproject.com/Articles/186599/SSL-Verification-for-Android-Applications
+
+Yahoo API: http://where.yahooapis.com/geocode?q=38.898717,+-77.035974&gflags=R&appid=[yourappidhere]
+-----
+#edits formatted as floats
+
+#edit/new: calendar pop-up:
+
+		<link rel="stylesheet" href="./jquery.ui.datepicker.mobile.css" />
+		<script src="./jQuery.ui.datepicker.js"></script>
+		<script src="./jquery.ui.datepicker.mobile.js"></script>
+		
+	<script>
+	  //reset type=date inputs to text
+  $( document ).bind( "mobileinit", function(){
+    $.mobile.page.prototype.options.degradeInputs.date = true;
+  });	
+  </script>
+	<div data-role="content">
+<label for="date">Date Input:</label>
+<input type="date" name="date" id="date" value=""  />

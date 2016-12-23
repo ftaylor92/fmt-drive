@@ -1,0 +1,52 @@
+<HTML>
+<BODY>
+In a .sqlj file, which is that same as a .java file, include the following:<BR />
+...<BR />
+<CODE>import java.sql.SQLException;<BR />
+import oracle.sqlj.runtime.Oracle;<BR />
+...<BR />
+	try {<BR />
+            Oracle.connect("jdbc:oracle:thin@localhost:1521:atgdev", "username", "password");<BR />
+            <BR />
+            #sql { SELECT sysdate INTO :current_date FROM dual };<BR />
+		<BR />
+            System.out.println("Hello CIFA!  The current date is "+ current_date);<BR />
+        } catch(SQLException ex) {<BR />
+            System.err.println("SQLException: "+ ex);<BR />
+        } finally {<BR />
+            try {<BR />
+                Oracle.close();<BR />
+</CODE>...<BR />
+<HR />
+<U>Environment Variables</U>:<BR />
+<CODE>ORACLE_HOME=C:\oracle\ora92<BR />
+CLASSPATH=%ORACLE_HOME%\jdbc\lib\classes12.zip;%ORACLE_HOME%\sqlj\lib\translator.jar;%ORACLE_HOME%\sqlj\lib\runtime12.jar<BR />
+PATH=/cygdrive/c/J2SDK/bin:%ORACLE_HOME%/bin:/cygdrive/c/Program Files/Oracle/jre/1.3.1/bin:/cygdrive/c/Program Files/Oracle/jre/1.1.8/bin:/cygdrive/c/apache-ant/bin:.</CODE><BR />
+<HR />
+first, type <CODE>sqlj file.sqlj</CODE><BR />
+which creates a .java file, then type <CODE>javac file.java</CODE><BR />
+then to run, type <CODE>java file</CODE><HR />
+<H3>Compiling sqlj via ant (jakarta)</H3> 
+
+"How do you configure jakarta ant to compile .sqlj programs?"<BR />
+<BR />
+Note that the source for the sqlj wrapper executable sqlj.exe is available on the SQLJ downloads at http://technet.oracle.com/. This executable is NT equivalent to the Unix sqlj shell script, and it expands wildcards, performs some transformations on options in the command line options, and it also looks up some environment variable settings. Essentially, it boils down to calling:<BR />
+<BR />
+java sqlj.tools.Sqlj <options and files> <BR />
+<BR />
+The following are some snippets from an ant build.xml. This omits many details and the sqlj target does not work, since SQLJ expects a list of files rather than being able to accept wildcards. <BR />
+<BR />
+<CODE>
+&lt;target name="sqlj"&gt;<BR />
+&lt;java classname="sqlj.tools.Sqlj" args="src/*.sqlj" fork="yes" failonerror="yes"&gt;<BR /> 
+&lt;classpath&gt;<BR />
+&lt;pathelement location="/oracle/ora92/sqlj/lib/translator.jar"/&gt;<BR />
+&lt;pathelement location="/oracle/ora92/sqlj/lib/runtime12.jar"/&gt;<BR />
+&lt;pathelement location="/oracle/ora92/jdbc/lib/classes12.jar"/&gt;<BR /> 
+&lt;/classpath&gt;<BR /> 
+&lt;/java&gt;<BR /> 
+&lt;/target&gt;<BR /> 
+</CODE>
+<HR />
+</BODY>
+</HTML>

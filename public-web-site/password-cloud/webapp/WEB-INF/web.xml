@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5"> 
+  <display-name>Simple</display-name>
+  
+      <security-constraint>
+        <display-name>Restrict advertisement pages tocustomers</display-name>
+        <web-resource-collection>
+            <web-resource-name>To create Homework is privileged to Professors</web-resource-name>
+            <description />
+            <url-pattern>/*/rest/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>PUJ Homeworks.</description>
+            <role-name>professor</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+  
+	<servlet>
+		<servlet-name>j_security_check</servlet-name>  
+		<servlet-class>com.fmt.password.Secure</servlet-class>  
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>j_security_check</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+	    <filter-name>AccessControlFilter</filter-name>
+	    <filter-class>com.fmt.password.AccessControlFilter</filter-class>
+	    <init-param>
+	        <param-name>test-param</param-name>
+	        <param-value>This parameter is for testing.</param-value>
+	    </init-param>
+	</filter>
+	<filter-mapping>
+	    <filter-name>AccessControlFilter</filter-name>
+	    <url-pattern>/page/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+	    <filter-name>AccessControlFilter</filter-name>
+	    <url-pattern>/links/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+	  <servlet-name>jersey-serlvet</servlet-name>
+	<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+	  <init-param>
+	    <param-name>com.sun.jersey.config.property.packages</param-name>
+	    <param-value>com.fmt.rest.service</param-value>
+	  </init-param>
+	  <init-param>
+		<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+		<param-value>true</param-value>
+	 <init-param>
+        <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+        <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+    </init-param>
+    <init-param>
+        <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+        <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+	</init-param>
+	  <load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>jersey-serlvet</servlet-name>
+	  <url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+	
+	<Valve className="org.apache.catalina.authenticator.BasicAuthenticator"
+       disableProxyCaching="false" />
+	
+	<!--  servlet>
+        <servlet-name>HelloWorldApp</servlet-name>
+        <servlet-class>org.apache.wink.server.internal.servlet.RestServlet</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.fmt.rest.service.PasswordApplication</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+	<servlet-mapping>
+		<servlet-name>HelloWorldApp</servlet-name>
+		<url-pattern>/wink/*</url-pattern>
+	</servlet-mapping -->
+</web-app>

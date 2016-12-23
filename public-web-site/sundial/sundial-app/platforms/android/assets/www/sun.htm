@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>Sundial</title>
+	<script type="text/javascript" src="./require.js"></script>
+	<script type="text/javascript" src="./Sun.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+require(["Sundial"], function(){
+	//var s = new Sun(); 
+    Sun.date =  new Date(2012, 5, 21);
+    var daylightHours= Sun.getDaylightHours( 50 ); // Returns 16.15
+	var daylightInYear= Sun.getTotalDaylightHoursInYear(50); // Returns 4404.769999999997
+
+    //getDate() / `setDate( /* Date() */ date )
+    var julianDays= Sun.getJulianDays(); //Returns the Julian Days passed based on the current Sun.date
+    var equationOfTime= Sun.getEquationOfTime(); //The equation of time is the difference between apparent solar time and mean solar time.
+    //_getRightAscension(/* Time Factor */ T)
+    //_getSunsMeanLongitude(/* Time Factor */ T) - Calculate the Mean Longitude of the Sun
+    //_getDeltaPSI(/* Time Factor */ T) - Returns the nutation in ecliptical longitude expressed in degrees.
+    //_getObliquity(/* Time Factor */ T) - Calculate Earths Obliquity Nutation
+
+
+	console.log('Testing console');
+	console.log('daylightHours: '+ daylightHours);
+	console.log('daylightInYear: '+ daylightInYear);
+	console.log('julianDays: '+ julianDays);
+	console.log('equationOfTime: '+ equationOfTime);
+	console.log('daylightInYear: '+ daylightInYear);
+	console.log('daylightInYear: '+ daylightInYear);
+	console.log('daylightInYear: '+ daylightInYear);
+});
+</script>
+</body>
+</html>

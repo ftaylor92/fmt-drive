@@ -1,0 +1,106 @@
+<html>
+<!-- written by Frank M Taylor -->
+<head>
+<title>Walden Woods Walk</title>
+<script language="javascript" type="text/javascript">
+
+mypics=new Array("East_Entry_From_Lower_Field.jpg","Segment_1.jpg","Segment_2.jpg","Segment_3.jpg","Segment_4-5.jpg","Segment_6.jpg","First_Fork_to_Left_7.jpg","Segment_8.jpg","To_Upper_Field_9.jpg","By_Upper_Field.jpg","Turn_In_from_Upper_Field_10.jpg","Northward_Path10a.jpg","Segment_10b.jpg","Segment_11.jpg", "Segment_11a.jpg", "Segment_12.jpg", "Segment_12a.jpg", "Segment_12b.jpg", "Segment_13.jpg", "Segment_14.jpg", "Segment_15.jpg", "Segment_16.jpg", "Segment_17.jpg", "Segment_18.jpg", "Segment_19.jpg", "Segment_20.jpg", "Segment_21.jpg", "Upper_Fork_22.jpg", "Other_Off_Path_22a.jpg", "Segment_23.jpg", "Segment_24.jpg", "Segment_25.jpg", "Segment_26.jpg", "Segment_26a.jpg", "Segment_27.jpg", "Segment_27b.jpg", "Segment_27c.jpg","Back_toward_CCHS_28.jpg","Downward_Exit.jpg");
+
+mycaptions=new Array("East Entry From Lower Field","Segment 1","Segment 2","Segment 3","Segment 4-5","Segment 6","First Fork to Left 7","Segment 8","To_Upper Field 9","By Upper Field","Turn In from Upper Field 10","Northward Path10a","Segment 10b","Segment 11", "Segment 11a", "Segment 12", "Segment 12a", "Segment 12b", "Segment 13", "Segment 14", "Segment 15", "Segment 16", "Segment 17", "Segment 18", "Segment 19", "Segment 20", "Segment 21", "Upper Fork 22", "Other Off Path 22a", "Segment 23", "Segment 24", "Segment 25", "Segment 26", "Segment 26a", "Segment 27", "Segment 27b", "Segment 27c","Back toward CCHS 28","Downward Exit");
+thispic=0;
+tablewidth=8;
+
+function changeslide(direction)
+{
+	thispic=thispic + direction;
+
+	if(thispic > mypics.length) {
+		thispic = 0;
+	}
+	if(thispic < 0) {
+		thispic = mypics.length;
+	}
+
+	document.slide.src=mypics[thispic];
+}
+
+function setslide(num)
+{
+	thispic=num;
+
+	if(thispic > mypics.length) {
+		thispic = 0;
+	}
+	if(thispic < 0) {
+		thispic = mypics.length;
+	}
+
+	document.slide.src=mypics[thispic];
+}
+
+function setup() 
+{
+	html=""
+	html+= "<center><h3>Concord Walden Woods Walk behind C.C.H.S. at Brister Hill</h3><a href='javascript:changeslide(-1);'>&lt;&lt;prev</a><img height='343' width='458' id='slide' name='slide' src='"+mypics[thispic]+"'/><a href='javascript:changeslide(1);'>next&gt;&gt;</a></center>";
+	html+= "<br/>click thumbnail to view<br/>";
+	html+= "<table border=1>";
+	totalpicts= mypics.length;
+	rowwidth= 0;
+	totalrows= Math.floor(totalpicts/tablewidth);
+	if(totalpicts%tablewidth > 0.0) {
+		totalrows++;
+	}
+	
+	jj= 0;
+	jjj= 0;
+	for(var i= 0; i < totalrows; i++) 
+	{
+		if(totalpicts < tablewidth) {
+			rowwidth= totalpicts%tablewidth;
+		} else {
+			rowwidth= tablewidth;
+		}
+		
+		html+= "<tr>";
+		for(var ii= 0; ii < rowwidth; ii++)
+		{
+			html+= "<td align='center'><img alt='path' src='"+mypics[jj+ii]+"' height='40' width='60' onclick='setslide("+(jj+ii)+");'/></td>";
+		}
+
+		html+= "</tr>";
+		html+= "<tr>";
+		for(var iii= 0; iii < rowwidth; iii++)
+		{
+			html+= "<td><small>"+mycaptions[iii+jj]+"</small></td>";
+		}
+		html+= "</tr>";
+		
+		jj+= rowwidth;
+		totalpicts-= rowwidth;
+	}
+	html+= "</table>";
+	document.writeln(html);
+}
+</script>
+
+</head>
+<body bgcolor="cornsilk">
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+<!-- 
+var sc_project=2574332; 
+var sc_invisible=1; 
+var sc_partition=25; 
+var sc_security="418a8669"; 
+//-->
+</script>
+
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script><noscript><div class="statcounter"><a class="statcounter" href="http://www.statcounter.com/"><img class="statcounter" src="http://c26.statcounter.com/counter.php?sc_project=2574332&java=0&security=418a8669&invisible=0" alt="website metrics" /></a></div></noscript>
+<!-- End of StatCounter Code -->
+
+	<script type="text/javascript">
+		setup();
+	</script>
+</body>
+</html>

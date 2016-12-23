@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Globe</title>
+<script src="./js/namespace.js"></script>
+	<script src="./js/Sun.js"></script>
+	<script src="./js/Dial.js"></script>
+	<script src="./js/shapes.js"></script>
+	<script src="./js/sundial.js"></script>
+	<script src="./js/prototype.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+	<script src="./js/three.js"></script>
+	<script src="./js/sundial-location.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+
+	var watchAcc = null;
+	var watchNS = null;
+	var tiltAngle= -1;
+	var tiltAngle2= -1;
+	var lastUpdate= 0;
+	var gHeading= null;
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+	
+	/*window.addEventListener("devicemotion", function(event) {
+          // Process event.acceleration, event.accelerationIncludingGravity,
+          // event.rotationRate and event.interval
+		   *     {acceleration: {x: v^2/r, y: 0, z: 0},
+				   accelerationIncludingGravity: {x: v^2/r, y: 0, z: 9.81},
+				   rotationRate: {alpha: 0, beta: 0, gamma: -v/r*180/pi} };*
+      }, true);*/
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        startWatch();
+    }
+	
+	// Start watching the compass
+    function startWatch() {
+	 try{
+		// Update acceleration every 3 seconds
+        var options = { frequency: 1024 };
+
+        watchAcc = navigator.accelerometer.watchAcceleration(onSuccessAcc, onErrorAcc, options);
+		watchNS = navigator.compass.watchHeading(onSuccessNS, onErrorNS, options);
+	} catch(err) {
+		console.error(err.message);
+	}
+
+	 try {
+		window.addEventListener('deviceorientation', function(eventData) {
+		// gamma is the left-to-right tilt in degrees, where right is positive
+		var tiltLR = eventData.gamma;
+
+		// beta is the front-to-back tilt in degrees, where front is positive
+		var tiltFB = eventData.beta;
+
+		// alpha is the compass direction the device is facing in degrees
+		var dir = eventData.alpha
+
+		// deviceorientation does not provide this data
+		var motUD = null;
+
+		// call our orientation event handler
+		deviceOrientationHandler(tiltLR, tiltFB, dir, motUD);
+		}, false);
+ 	 } catch(err) {
+		console.error(err.message);
+	 }
+
+    }
+
+
+    // onSuccess: Get the current heading
+    //
+    function onSuccessAcc(acceleration) {
+		drawProtractor(acceleration);
+    }
+    function onSuccessNS(heading) {
+		gHeading= heading;
+		drawCompass(heading);
+    }
+	
+	function rotateGlobe(acceleration) {
+	//function rotateGlobe(tiltLR, tiltFB, dir) {
+/*
+	flat, face-down: z: -9, face-up: z: 9
+	straight-up: y:10, z: 0, upside-down: y: -10
+	landscape: x:10 -> -9
+*/
+		var latslider= null;
+		var lattxt= null;
+		var lonslider= null;
+		var lontxt= null;
+
+		latslider= document.getElementById("longitude-slider");
+		lattxt= document.getElementById("lon");
+		lonslider= document.getElementById("latitude-slider");
+		lontxt= document.getElementById("lat");
+
+		var lonvalue= 36.0* acceleration.y;	//tiltLR;//
+		var latvalue= 9.0* acceleration.z;	//tiltFB;//
+	
+		latslider.value= latvalue;
+		lattxt.value= latvalue;
+		lonslider.value= lonvalue;
+		lontxt.value= lonvalue;
+
+
+		//sundialLocationpackage.doLatLon();
+
+		var yyy= acceleration.y;
+		if(null !== gHeading) {
+			//yyy= gHeading.magneticHeading/36.0;	//360 degrees/10
+		}
+
+		sundialLocationpackage.xyzRender(acceleration.x, yyy, acceleration.z);
+		//sundialLocationpackage.xyzRotate(acceleration.x, acceleration.y, acceleration.z);
+	}
+	
+	
+	function deviceOrientationHandler(tiltLR, tiltFB, dir, motUD) {
+		if((new Date()).getTime() < lastUpdate)	return;
+		lastUpdate= (new Date()).getTime()+1024;
+
+		tiltAngle= tiltLR; //270+ tiltLR; //tiltLR;
+		tiltAngle2= tiltFB; //270+ tiltFB; //tiltFB;
+		if(tiltFB > 75) {}
+		var txt= 'Orientation: tiltLR:' + tiltLR+" tiltFB: "+ tiltFB+" dir: "+ dir+" motUD: "+ motUD;
+		console.debug(txt);
+		var element = document.getElementById('acceleromete2');
+		element.innerHTML = txt;
+
+		/*try {
+			rotateGlobe(tiltLR, tiltFB, dir);
+		} catch(err) {
+		//	alert(err.message);
+			var element = document.getElementById('message');
+		    element.innerHTML = err.message;
+	 	}*/
+	}
+	
+
+	function drawProtractor(acceleration) {
+		try {
+
+		//Heading Text
+			var txt= 'Acceleration: x:' + acceleration.x+" y: "+ acceleration.y+" z: "+ acceleration.z+" timestamp: "+ acceleration.timestamp;
+			console.debug(txt);
+			var element = document.getElementById('acceleromete');
+		    element.innerHTML = txt;
+
+			rotateGlobe(acceleration);
+		
+ 	 } catch(err) {
+		alert(err.message);
+			var element = document.getElementById('message');
+		    element.innerHTML = err.message;
+	 }
+
+	}
+
+	function drawCompass(heading) {
+		//Heading Text
+        var element = document.getElementById('WWheading');
+		var txt= 'GPS Heading: ' + heading.magneticHeading+" trueHeading: "+ heading.trueHeading+" headingAccuracy: "+ heading.headingAccuracy+" timestamp: "+ heading.timestamp;
+		console.debug(txt);
+        element.innerHTML = txt;
+		
+		/*Compass Graphics
+		var c=document.getElementById("WWcompass");
+		var ctx=c.getContext("2d");
+
+		var imageObj = new Image();
+		imageObj.onload = function() {
+			//ctx.drawImage(imageObj,0, 0);
+			
+			//translate context to center of canvas
+			//ctx.translate(100, 100);
+
+			// rotate 45 degrees clockwise
+			//ctx.rotate(degToRad(heading.trueHeading));
+			// Save the current context
+			ctx.save();
+			// Translate to the center point of our image
+			ctx.translate(imageObj.width * 0.5, imageObj.height * 0.5);
+			// Perform the rotation
+			ctx.rotate(degToRad(360.0- heading.trueHeading));
+			// Translate back to the top left of our image
+			ctx.translate(-imageObj.width * 0.5, -imageObj.height * 0.5);
+			// Finally we draw the image
+			ctx.drawImage(imageObj, 0, 0);
+			// And restore the context ready for the next loop
+			ctx.restore();
+		};
+		imageObj.src = "./img/round200.png";
+		
+		if(heading.trueHeading > 357 || heading.trueHeading < 3 ) {
+			navigator.notification.vibrate(500);
+		}*/
+	}
+
+    // onError: Failed to get the heading
+    //
+    function onErrorAcc(accelerationError) {
+        alert('Compass error: ' + accelerationError.code);
+    }
+    function onErrorNS(compassError) {
+        alert('Compass error: ' + compassError.code);
+    }
+
+    </script>
+</head>
+<body onload="sundialLocationpackage.init()">
+
+	<h2>Set Location</h2>
+	<br/>
+	<span onclick="window.open('http://apache.org', '_blank', 'location=yes');">webView browser</span><br/>
+	<span onclick="navigator.app.loadUrl( 'http://apache.org', {openExternal:true} );">browser-external</span><br/>
+	<span onclick="window.open( 'http://apache.org', '_system' );">window-browser</span><br/>
+	<span onclick="cordova.exec(null, null, 'InAppBrowser', 'open', [url, '_system']);">InAppBrowser</span><br/>
+	<a href="./pro.htm">Protractor</a>
+	<a href="./level-line.htm">Level-Line</a>
+	<noscript>
+		<p style="color: #A00; font-weight: bold">
+			Sorry, but this page requires JavaScript!
+		</p>
+	</noscript>
+
+	<p style="color:#A00; font-weight: bold" id="message"> </p>
+
+	<div id="WWheading">Waiting for heading...</div>
+    <h1>Protractor</h1>
+    <p>getCurrentAccelerator</p>
+	<div id="acceleromete">Waiting for Acceleromter1...</div>
+	<div id="acceleromete2">Waiting for Acceleromter...</div>
+	<h7>angle phone so the sun angle matches <b><font color="OrangeRed">line</font></b>.  Using GPS, lines on protractor should overlap.</h7>
+
+	<!-- p>
+		<b>Arrow keys rotate the cube about its x- and y-axes.
+		<br>
+		Return key or HOME key sets both rotations to zero.</b>
+	</p>
+
+	<br/>
+	<label for="xcamera-slider">X-Camera: </label>
+	<input id="xcamera-slider" type="range"  min ="-360" max="360" step ="1" onchange="document.getElementById('xc').value=this.value;sundialLocationpackage.doCamera();" />
+	<input id="xc" type="number" placeholder="0" size="3" />
+
+	<label for="xcamera-slider">Y-Camera: </label>
+	<input id="ycamera-slider" type="range"  min ="-360" max="360" step ="1" onchange="document.getElementById('yc').value=this.value;sundialLocationpackage.doCamera();" />
+	<input id="yc" type="number" placeholder="0" size="3" />
+
+	<label for="xcamera-slider">Z-Camera: </label>
+	<input id="xzamera-slider" type="range"  min ="-360" max="360" step ="1" onchange="document.getElementById('zc').value=this.value;sundialLocationpackage.doCamera();" />
+	<input id="zc" type="number" placeholder="0" size="3" />
+
+	<br/ -->
+	<table>
+	<tr>
+		<td><label for="latitude-slider">latitude: </label></td>
+		<td><button onclick="sundialLocationpackage.step('lat', -1);">-</button></td>
+		<td><input id="latitude-slider" type="range"  min ="-90.0" max="90.0" step ="0.1" onchange="document.getElementById('lat').value=this.value;sundialLocationpackage.doLatLon();" /></td>
+		<td><button onclick="sundialLocationpackage.step('lat', 1);">+</button></td>
+		<!-- td><button id="run-button" onclick="risesetpackage.step(0);">></button></td -->
+		<td><input id="lat" type="number" placeholder="42.5" size="8" onchange="sundialLocationpackage.doLatLonTxt();" /></td>
+	</tr>
+	</table>
+	<table>
+	<tr>
+		<td><label for="longitude-slider">longitude: </label></td>
+		<td><button onclick="sundialLocationpackage.step('lon', -1);">-</button></td>
+		<td><input id="longitude-slider" type="range" min ="-359.9" max="359.9" step ="0.1" onchange="document.getElementById('lon').value=this.value;sundialLocationpackage.doLatLon();" /></td>
+		<td><button onclick="sundialLocationpackage.step('lon', 1);">+</button></td>
+		<!-- td><button id="run-button" onclick="risesetpackage.step(0);">></button></td -->
+		<td><input id="lon" type="number" placeholder="-71.1" size="8" onchange="sundialLocationpackage.doLatLonTxt();" /></td>
+	</tr>
+	</table>
+
+	<label for="placeName">place name: </label>
+	<input id="placeName" type="text" placeholder="Here" size=20 />
+	<button onclick="doTxt();">get Location Name</button>
+	<!-- button onclick="sundialLocationpackage.doLocationName(Number(document.getElementById('lat').value), Number(document.getElementById('lon').value))">set location</button -->
+	<br/>
+	<button onclick="sundialLocationpackage.go= !sundialLocationpackage.go;sundialLocationpackage.animate();">Rotate Earth</button>
+	<!-- button onclick="sundialLocationpackage.reRender();">Render</button -->
+	<canvas width=640 height=480 id="cnvs" style="background-color:black">canvas didnt load</canvas>
+	<br/>
+
+	<script>
+		//startWatch();
+		//document.addEventListener("deviceready", onDeviceReady, false);
+
+		var acceleration= new Object();
+
+		acceleration.x= 45;
+		acceleration.y= 45;
+		acceleration.z= 30;
+
+		acceleration.timestamp= new Date();
+		
+
+		//drawGlobe(acceleration);
+		drawProtractor(acceleration);
+	</script>
+<pre>
+	flat, face-down: z: -9, face-up: z: 9
+	straight-up: y:10, z: 0, upside-down: y: -10
+	landscape: x:10 -> -9
+</pre>
+</body>
+</html>

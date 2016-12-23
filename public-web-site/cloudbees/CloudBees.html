@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 3.5  (Linux)">
+	<META NAME="AUTHOR" CONTENT="Frank Taylor">
+	<META NAME="CREATED" CONTENT="20130216;6323300">
+	<META NAME="CHANGEDBY" CONTENT="Frank Taylor">
+	<META NAME="CHANGED" CONTENT="20130216;7581900">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		P { margin-bottom: 0.08in }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<h1 style="color:red;">No Longer Useful: All Bugs Fixed.  Goto www.cloudbees.com instead</h1> 
+<P STYLE="margin-bottom: 0in"><FONT SIZE=4 STYLE="font-size: 16pt"><U>Deploying
+Tomcat JSP, Servlet and Jersey REST Web Service to CloudBees</U></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=3>by <FONT COLOR="#000000"><FONT FACE="Times New Roman, serif">Frank
+Taylor</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=3>I have been</FONT> a
+programmer since 1986, and could not get past all the bugs on the
+CloudBees web site, so I wrote up what I had to do.</P>
+<P STYLE="margin-bottom: 0in">CloudBees is a free webserver on the
+web, which runs GIT, Jenkins, MySql, J2EE, etc., which is great!</P>
+<P STYLE="margin-bottom: 0in">If you find the official CloudBees way
+works for you, ignore all or any of the <B>8 steps</B> below,
+otherwise this way worked for me.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">My Steps:</P>
+<OL>
+	<LI><P STYLE="margin-bottom: 0in"><B>Setting up CloudBees account</B></P>
+	<P STYLE="margin-bottom: 0in">goto:
+	<A HREF="https://grandcentral.cloudbees.com/login">https://grandcentral.cloudbees.com/login</A>
+	and create an account.</P>
+	<P STYLE="margin-bottom: 0in">In linux, type <FONT FACE="Courier New, monospace">ssh-keygen</FONT>,
+	which will create a file: <FONT FACE="Courier New, monospace">~/.ssh/id_rsa.pub</FONT></P>
+	<P STYLE="margin-bottom: 0in">copy the contents of <FONT FACE="Courier New, monospace">id_rsa.pub</FONT>
+	and paste them in Public Key field in
+	<A HREF="https://grandcentral.cloudbees.com/user/ssh_keys">https://grandcentral.cloudbees.com/user/ssh_keys</A></P>
+	<P STYLE="margin-bottom: 0in">make sure you have a MySql database in
+	CloudBees under Dbs tab, if you want one.  I prefer <A HREF="https://mongolab.com/">mongolab</A>
+	for online databases, but it currently works with JavaScript, not
+	Java.</P>
+	<LI><P STYLE="margin-bottom: 0in"><B>GIT and Jenkins</B></P>
+	<P STYLE="margin-bottom: 0in">I think these features work with
+	CloudBees, but I haven't yet figured out how to connect them to a
+	web-deployed app, so I will skip those great features.</P>
+	<LI><P STYLE="margin-bottom: 0in"><B>Creating a WAR that can run on
+	CloudBees</B></P>
+</OL>
+<P STYLE="margin-bottom: 0in">	Get CloudBees SDK installed.  This
+worked fine for me: <A HREF="http://wiki.cloudbees.com/bin/view/RUN/BeesSDK">http://wiki.cloudbees.com/bin/view/RUN/BeesSDK</A></P>
+<P STYLE="margin-bottom: 0in">	Get CloudBees for Eclipse, if you
+want, by selecting Help/Install New Software... menuitem with the URL
+from here: <A HREF="http://eclipse.cloudbees.com/">http://eclipse.cloudbees.com</A>.
+ You'll have to install Subversive too.</P>
+<P STYLE="margin-bottom: 0in">	To create basic CloudBees tomcat
+project: from where you keep your source code, type: <FONT FACE="Courier New, monospace">bees
+create yourProjectName</FONT></P>
+<P STYLE="margin-bottom: 0in">	then <FONT FACE="Courier New, monospace">cd
+yourProjectName</FONT></P>
+<P STYLE="margin-bottom: 0in">	change your <FONT FACE="Courier New, monospace">build.xml
+</FONT>file: change <FONT FACE="Courier New, monospace">&lt;javac&gt;
+target and source</FONT> from 1.7 to <FONT FACE="Courier New, monospace">target=&quot;1.6&quot;
+source=&quot;1.6&quot;</FONT></P>
+<P STYLE="margin-bottom: 0in">	also, if you plan to use Jersey and
+MySql, you'll have to copy those jars into
+<FONT FACE="Courier New, monospace">yourProjectName/webapp/WEB-INF/lib/
+</FONT>directory before dist step in your <FONT FACE="Courier New, monospace">build.xml</FONT><FONT FACE="Times New Roman, serif">
+file.</FONT></P>
+<OL START=4>
+	<LI><P STYLE="margin-bottom: 0in"><B>Building and running CloudBees
+	WAR locally</B></P>
+	<P STYLE="margin-bottom: 0in">To build webapp, type: <FONT FACE="Courier New, monospace">ant
+	clean dist</FONT></P>
+	<P STYLE="margin-bottom: 0in">Then <FONT FACE="Courier New, monospace">cp
+	build/webapp.war ${CATALINA_HOME}/webapps/</FONT>, where
+	<FONT FACE="Courier New, monospace">CATALINA_HOME</FONT> is where
+	your tomcat is located.</P>
+	<P STYLE="margin-bottom: 0in">This will give you a java webapp at
+	<A HREF="http://localhost:8080/webapp">http://localhost:8080/webapp</A></P>
+	<LI><P STYLE="margin-bottom: 0in"><B>Running WAR on CloudBees on the
+	web</B></P>
+</OL>
+<P STYLE="margin-bottom: 0in">	To deploy to CloudBees, type: <FONT FACE="Courier New, monospace">bees
+app:deploy build/webapp.war -t tomcat7</FONT>, which will give you a
+web site on the web at
+<U>http://yourProjectName.yourAccountName.cloudbees.net</U></P>
+<OL START=6>
+	<LI><P STYLE="margin-bottom: 0in"><B>Adding a JSP or Java Database
+	connection.</B></P>
+	<P STYLE="margin-bottom: 0in">The given <FONT FACE="Courier New, monospace">cloudbees-web.xml</FONT>
+	seems to deprecated, and I haven't yet tried Hibernate on CloudBees,
+	so you're stuck with a simple JDBC connection.</P>
+	<P STYLE="margin-bottom: 0in">For your DB info, you can copy a lot
+	of code from <I>Datasource configuration tips</I> on CloudBees DBs
+	tab, which you'll have to do to get your database password, user and
+	URL</P>
+	<P STYLE="margin-bottom: 0in">You can see your database successfully
+	set up, but typing <FONT FACE="Courier New, monospace">bees db:list</FONT>
+	or <FONT FACE="Courier New, monospace">bees db:info
+	yourAccount/aDatabaseName</FONT></P>
+	<P STYLE="margin-bottom: 0in">To set up meaningful table info into
+	your database, type <FONT FACE="Courier New, monospace">mysql
+	--host=ec2-5xxx.amazonaws.com --port=3306 --user=yourDBUsername
+	–password=yourDBPassword</FONT></P>
+	<P STYLE="margin-bottom: 0in">then: <FONT FACE="Courier New, monospace">create
+	database test;</FONT></P>
+	<P STYLE="margin-bottom: 0in">then: <FONT FACE="Courier New, monospace">use
+	test;</FONT></P>
+	<P STYLE="margin-bottom: 0in">then: <FONT FACE="Courier New, monospace">create
+	table testdata (id integer, foo char(256), bar integer);</FONT></P>
+	<P STYLE="margin-bottom: 0in">then: <FONT FACE="Courier New, monospace">insert
+	into testdata (id, foo, bar) values (5, &quot;joe&quot;, 10);</FONT></P>
+	<P STYLE="margin-bottom: 0in">then: <FONT FACE="Courier New, monospace">exit</FONT></P>
+	<P STYLE="margin-bottom: 0in">In Java, this worked for me: see
+	<A HREF="db.jsp">db.jsp</A>, and <A HREF="HelloDatabase.java">HelloDatabase.java</A>
+	<FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 10pt">in
+	</FONT></FONT></FONT><FONT COLOR="#3c3c3c"><FONT FACE="Monospace"><FONT SIZE=2 STYLE="font-size: 9pt">sample.hello.resources</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 10pt">
+	package</FONT></FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0in"><B>Eclipse</B></P>
+	<P STYLE="margin-bottom: 0in">To import your project in Eclipse,
+	New-&gt;Project-&gt;Java Project from Existing ANT Build file, and
+	select your <FONT FACE="Courier New, monospace">build.xml.</FONT></P>
+	<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif">The
+	Eclipse Plug-in should have worked for me, but I always ran into
+	problems before I could complete any of the steps described by these
+	videos:
+	<A HREF="http://blog.cloudbees.com/2012/07/getting-started-with-cloudbees-and.html">http://blog.cloudbees.com/2012/07/getting-started-with-cloudbees-and.html</A></FONT></P>
+	<LI><P STYLE="margin-bottom: 0in"><B>REST web service</B></P>
+	<P STYLE="margin-bottom: 0in">in your <FONT FACE="Courier New, monospace">web.xml</FONT><FONT FACE="Times New Roman, serif">,</FONT>
+	add</P>
+	<P STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">servlet</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+</OL>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	
+ </FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">servlet-name</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#3c3c3c">Jersey
+REST Service</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">servlet-name</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">servlet-class</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#3c3c3c">com.sun.jersey.spi.container.servlet.ServletContainer</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">servlet-class</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	
+ </FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">init-param</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	
+   </FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">param-name</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#3c3c3c">com.sun.jersey.config.property.packages</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">param-name</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	
+   </FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">param-value</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#3c3c3c">sample.hello.resources</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">param-value</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	
+ </FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">init-param</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	
+ </FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">load-on-startup</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#3c3c3c">1</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">load-on-startup</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">servlet</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">servlet-mapping</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	
+ </FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">servlet-name</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#3c3c3c">Jersey
+REST Service</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">servlet-name</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT FACE="Monospace"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c">	
+ </FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">url-pattern</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#3c3c3c">/rest/*</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">url-pattern</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT SIZE=1 STYLE="font-size: 6pt"><FONT COLOR="#3c3c3c"><FONT FACE="Monospace">	</FONT></FONT><FONT COLOR="#008080"><FONT FACE="Monospace">&lt;/</FONT></FONT><FONT COLOR="#3f7f7f"><FONT FACE="Monospace">servlet-mapping</FONT></FONT><FONT COLOR="#008080"><FONT FACE="Monospace">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT SIZE=2><FONT COLOR="#008080"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>	</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Then
+see </FONT></FONT></FONT><A HREF="HelloResource.java"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>HelloResource.java</FONT></FONT></A><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+in </FONT></FONT></FONT><FONT COLOR="#3c3c3c"><FONT FACE="Courier New, monospace">sample.hello.resources</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>
+package</FONT></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT SIZE=2><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>If
+you run into bugs, you can contact me at </FONT></FONT></FONT><A HREF="mailto:ftaylor92@yahoo.com"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>ftaylor92@yahoo.com</FONT></FONT></A></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>I
+hope this helps you.</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

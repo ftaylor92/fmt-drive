@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title>Quick Music Play</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.75"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body bgcolor="PowderBlue">
+<center><h2>Quick Play<img src="./album.png"/>Music App</h2></center>
+<br/>
+
+<p>When you double-tap on your Android and say <em>"Play Madonna"</em>, everything works great.  You don't need this app for that.</p>
+<p>But there are flaws in Google Voice Search for music that <a href="http://market.android.com/details?id=com.fmt.music&feature=more_from_developer">Quick Play Music</a> corrects:</p>
+<p>You can only speak exact Artists or Song Titles in Google Voice Search, but not Album Titles or partial song titles or partial artist names.
+</p>
+Comparison:
+<table border="1">
+<tr><th>voice command</th><th>music type</th><th>Google Voice</th><th>Quick Music</th></tr>
+<tr><td>"Play Lady Gaga"</td><td>artist</td><td style="color:green;">works</td><td style="color:green;">works</td><td><small>(artist-search doesn't immediately play song for Google Play Music)</small></td></tr>
+<tr><td>"Play Gaga"</td><td>partial artist</td><td style="color:red;">fails</td><td style="color:green;">works</td></tr>
+<tr><td>"Play Wanna Be Starting Something"</td><td>song title</td><td style="color:green;">works</td><td style="color:green;">works</td></tr>
+<tr><td>"Play Starting"</td><td>partial song title</td><td style="color:red;">fails</td><td style="color:green;">works</td></tr>
+<tr><td>"Play The Fame Monster"</td><td>album</td><td style="color:green;">works</td><td style="color:green;">works</td></tr>
+<tr><td>"Play Monster"</td><td>partial album</td><td style="color:red;">fails</td><td style="color:green;">works</td></tr>
+<tr><td>"Play Jazz"</td><td>genre</td><td style="color:red;">fails</td><td style="color:green;">works</td><td><small>(fails for Google Play Music)</small></td></tr>
+<tr><td>"Play Beatles"</td><td>playlist</td><td style="color:red;">fails</td><td style="color:green;">works</td><td><small>(fails for Google Play Music)</small></td></tr>
+</table>
+<br/>
+<p>You can 3-click on headphones button and speak music you want to hear.</p>
+<p>All you do is tap on the widget, speak the music you want to hear now, and it will play immediately.  <span style="font-variant:small-caps;">Period.  That&#39;s It.</span><br/><small>With Google Voice Search, you say "Play Pixies", but with Quick Music you don't begin with "Play", so you just say "Pixies".<br >
+You can play around with what is supported in your music player by typing searches in the music player app's search box, then later just speak the same words into this app.</small></p>
+<p>You can also pre-type the music search you want to launch in each widget, so that you can just tap on a widget to play your favorite songs.</p>
+<p>Because of changing music app APIs in different versions of Android operating systems, you can choose which API works best for your cell phone.</p>
+<br/>
+<p>Enjoy!</p>
+
+<br/>
+<hr/>
+<br/>
+<span style="font-variant:small-caps;">Note:</span> Google Music Player doesn't yet support more refined music searches, like "Play <em>Human Nature</em> by <em>Michael Jackson</em> from <em>Thriller</em>" or "Play <em>"Giant Steps"</em> from ("<em>Giant Steps</em>")"<br/>This app supports any music app you want to search for music on your Android phone, like Pandora, Music Player, Google Play Music, YouTube, etc.
+<br/><br/><hr/>
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+</body>
+</html>

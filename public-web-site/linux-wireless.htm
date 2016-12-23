@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.3  (Linux)">
+	<META NAME="AUTHOR" CONTENT="Frank Taylor">
+	<META NAME="CREATED" CONTENT="20090402;17105500">
+	<META NAME="CHANGEDBY" CONTENT="Frank Taylor">
+	<META NAME="CHANGED" CONTENT="20090402;17301200">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in; margin: 0.79in }
+		P { margin-bottom: 0.08in }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P ALIGN=CENTER STYLE="margin-bottom: 0in"><FONT SIZE=4 STYLE="font-size: 15pt"><U>How
+I got Belkin Wireless G (F5D7050) to work on Red Hat Enterprise Linux
+5.2</U></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><B>In Three Steps:</B></P>
+<P STYLE="margin-bottom: 0in">1) Installed RHEL5.2 to get to kernel
+2.6.8-92</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2) Installed ndiswrapper 1.54 from
+<A HREF="http://sourceforge.net/projects/ndiswrapper/">http://sourceforge.net/projects/ndiswrapper/</A></P>
+<P STYLE="margin-bottom: 0in">tar xfvz &lt;downloaded-file&gt;</P>
+<P STYLE="margin-bottom: 0in">cd &lt;exploded-directory&gt;</P>
+<P STYLE="margin-bottom: 0in">make uninstall</P>
+<P STYLE="margin-bottom: 0in">make</P>
+<P STYLE="margin-bottom: 0in">su root</P>
+<P STYLE="margin-bottom: 0in">make install</P>
+<P STYLE="margin-bottom: 0in">copied 3 WIN2KXP drivers from Belkin
+Wireless G F5D7050 install disk</P>
+<P STYLE="margin-bottom: 0in"> ./ndiswrapper -i
+../../../belkin-drivers/rt73.inf </P>
+<P STYLE="margin-bottom: 0in"> ./ndiswrapper -l	to see driver and
+device are recognized</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">3) Installed wicd from
+<A HREF="http://wicd.sourceforge.net/">http://wicd.sourceforge.net/</A></P>
+<P STYLE="margin-bottom: 0in">by following these directions:
+<A HREF="http://wicd.net/moinmoin/Wicd%20on%20FC9">http://wicd.net/moinmoin/Wicd%20on%20FC9</A></P>
+<P STYLE="margin-bottom: 0in">  yum -y install python python-devel
+wget	(this failed for me, but didn’t matter)</P>
+<P STYLE="margin-bottom: 0in">  wget
+http://downloads.sourceforge.net/wicd/wicd-1.5.4.tar.gz</P>
+<P STYLE="margin-bottom: 0in">  tar -xf wicd-1.5.4.tar.gz </P>
+<P STYLE="margin-bottom: 0in">  cd wicd-1.5.4</P>
+<P STYLE="margin-bottom: 0in">  python setup.py configure</P>
+<P STYLE="margin-bottom: 0in">  python setup.py install</P>
+<P STYLE="margin-bottom: 0in">  /sbin/service NetworkManager stop</P>
+<P STYLE="margin-bottom: 0in">  /sbin/service NetworkManager start</P>
+<P STYLE="margin-bottom: 0in">  /sbin/service NetworkManager stop</P>
+<P STYLE="margin-bottom: 0in">  /sbin/chkconfig NetworkManager off</P>
+<P STYLE="margin-bottom: 0in">  /sbin/chkconfig wicd on</P>
+<P STYLE="margin-bottom: 0in">  /sbin/chkconfig wicd off</P>
+<P STYLE="margin-bottom: 0in">  /sbin/chkconfig wicd on</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">afer restart, wicd appeared in top menu
+bar and I could connect to open wireless connections.</P>
+</BODY>
+</HTML>

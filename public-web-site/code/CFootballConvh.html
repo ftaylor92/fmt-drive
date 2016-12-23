@@ -1,0 +1,108 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#ifndef H_CSmileComponent
+#define H_CSmileComponent</pre>
+<pre>#include&lt;string&gt;
+#define kXMLContentChange string(&quot;XMLContentChange&quot;)
+#define kGetXMLContent string(&quot;GetXMLContent&quot;)
+#define kGetXMLSize string(&quot;GetSizeXMLContent&quot;)
+#include&quot;XMLStuff.h&quot;
+typedef string ProdType;
+#include&quot;CProdMap.h&quot;
+#include&quot;CConsumerRef.h&quot;
+enum {	//Commands
+	kSetXMLFieldCmd= 128,
+	kAddXMLProducer,
+	kSetModifier,
+	kAddXMLConsumer
+};
+</pre>
+<pre>SUBCLASS(CFootballConvPlugin,public,CPlugin)
+protected:
+	Boolean			wasExternalDataStartup;
+	string			mImageFileSuffix;
+	string			mFilePath;
+	string			xmlfile;
+	vector&lt;CPlayer&gt;		mPlayers;
+	inline float XtoF(unsigned short x) { return(float(x)/mImageWidth); }
+	inline float YtoF(unsigned short y) { return(float(y)/mImageHeight); }
+	unsigned short	mImageWidth, mImageHeight;
+	CList			*xmlConsumers;
+	CProducerRef* AddXMLConsumer(StringPtr);
+	void UpdateXMLConsumer(CProducerRef *client);
+	void UpdateXMLConsumers(char *tableName);
+	long GetXMLContent(short numParam,UnknowData **params);
+	long GetSizeXMLContent(short numParam,UnknowData **params);</pre>
+<pre>	XMLElementSet *GpfList;
+	unsigned short Gsz;
+	unsigned short Gplayer;
+	short Gwait;
+	short GframeDelay;
+	XMLElementSet *dataSet;
+	XMLParser *parser;
+	SimPlayerXMLElement *rootElement;
+	void CleanUpXMLSender(void);	
+public:
+	virtual ModelReturnCode DoStep();
+	ModelReturnCode ParseCreationInfo(XMLElementSet*);
+	ModelReturnCode ParseXMLFile(char*, const char*);
+	ModelReturnCode ParsePlayData(XMLElementSet*);
+	void ParseProducer(XMLElementSet *prodList);
+	void ParseEChalk(XMLElementSet *ballList);
+	void ParsePlayHeader(XMLElementSet *ballList);
+	void ParsePlayers(XMLElementSet*);
+	void ParseMorePlayers(void);
+	void ParseTeam(XMLElementSet *teamList);
+	ModelReturnCode ParseDataFiles(void);
+	void UpdateLineup(void);
+	void WriteFile(bool allInfo, bool remdia);
+	CBall	mChalk;
+	RGBColor	mBackColor;
+	string	mBkgndPict;
+	TeamMap		mTeams;
+	ProdType	mCurrentProducerType;
+	CProducerMap	mProdMap;
+	char		*mFieldFile;
+	string		mBaseURL;
+	void		KillXML(void);
+	int			mFileWaiting;
+	float		mMin, mMax;
+	RGBColor	mMinColor, mMaxColor;
+	bool		filePoints;
+	bool		firstFrame;
+	Point		topleft, topright, bottomleft, bottomright;	//for &lt;field&gt;	
+	ModelReturnCode	SetFieldFile(char* url, const ProdType producerType);
+	ModelReturnCode NotifyXMLContentChange(const char*, const char*);
+	CComponentRef *AddXMLProducer(const string, const string);</pre>
+<pre>	CFootballConvPlugin();
+	virtual void	DoCommand(long theCommand);
+	virtual void	IFromFile(CTypedFile *file,long aDesignMode);
+	virtual void	InitPlugin(long aDesignMode);
+	virtual CPluginItem *NewItem(short itemCode,Point *preferedSize);	
+			void	Dispose();
+			void	ExternalDataStartup();</pre>
+<pre>	virtual ModelReturnCode DoScriptCommand(short aCommandCode,short numParam,UnknowData **params);
+		    ModelReturnCode ModelParameterChanged(short anInputCode,short anIndex,StringPtr aValue);
+	virtual long	DoIdle(void);
+	virtual ModelReturnCode PlugReset(void);
+	virtual ModelReturnCode PlugSuspend(void);
+	virtual ModelReturnCode PlugResume(void);
+	virtual Boolean CanCreateItem(short itemCode);
+	virtual ModelReturnCode PreformeService(ConstStr serviceName,ConstStr clientName,short numParams,UnknowData **params);	
+	virtual	ModelReturnCode	QueryService(ConstStr serviceName);
+	ModelReturnCode AboutToClose()	{ return ModelReturnOK; }
+};
+#endif</pre>
+
+</body>
+
+</html>

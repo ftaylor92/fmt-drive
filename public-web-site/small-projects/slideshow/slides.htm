@@ -1,0 +1,91 @@
+<html>
+<!-- written by Frank M Taylor -->
+<head>
+<title>Slide-Show</title>
+<script language="javascript" type="text/javascript">
+
+var mypics=new Array("img/m0.GIF","img/m1.GIF","img/m2.GIF","img/m3.GIF");
+var mycaptions=new Array("first scribble","second scribble","third scribble","fourth scribble");
+var thispic=0;
+var tablewidth=8;
+
+function changeslide(direction)
+{
+	thispic=thispic + direction;
+
+	if(thispic >= mypics.length) {
+		thispic = 0;
+	}
+	if(thispic < 0) {
+		thispic = mypics.length- 1;
+	}
+
+	document.slide.src=mypics[thispic];
+}
+
+function setslide(num)
+{
+	thispic=num;
+
+	if(thispic > mypics.length) {
+		thispic = 0;
+	}
+	if(thispic < 0) {
+		thispic = mypics.length- 1;
+	}
+
+	document.slide.src=mypics[thispic];
+}
+
+function setup() 
+{
+	html=""
+	html+= "<center><h3>Slide Show</h3><a href='javascript:changeslide(-1);'>&lt;&lt;prev</a><img height='282' width='417' id='slide' name='slide' src='"+mypics[thispic]+"'/><a href='javascript:changeslide(1);'>next&gt;&gt;</a></center>";
+	html+= "<br/>click thumbnail to view<br/>";
+	html+= "<table border=1>";
+	totalpicts= mypics.length;
+	rowwidth= 0;
+	totalrows= Math.floor(totalpicts/tablewidth);
+	if(totalpicts%tablewidth > 0.0) {
+		totalrows++;
+	}
+	
+	jj= 0;
+	jjj= 0;
+	for(var i= 0; i < totalrows; i++) 
+	{
+		if(totalpicts < tablewidth) {
+			rowwidth= totalpicts%tablewidth;
+		} else {
+			rowwidth= tablewidth;
+		}
+		
+		html+= "<tr>";
+		for(var ii= 0; ii < rowwidth; ii++)
+		{
+			html+= "<td align='center'><img alt='path' src='"+mypics[jj+ii]+"' height='40' width='60' onclick='setslide("+(jj+ii)+");'/></td>";
+		}
+
+		html+= "</tr>";
+		html+= "<tr>";
+		for(var iii= 0; iii < rowwidth; iii++)
+		{
+			html+= "<td><small>"+mycaptions[iii+jj]+"</small></td>";
+		}
+		html+= "</tr>";
+		
+		jj+= rowwidth;
+		totalpicts-= rowwidth;
+	}
+	html+= "</table>";
+	document.writeln(html);
+}
+</script>
+
+</head>
+<body bgcolor="cornsilk">
+	<script type="text/javascript">
+		setup();
+	</script>
+</body>
+</html>

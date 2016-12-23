@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.9.79  (Win32)">
+	<META NAME="AUTHOR" CONTENT="Taylor">
+	<META NAME="CREATED" CONTENT="20050217;20030000">
+	<META NAME="CHANGEDBY" CONTENT="Taylor">
+	<META NAME="CHANGED" CONTENT="20050301;13390000">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 12pt; so-language: ar-SA }
+		A:link { color: #0000ff }
+		A:visited { color: #606420 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#0000ff" VLINK="#606420" DIR="LTR">
+<P CLASS="western" ALIGN=CENTER STYLE="margin-bottom: 0in"><FONT SIZE=5>TomCat
+Notes</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in">Supports Java/JSP,
+JavaScript, CGI, SSI, and HHTP.</P>
+<P CLASS="western" STYLE="margin-bottom: 0in">See also: J2EE server
+and Apache httpd App server</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in">1) setup ClassPaths</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">JAVA_HOME=C:\Program
+Files\Java\jdk1.5.0_01</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">CATALINA_HOME=C:\Program
+Files\jakarta-tomcat-5.5.7</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">ANT_HOME=C:\ant</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><STRIKE><FONT FACE="Courier10 BT, monospace">CVSROOT=C:\Program
+Files\cvs</FONT></STRIKE></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace"><STRIKE>PATH+=%JAVA_HOME%/bin;
+%ANT_HOME%/bin; %CATALINA_HOME%/bin; %CVSROOT%/bin;</STRIKE></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">2)
+start Server</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">$CATALINA_HOME\bin\startup.bat</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Check
+it works: </FONT><FONT COLOR="#0000ff"><U><A HREF="http://localhost:8080/"><FONT FACE="Courier10 BT, monospace">http://localhost:8080/</FONT></A></U></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Documentation:
+</FONT><FONT COLOR="#0000ff"><U><A HREF="http://jakarta.apache.org/tomcat/"><FONT FACE="Courier10 BT, monospace">http://jakarta.apache.org/tomcat/</FONT></A></U></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Control
+Panel/Administative tools/Services to make automatically starting
+Service</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">3)
+Admin by http:/localhost:8080/admin</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">4)
+Manager by http:/localhost:8080/manager/html</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">I
+changed conf/tomcat-users.xml to add user with my username and
+password for &ldquo;server,manager,admin&rdquo; role</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Deployed
+an application, by setting Context=&rdquo;/hero&rdquo; and directory
+to &ldquo;C:/development/web/hero/web&rdquo;, and it worked by
+http:/localhost:8080/hero/, and it opened index.jsp by default.  See
+logs, if errors.</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">To
+deploy web application: In a folder, put web app docs in proper
+directories, then edit conf/server.xml and remove extra stuff: ex
+change ports: &lt;server port=&rdquo;<B>8007</B>&rdquo;
+shutdown=&rdquo;SHUTDOWN&rdquo; debug=&rdquo;0&rdquo;&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">For
+no examples, use conf/server-noexamples.xml</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">&lt;Listener
+className=&rdquo;org.apache.catalina.startup.UserConfig&rdquo;
+directoryName=&rdquo;public_folder&rdquo;
+UserClass=&rdquo;org.apache.catalina.startup.PasswdUserDatabase&rdquo;
+/&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Put
+in /usr/home/matt/public_folder</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">5)
+CVS</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Couldn&rsquo;t
+init CVS</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">In
+hero folder: cvs import &ndash;m &ldquo;Initial Project Creation&rdquo;
+{hero} ftaylor92 start</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">So
+I used Subversion instead (see </FONT><FONT COLOR="#0000ff"><U><A HREF="../../web/documentation/subVersion.txt"><FONT FACE="Courier10 BT, monospace">notes</FONT></A></U></FONT><FONT FACE="Courier10 BT, monospace">).</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">8)
+MySQL(</FONT><FONT COLOR="#0000ff"><U><A HREF="../../web/documentation/mySQL.txt"><FONT FACE="Courier10 BT, monospace">notes</FONT></A></U></FONT><FONT FACE="Courier10 BT, monospace">)
+&ndash; </FONT>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">In
+WEB-INF/web.xml </FONT><FONT COLOR="#0000ff"><U><A HREF="http://hero/web/WEB-INF/web.xml"><FONT FACE="Courier10 BT, monospace">file</FONT></A></U></FONT><FONT FACE="Courier10 BT, monospace">,
+META-INF/context.xml </FONT><FONT COLOR="#0000ff"><U><A HREF="http://hero/web/META-INF/context.xml"><FONT FACE="Courier10 BT, monospace">file</FONT></A></U></FONT><FONT FACE="Courier10 BT, monospace">
+and index.jsp </FONT><FONT COLOR="#0000ff"><U><A HREF="http://hero/web/index.jsp"><FONT FACE="Courier10 BT, monospace">files</FONT></A></U></FONT><FONT FACE="Courier10 BT, monospace">.
+ To see what changes to files had to be made see project </FONT><FONT COLOR="#0000ff"><U><A HREF="http://hero/Project%20notes.txt"><FONT FACE="Courier10 BT, monospace">note</FONT></A></U></FONT><FONT FACE="Courier10 BT, monospace">.</FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Must
+add JDBC driver JAR file to $CATAINA_HOME/common/lib</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">9)
+CGI demo, (see also PHP)</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">#!/usr/local/bin/python</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">print
+&ldquo;context-type: text/html&rdquo;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">print
+&ldquo;&lt;html&gt;&lt;body&gt;Hellp&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;&rdquo;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">then,
+uncomment 2 CGI things in web/xml file and put file in WEB-INF/cgi</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">7)
+Deployer</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">10)
+JSTL library.  Was able to run URLs w/parameters and JSTL library
+imported being run from NetBeans.  Unable to import libraries using
+TomCat directly.</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">11)
+First project at C:/development/Tomcat/matt1</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><STRONG>$CATALINA_HOME/common/lib
+&ndash; for web apps and Tomcat</STRONG></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><STRONG>$CATALINA_HOME/shared/lib
+&ndash; for web apps</STRONG></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">proj=
+document root</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">/proj=
+context path</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">proj/WEB-INF/web.xml
+&ndash; deployment description</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">proj/WEB-INF/classes/&lt;java
+classpath starts here&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">proj/WEB-INF/lib/
+- Jars</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">proj/META-INF/context.xml
+&ndash; Tomcat-only values</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">12)
+Java JDBC and Servlet</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">	To
+reference JSP, and other files outside of web folder, add reference
+to page in WEB-INF/web.xml, and refer to the URL path by it&rsquo;s
+absolute path: </FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in">  <FONT FACE="Courier10 BT, monospace">&lt;servlet&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in">   
+<FONT FACE="Courier10 BT, monospace">&lt;servlet-name&gt;Simple&lt;/servlet-name&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in">   
+<FONT FACE="Courier10 BT, monospace">&lt;display-name&gt;Simple&lt;/display-name&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in">   
+<FONT FACE="Courier10 BT, monospace">&lt;servlet-class&gt;com.SimpleServlet&lt;/servlet-class&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in">  <FONT FACE="Courier10 BT, monospace">&lt;/servlet&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in">  <FONT FACE="Courier10 BT, monospace">&lt;servlet-mapping&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in">     
+<FONT FACE="Courier10 BT, monospace">&lt;servlet-name&gt;Simple&lt;/servlet-name&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in">     
+<FONT FACE="Courier10 BT, monospace">&lt;url-pattern&gt;/Simple&lt;/url-pattern&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in">  <FONT FACE="Courier10 BT, monospace">&lt;/servlet-mapping&gt;</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">13)
+NetBeans &ndash; Added $CATALINA_HOME/server/lib/Catalina-ant.jar to
+Tools/ANT/Additional JAR files.</FONT></P>
+</BODY>
+</HTML>

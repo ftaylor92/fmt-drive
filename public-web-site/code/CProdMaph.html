@@ -1,0 +1,125 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#ifndef __CPRODMAPH__
+#define __CPRODMAPH__</pre>
+<pre>#ifdef min
+#undef min
+#endif</pre>
+<pre>#ifdef max
+#undef max
+#endif</pre>
+<pre>#define kInitType string(&quot;init&quot;)
+#define kLegendType string(&quot;legend&quot;)
+#define kValueType string(&quot;value&quot;)
+#define kLocationType string(&quot;location&quot;)
+#define kShapeType string(&quot;shape&quot;)
+#define kTooltipType string(&quot;tooltip&quot;)</pre>
+<pre>#define kNone string(&quot;none&quot;)
+#define kInternal string(&quot;internal&quot;)
+#define kCommand string(&quot;command&quot;)
+#define kParameter string(&quot;parameter&quot;)</pre>
+<pre>#define k3DStr string(&quot;3D&quot;)
+#define kColorStr string(&quot;color&quot;)
+#define k3DColorStr string(&quot;color_3D&quot;)</pre>
+<pre>#include &lt;assert.h&gt;
+#include &lt;map&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include&quot;CRefObject.h&quot;
+#include&quot;XMLStuff.h&quot;
+//#include&quot;CDrawer.h&quot;</pre>
+<pre>class CFootballConvPlugin;</pre>
+<pre>class CDrawer;</pre>
+<pre>#define	BAD_VAL	(-1)
+enum {
+	sRectangle,
+	sTriangle,
+	sCircle,
+	sPicture
+};</pre>
+<pre>typedef string shapeKind;</pre>
+<pre>class CTeam;</pre>
+<pre>class CBall
+{
+public:
+	CBall() : x(0), y(0), h(0), w(0) {}
+	short		x,y,w,h;
+	string		mImagePath;
+};
+</pre>
+<pre>class CPlayer
+{
+public:
+	unsigned short	id;</pre>
+<pre>	CPlayer();
+	CPlayer(const CPlayer&amp;);
+	CPlayer&amp; operator=(const CPlayer&amp;);
+	~CPlayer();
+	shapeKind	mKind;
+	string	mColor;
+	string	mForeColor;
+	CTeam		*mTeam;
+	string		mPlayerID;
+	string		mImagePath;
+	string		mLegend;
+	string		mTooltip;
+	short		x,y,h,w;
+	short		mValue;
+};</pre>
+<pre>typedef map&lt;int,CPlayer&gt;				ShapeMap;
+typedef pair&lt;int const,CPlayer&gt;		ShapePair;
+typedef ShapeMap::iterator			ShapeMapIter;
+typedef ShapeMap::const_iterator	ShapeMapConstIter;
+</pre>
+<pre>class CTeam
+{
+public:
+	CFootballConvPlugin	*itsPlugin;
+	ShapeMap	mShapes;
+	string	mName;
+	string	mValues;
+	CTeam(const string val, CFootballConvPlugin *plug);
+};</pre>
+<pre>typedef map&lt;string,CTeam&gt;			TeamMap;
+typedef TeamMap::iterator			TeamMapIter;
+typedef TeamMap::const_iterator		TeamMapConstIter;
+typedef pair&lt;string const,CTeam&gt;	TeamPair;</pre>
+<pre>typedef map&lt;string,CComponentRef&gt;		CProducerMap;
+typedef CProducerMap::iterator			ProdMapIter;
+typedef CProducerMap::const_iterator	ProdMapConstIter;
+typedef pair&lt;string const,CComponentRef&gt; ProdPair;</pre>
+<pre>//template&lt;class CS, class Iter= typename CS::iterator&gt;
+class checked_shape_iter : public iterator_traits&lt;ShapeMapIter&gt;
+{
+public:
+	checked_shape_iter();
+	ShapeMapIter	iter;
+	CPlayer			*pShape;
+	void			SetPointer(void);
+	void			SetPointer(CPlayer*);
+	void			MakeInvalid()	{SetPointer(NULL);}
+	bool operator==(const checked_shape_iter) const;
+//	bool operator==(const CPlayer*) const;
+	bool operator!=(const checked_shape_iter) const;
+	bool operator!=(const ShapeMapIter) const;
+	checked_shape_iter* operator++();
+	checked_shape_iter* operator++(int);
+	/*void operator=(const checked_shape_iter&amp;);*/
+	void operator=(const ShapeMapIter&amp;);
+	bool IsValid(void)	{	return(pShape != NULL);	}
+};</pre>
+<pre>//typedef checked_iter&lt;CPlayer&gt; checked_shape_iter;</pre>
+<pre>#endif //__CPRODMAPH__</pre>
+
+</body>
+
+</html>

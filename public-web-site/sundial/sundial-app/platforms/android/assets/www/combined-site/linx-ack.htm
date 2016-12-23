@@ -1,0 +1,75 @@
+<html>
+<head><title>Angles in HTML5</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+
+<h3>Angles in HTML5</h3>
+<ul>
+	<!-- li><a href="./pages/animation.htm">Sundial Animation</a></li>
+	<li><a href="./pages/sundial.htm">sundial</a></li>
+	<li><a href="./pages/browser.htm">Browser</a></li>
+	<li><a href="./pages/shadow.htm">Shadow-rotate - Three.js</a></li>
+	<li><a href="./pages/sincostan.htm">Sine-Cosine</a></li>
+	<li><a href="./pages/3d.htm">Rotate Page</a></li>
+	<li><a href="./pages/azel.htm">AzEl data</a></li>
+	<li><a href="./pages/canvas-color.htm">HTML5 canvas with colors</a></li>
+
+
+	<li><a href="./pages/jerome/threejsboilerplate/index.html">Jerome</a></li>
+	<li><a href="./pages/webGl/index.html">Shape Rotation - WebGL</a></li>
+
+	<li><a href="./pages/three-js/cube.htm">cube - Three.js</a></li>
+	<li><a href="./pages/three-js/pyramid.htm">pyramid - Three.js</a></li>
+	<li><a href="./pages/three-js/shadow-rotate.htm">Shadow - Three.js</a></li>
+
+	<li><a href="./pages/GET.txt">Az-El from Navy webservice</a></li -->
+
+<li><a href="http://www.davidcolarusso.com/astro/">David Colarusso</a></li>
+<li><a href="http://blog.thematicmapping.org/2013/09/creating-webgl-earth-with-threejs.html">Rotating Earth</a></li>
+<li><a href="http://www.rmg.co.uk/make-your-own/sundial">Build Your Own Sundial</a></li>
+<li><a href="http://www.anycalculator.com/horizontalsundial.htm">Horizontal Sundial</a></li>
+
+	<!-- li><a href="./shape-rotation.htm">Rotate around X-axis</a></li>
+	<li><a href="./Dial.xhtml">Dial</a></li>
+	<li><a href="./SudAfriq.htm">South Africa</a></li>
+	<li><a href="./compass.htm">Compass - Cordova</a></li>
+	<li><a href="./protractor.htm">Protractor - Cordova</a></li>
+
+	<li><a href="./sundial_v1.htm">sundial2</a></li>
+	<li><a href="./sundial_v2.htm">sundial3</a></li>
+	<li><a href="./sundial_v3.htm">sundial4</a></li>
+
+	<li><a href="./sun.htm">Sun</a></li>
+	<li><a href="./sun_v2.htm">Sun2</a></li -->
+</ul>
+		<hr/>
+		programming library from <a href="http://www.aphayes.pwp.blueyonder.co.uk/ephemeris/index.html">Peter Hayes</a> |
+		<br/>
+		Historical Info from <cite><a href="http://www.amazon.com/The-Discovery-Middle-Earth-Mapping/dp/039308163X">The Discovery of Middle Earth</a></cite> by Graham Robb |
+		<br/>
+		Sundial Diagrams from <cite><a href="http://books.google.co.uk/books/about/Sundials.html?id=mGnvAAAAMAAJ">Sundials</a></cite> by Roy K. Marshall |
+		<br/>
+		Sundial Diagrams from <cite><a href="http://www.amazon.com/Clock-Accurate-Customized-Location-Northern-Hemisphere/dp/0879612460">Making a Clock-Accurate Sundial Customized to Your Location (for the Northern Hemisphere)</a></cite> by Sam Muller |<br/>
+		uses <a href="http://dl.dropboxusercontent.com/u/688127/public-web-site/modular-html/README.htm">Module-HTML</a> sourceForge library | <br/>
+		My <a href="http://dl.dropboxusercontent.com/u/688127/public-web-site/linx/android.htm">Android Apps</a> |<br/>
+		
+
+		<br/>
+
+<script>
+	$(document).ready(function() {
+		//navigator.compass.getCurrentHeading(onCompassSuccess, onCompassError);
+
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+
+</body>
+</html>

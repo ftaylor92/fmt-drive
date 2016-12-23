@@ -1,0 +1,36 @@
+http://mongolab.com/login
+account name: fmt-mongodb
+admin-username: ftaylor92@bc.edu
+password: matt88
+
+https://mongolab.com/user?username=ftaylor92
+
+database:
+Amazon EC2
+free 240MB
+db name: dailybalance (16MB)
+username: ftaylor92
+pw: matt88
+
+collections:
+dailybalances
+
+apikey: 4faf2a26e4b020a46b49e5ed
+
+remote connection:
+name: fmt-mongodb
+URI: mongodb://fmt.com:80010/dailybalance
+mongodb://ftaylor92:matt88@example.com:80010/dailybalance
+
+from: http://support.mongolab.com/entries/20433053-rest-api-for-mongodb
+
+https://api.mongolab.com/api/1/databases?apiKey=4faf2a26e4b020a46b49e5ed - returns [ "dailybalance" ]
+https://api.mongolab.com/api/1/databases/dailybalance/collections?apiKey=4faf2a26e4b020a46b49e5ed returns [ "objectlabs-system" , "system.indexes" , "system.users" ]
+https://api.mongolab.com/api/1/databases/dailybalance/collections/system.users?apiKey=4faf2a26e4b020a46b49e5ed returns [ { "_id" : { "$oid" : "4faf2ac8e4b020a46b49e5f8"} , "user" : "ftaylor92" , "pwd" : "48395f681299c4a93257e8ff76de9cf1" , "readOnly" : false} ]
+
+also see: http://www.hacksparrow.com/the-mongodb-tutorial.html
+
+mongoexport -h ds033317.mongolab.com:33317 -d dailybalance -c dailybalances -u ftaylor92 -p matt88 -o dailybalances.json
+mongoimport -h ds033317.mongolab.com:33317 -d dailybalance -c dailybalances -u ftaylor92 -p matt88 --file dailybalances.json
+ 
+

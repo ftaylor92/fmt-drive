@@ -1,0 +1,75 @@
+<html>
+<head>
+	<link rel="shortcut icon" href="./NCS.ico"/>
+	<title>Frank Taylor's Web Page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.75"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body bgcolor="snow">
+<center><img src="images/Simmons.jpg"><br/><br/>
+Taylor's Home Page</center>
+<br/>
+<u>My Projects</u>:<br/><br/>
+My <a href="./linx/android.htm">Android Apps</a><br/><br/>
+Protect Your Java web site with <a href="./password-cloud/passwords.htm">Passwords</a><br/><br/>
+Create one web page with content from multiple files using <a href="./modular-html/README.htm">Modular-HTML</a> Javascipt library<br/><br/>
+
+Add a <a href="./counter/js-counter.htm">Counter</a> to any web page<br/><br/>
+<a href="http://rest-db-jsp-servlet-jersey.herokuapp.com/HttpCache.jsp">Cache</a> any HTTP GET (for service virtualization, simulation, testing and mocking) for unavailable or metered sites<br/><br/>
+Convert GPS files into a readable Diary <a href="https://gps-site.herokuapp.com">online</a> or on an <a href="http://dl.dropboxusercontent.com/u/688127/public-web-site/gpsdiary/gpsdiary.htm?raw=true">Android App</a>.<br/><br/>
+Track you daily Bank balances with <a href="http://www.tinyurl.com/dailybalances">Julep</a> mobile-enabled web site<br/><br/>
+Keep track of all your online <a href="http://tinyurl.com/complete-bookmarks">Bookmarks</a><br/><br/>
+Web (html, css, javascript) <a href="./web-class/webClass1.htm">Class</a>, with Sample <a href="web-class/pages.htm">Pages</a>.<br/>
+<br /><br/>
+
+Learn about <a href="./pi.htm">Perimeters</a> of Circles.
+<br/><br/>
+<a href="./FMTArt.htm">Circle</a> art.
+<br/><br/>
+View my <a href="./walden/slideshow.htm">Walden Woods Slideshow</a>.<br/>
+View my <a href="./haiti/index.htm">The Saint Boniface Haiti Foundation web site</a>.<br/> <!-- was bmhaiti.html, but pages corrupted -->
+View my <a href="./small-projects/small.htm">small projects</a>.<br/>
+Learn about mp3 Player playlists <a href="./code/playlists/m3uPlaylists.htm">here</a>.<br/><br/>
+<a href="./8Nadine.htm">Directions</a> to my house.<br/><br/>
+<a href="./work/TaylorF.htm">My Resume</a>: <a href="./work/TaylorF-expanded.htm">resume-expanded</a><br/><br/>
+<a href="./code/overview.html">My Sample Code</a> and SourceForge <a href="http://sourceforge.net/p/gpsanalysis/wiki/Home">GPS Analysis Engine</a> repository<br/><br/>
+<img src="./images/NCS.jpg" HREF="./images/NCSDemo.sea" width="32" height="32" align=
+"BOTTOM" naturalsizeflag="3" ALT="Game Button">Download <a HREF="./images/NCSDemo.sea">Ninja's
+Can't Swim v.1.0</a> game demo for Macintosh only. 
+<br><br>
+<address>
+EMail:  <a HREF="mailto:ftaylor92@bc.edu">FTaylor92@BC.edu</a>
+</address>
+<br/>
+<hr/>
+<a href="http://www.tinyurl.com/ftaylor92">My Links</a>.<br>
+<br/>
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+<!-- 
+var sc_project=2574332; 
+var sc_invisible=0; 
+var sc_partition=25; 
+var sc_security="418a8669"; 
+//-->
+</script>
+
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script><noscript><div class="statcounter"><a class="statcounter" href="http://www.statcounter.com/"><img class="statcounter" src="http://c26.statcounter.com/counter.php?sc_project=2574332&java=0&security=418a8669&invisible=0" alt="website metrics" /></a></div></noscript>
+<!-- End of StatCounter Code -->
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+<br/>
+</body>
+</html>

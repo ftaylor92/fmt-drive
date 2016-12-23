@@ -1,0 +1,373 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Daily Bank Balances</title>
+  <link href="props.jsp_files/jquery-ui.css" rel="stylesheet" type="text/css">
+  <script src="props.jsp_files/jquery.js"></script>
+  <script src="props.jsp_files/jquery-ui.js"></script>
+  
+  <script>
+  $(document).ready(function() {
+    $("#datepicker").datepicker();
+    $("#datepicker2").datepicker();	//TODO: implement for all in pHTML
+  });
+  </script>
+
+	<meta charset="utf-8">
+	<title>jQuery UI Datepicker - Default functionality</title>
+	<link rel="stylesheet" href="props.jsp_files/jquery_002.html">
+	<script src="props.jsp_files/jquery-1.html"></script>
+	<script src="props.jsp_files/jquery_003.html"></script>
+	<script src="props.jsp_files/jquery.html"></script>
+
+	<script src="props.jsp_files/jquery_004.html"></script>
+	<link rel="stylesheet" href="props.jsp_files/demos.html">
+	<script>
+	$(function() {
+		$( "#datepicker" ).datepicker();
+	});
+	</script>
+
+</head>
+<body>
+
+
+<script type="text/javascript">
+$( ".selector" ).datepicker({ disabled: true });
+
+	function showDiv(button, divName) {
+		var myDiv= document.getElementById(divName);
+		var show= (myDiv.style.display == "none");
+
+		if(show) {
+			myDiv.style.display = "block";
+			button.childNodes[0].nodeValue='Hide';
+			button.value='Hide';
+		} else {
+			myDiv.style.display = "none";
+			button.childNodes[0].nodeValue='Show';
+			button.value='Show';
+		}
+	}
+</script>
+
+<!-- p>Date: <input type="text" id="datepicker"></p -->
+
+
+
+<!-- %=DailyBalanceWeb.mainServlet(request, "") % -->
+<center><h5>Daily Bank Balances 05/14/2012</h5> </center>
+<!-- --------------------------------- -->
+<form action="props.jsp" method="get">
+bank-Balance: <input name="bank-Balance" value="15907.0" type="text"><br>
+Chase-Balance: <input name="Chase-balance" value="0.0" type="text"><br>
+Chase-Bill: <input style="color: red;" name="Chase-bill" value="0.0" type="text"><br>
+AmEx-Balance: <input name="AmEx-balance" value="1957.0" type="text"><br>
+AmEx-Bill: <input style="color: red;" name="AmEx-bill" value="1354.0" type="text"><br>
+<input name="submitType" value="saveShortBills" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Save</button>
+</form>
+
+<!-- --------------------------------- -->
+<hr><br>Summary:<button type="button" onclick="javascript:showDiv(this, 'summary')">Hide</button>
+<div id="summary">
+<b><p style="color:red">Lowest balance: $14,199.35 on 07/12/2012, 
+Highest $17,564.93 on 05/18/2012 (Defecit between 
+$1,196,006.38(05/18/2012) and $1,199,603.50(07/12/2012); Surplus between
+ $0.00(05/14/2012) and $0.00(05/14/2012))</p>
+<p>new Daily Spending: -$20,266.09</p>
+</b>
+Bank Interest: $26.29<br>
+<br>
+Credit-Card Interest: $13.54<br>
+(Assuming $66.17 daily and 463.2 weekly expenses)<br>
+<br>
+
+</div>
+
+<!-- --------------------------------- -->
+<br><hr>Savings: <button type="button" onclick="javascript:showDiv(this, 'savings',false)">Hide</button><div id="savings">$0.00 for pre-savings<br>
+$6,473.91 for Three-Month-Expenses<br>
+$1,200,000.00 for Retirement on 05/14/2012<br>
+$23.44 of $87.91 for cellPhoneGoal on 06/06/2012<br>
+$19.46 of $53.00 for AAAGoal on 01/01/2013<br>
+$947.40 of $1,400.00 for holidaysVacation on 09/10/2012<br>
+$6,000.00 for newCar on 05/14/2012<br>
+$77.26 of $200.00 for XMasGoal on 12/25/2012<br>
+= $1,213,541.50<br>
++<br>
+= $1,213,958.12 through 08/15/2012 <br>
+</div>
+<!-- --------------------------------- -->
+<br><hr>Daily Balances: <button type="button" onclick="javascript:showDiv(this, 'balances',false)">Hide</button><div id="balances"><table border="1"><thead><tr><th>Date</th><th>Balance</th><th>Event</th><th>Over</th><th>Savings</th></tr></thead>
+<tbody><tr><td>Mon, 14</td><td style="color: red;">$15,840.83</td><td></td><td>-$1,197,700.62</td><td>$1,213,541.50</td></tr><tr><td>Tue, 15</td><td style="color: red;">$15,774.66</td><td></td><td>-$1,197,774.25</td><td>$1,213,548.88</td></tr><tr><td>Wed, 16</td><td style="color: red;">$15,708.48</td><td></td><td>-$1,197,847.88</td><td>$1,213,556.38</td></tr><tr><td>Thu, 17</td><td style="color: red;">$15,642.31</td><td></td><td>-$1,197,921.50</td><td>$1,213,563.75</td></tr><tr><td>Fri, 18</td><td style="color: red;">$17,564.93</td><td>Paycheck, IRA, </td><td>-$1,196,006.38</td><td>$1,213,571.25</td></tr><tr><td>Sat, 19</td><td style="color: red;">$17,498.76</td><td></td><td>-$1,196,080.00</td><td>$1,213,578.75</td></tr><tr><td>Sun, 20</td><td style="color: red;">$17,432.59</td><td></td><td>-$1,196,153.50</td><td>$1,213,586.12</td></tr><tr><td>Mon, 21</td><td style="color: red;">$17,366.42</td><td></td><td>-$1,196,227.38</td><td>$1,213,593.75</td></tr><tr><td>Tue, 22</td><td style="color: red;">$17,300.24</td><td>Credit-Card, </td><td>-$1,196,300.88</td><td>$1,213,601.12</td></tr><tr><td>Wed, 23</td><td style="color: red;">$17,234.07</td><td></td><td>-$1,196,374.50</td><td>$1,213,608.62</td></tr><tr><td>Thu, 24</td><td style="color: red;">$17,167.90</td><td></td><td>-$1,196,448.12</td><td>$1,213,616.00</td></tr><tr><td>Fri, 25</td><td style="color: red;">$17,001.81</td><td>IRA, </td><td>-$1,196,621.62</td><td>$1,213,623.38</td></tr><tr><td>Sat, 26</td><td style="color: red;">$16,935.64</td><td></td><td>-$1,196,695.38</td><td>$1,213,631.00</td></tr><tr><td>Sun, 27</td><td style="color: red;">$16,869.46</td><td></td><td>-$1,196,768.88</td><td>$1,213,638.38</td></tr><tr><td>Mon, 28</td><td style="color: red;">$16,803.29</td><td></td><td>-$1,196,842.62</td><td>$1,213,645.88</td></tr><tr><td>Tue, 29</td><td style="color: red;">$16,737.12</td><td></td><td>-$1,196,916.12</td><td>$1,213,653.25</td></tr><tr><td>Wed, 30</td><td style="color: red;">$16,670.95</td><td></td><td>-$1,196,989.75</td><td>$1,213,660.75</td></tr><tr><td>Thu, 31</td><td style="color: red;">$16,604.78</td><td></td><td>-$1,197,063.50</td><td>$1,213,668.25</td></tr><tr><td colspan="3">---Jun---</td></tr>
+<tr><td>Fri, 1</td><td style="color: red;">$16,977.40</td><td>Paycheck, Rent, IRA, </td><td>-$1,196,698.50</td><td>$1,213,675.88</td></tr><tr><td>Sat, 2</td><td style="color: red;">$16,911.22</td><td></td><td>-$1,196,771.88</td><td>$1,213,683.12</td></tr><tr><td>Sun, 3</td><td style="color: red;">$16,845.05</td><td></td><td>-$1,196,845.62</td><td>$1,213,690.62</td></tr><tr><td>Mon, 4</td><td style="color: red;">$16,778.88</td><td></td><td>-$1,196,919.25</td><td>$1,213,698.12</td></tr><tr><td>Tue, 5</td><td style="color: red;">$16,712.71</td><td></td><td>-$1,196,992.75</td><td>$1,213,705.50</td></tr><tr><td>Wed, 6</td><td style="color: red;">$16,528.63</td><td>cellPhone, nstarElectric, cellPhoneGoal, </td><td>-$1,197,096.38</td><td>$1,213,625.00</td></tr><tr><td>Thu, 7</td><td style="color: red;">$16,462.46</td><td></td><td>-$1,197,170.12</td><td>$1,213,632.62</td></tr><tr><td>Fri, 8</td><td style="color: red;">$16,296.36</td><td>IRA, </td><td>-$1,197,343.62</td><td>$1,213,640.00</td></tr><tr><td>Sat, 9</td><td style="color: red;">$14,876.19</td><td>Credit-Card, </td><td>-$1,198,771.25</td><td>$1,213,647.50</td></tr><tr><td>Sun, 10</td><td style="color: red;">$14,810.02</td><td></td><td>-$1,198,844.88</td><td>$1,213,654.88</td></tr><tr><td>Mon, 11</td><td style="color: red;">$14,743.85</td><td></td><td>-$1,198,918.50</td><td>$1,213,662.38</td></tr><tr><td>Tue, 12</td><td style="color: red;">$14,677.68</td><td></td><td>-$1,198,992.12</td><td>$1,213,669.75</td></tr><tr><td>Wed, 13</td><td style="color: red;">$14,611.50</td><td></td><td>-$1,199,066.00</td><td>$1,213,677.50</td></tr><tr><td>Thu, 14</td><td style="color: red;">$14,545.33</td><td></td><td>-$1,199,139.38</td><td>$1,213,684.75</td></tr><tr><td>Fri, 15</td><td style="color: red;">$16,467.95</td><td>Paycheck, IRA, </td><td>-$1,197,224.12</td><td>$1,213,692.12</td></tr><tr><td>Sat, 16</td><td style="color: red;">$16,401.78</td><td></td><td>-$1,197,298.00</td><td>$1,213,699.75</td></tr><tr><td>Sun, 17</td><td style="color: red;">$16,335.61</td><td></td><td>-$1,197,371.38</td><td>$1,213,707.00</td></tr><tr><td>Mon, 18</td><td style="color: red;">$16,269.44</td><td></td><td>-$1,197,445.25</td><td>$1,213,714.62</td></tr><tr><td>Tue, 19</td><td style="color: red;">$16,203.26</td><td></td><td>-$1,197,518.75</td><td>$1,213,722.00</td></tr><tr><td>Wed, 20</td><td style="color: red;">$16,137.09</td><td></td><td>-$1,197,592.50</td><td>$1,213,729.62</td></tr><tr><td>Thu, 21</td><td style="color: red;">$16,070.92</td><td></td><td>-$1,197,666.12</td><td>$1,213,737.00</td></tr><tr><td>Fri, 22</td><td style="color: red;">$15,904.83</td><td>Credit-Card, IRA, </td><td>-$1,197,839.62</td><td>$1,213,744.50</td></tr><tr><td>Sat, 23</td><td style="color: red;">$15,838.66</td><td></td><td>-$1,197,913.25</td><td>$1,213,751.88</td></tr><tr><td>Sun, 24</td><td style="color: red;">$15,772.48</td><td></td><td>-$1,197,986.75</td><td>$1,213,759.25</td></tr><tr><td>Mon, 25</td><td style="color: red;">$15,706.31</td><td></td><td>-$1,198,060.50</td><td>$1,213,766.75</td></tr><tr><td>Tue, 26</td><td style="color: red;">$15,640.14</td><td></td><td>-$1,198,134.25</td><td>$1,213,774.38</td></tr><tr><td>Wed, 27</td><td style="color: red;">$15,573.97</td><td></td><td>-$1,198,207.75</td><td>$1,213,781.75</td></tr><tr><td>Thu, 28</td><td style="color: red;">$15,507.80</td><td></td><td>-$1,198,281.38</td><td>$1,213,789.12</td></tr><tr><td>Fri, 29</td><td style="color: red;">$17,430.42</td><td>Paycheck, IRA, </td><td>-$1,196,366.38</td><td>$1,213,796.75</td></tr><tr><td>Sat, 30</td><td style="color: red;">$17,364.24</td><td></td><td>-$1,196,439.75</td><td>$1,213,804.00</td></tr><tr><td colspan="3">---Jul---</td></tr>
+<tr><td>Sun, 1</td><td style="color: red;">$15,748.07</td><td>Rent, </td><td>-$1,198,063.38</td><td>$1,213,811.50</td></tr><tr><td>Mon, 2</td><td style="color: red;">$15,681.90</td><td></td><td>-$1,198,137.25</td><td>$1,213,819.12</td></tr><tr><td>Tue, 3</td><td style="color: red;">$15,615.73</td><td></td><td>-$1,198,210.62</td><td>$1,213,826.38</td></tr><tr><td>Wed, 4</td><td style="color: red;">$15,549.56</td><td></td><td>-$1,198,284.50</td><td>$1,213,834.00</td></tr><tr><td>Thu, 5</td><td style="color: red;">$15,483.38</td><td></td><td>-$1,198,358.00</td><td>$1,213,841.38</td></tr><tr><td>Fri, 6</td><td style="color: red;">$15,199.38</td><td>cellPhone, nstarElectric, IRA, cellPhoneGoal, </td><td>-$1,198,558.50</td><td>$1,213,757.88</td></tr><tr><td>Sat, 7</td><td style="color: red;">$15,133.21</td><td></td><td>-$1,198,632.12</td><td>$1,213,765.38</td></tr><tr><td>Sun, 8</td><td style="color: red;">$15,067.04</td><td></td><td>-$1,198,706.00</td><td>$1,213,773.00</td></tr><tr><td>Mon, 9</td><td style="color: red;">$14,397.87</td><td>Credit-Card, </td><td>-$1,199,382.62</td><td>$1,213,780.50</td></tr><tr><td>Tue, 10</td><td style="color: red;">$14,331.70</td><td></td><td>-$1,199,456.12</td><td>$1,213,787.88</td></tr><tr><td>Wed, 11</td><td style="color: red;">$14,265.52</td><td></td><td>-$1,199,529.75</td><td>$1,213,795.25</td></tr><tr><td>Thu, 12</td><td style="color: red;">$14,199.35</td><td></td><td>-$1,199,603.50</td><td>$1,213,802.88</td></tr><tr><td>Fri, 13</td><td style="color: red;">$16,121.97</td><td>Paycheck, IRA, </td><td>-$1,197,688.12</td><td>$1,213,810.12</td></tr><tr><td>Sat, 14</td><td style="color: red;">$16,055.80</td><td></td><td>-$1,197,762.00</td><td>$1,213,817.75</td></tr><tr><td>Sun, 15</td><td style="color: red;">$15,989.63</td><td></td><td>-$1,197,835.62</td><td>$1,213,825.25</td></tr><tr><td>Mon, 16</td><td style="color: red;">$15,923.45</td><td></td><td>-$1,197,909.00</td><td>$1,213,832.50</td></tr><tr><td>Tue, 17</td><td style="color: red;">$15,857.28</td><td></td><td>-$1,197,982.88</td><td>$1,213,840.12</td></tr><tr><td>Wed, 18</td><td style="color: red;">$15,791.11</td><td></td><td>-$1,198,056.38</td><td>$1,213,847.50</td></tr><tr><td>Thu, 19</td><td style="color: red;">$15,724.94</td><td></td><td>-$1,198,129.88</td><td>$1,213,854.88</td></tr><tr><td>Fri, 20</td><td style="color: red;">$15,558.85</td><td>IRA, </td><td>-$1,198,303.50</td><td>$1,213,862.38</td></tr><tr><td>Sat, 21</td><td style="color: red;">$15,492.67</td><td></td><td>-$1,198,377.38</td><td>$1,213,870.00</td></tr><tr><td>Sun, 22</td><td style="color: red;">$15,426.50</td><td>Credit-Card, </td><td>-$1,198,450.88</td><td>$1,213,877.38</td></tr><tr><td>Mon, 23</td><td style="color: red;">$15,360.33</td><td></td><td>-$1,198,524.50</td><td>$1,213,884.88</td></tr><tr><td>Tue, 24</td><td style="color: red;">$15,294.16</td><td></td><td>-$1,198,598.12</td><td>$1,213,892.25</td></tr><tr><td>Wed, 25</td><td style="color: red;">$15,227.99</td><td></td><td>-$1,198,671.62</td><td>$1,213,899.62</td></tr><tr><td>Thu, 26</td><td style="color: red;">$15,161.82</td><td></td><td>-$1,198,745.25</td><td>$1,213,907.12</td></tr><tr><td>Fri, 27</td><td style="color: red;">$17,084.43</td><td>Paycheck, IRA, </td><td>-$1,196,830.25</td><td>$1,213,914.62</td></tr><tr><td>Sat, 28</td><td style="color: red;">$17,018.26</td><td></td><td>-$1,196,904.00</td><td>$1,213,922.25</td></tr><tr><td>Sun, 29</td><td style="color: red;">$16,952.09</td><td></td><td>-$1,196,977.38</td><td>$1,213,929.50</td></tr><tr><td>Mon, 30</td><td style="color: red;">$16,885.92</td><td></td><td>-$1,197,051.25</td><td>$1,213,937.12</td></tr><tr><td>Tue, 31</td><td style="color: red;">$16,819.75</td><td></td><td>-$1,197,124.75</td><td>$1,213,944.50</td></tr><tr><td colspan="3">---Aug---</td></tr>
+<tr><td>Wed, 1</td><td style="color: red;">$15,203.57</td><td>Rent, </td><td>-$1,198,748.25</td><td>$1,213,951.88</td></tr><tr><td>Thu, 2</td><td style="color: red;">$15,137.40</td><td></td><td>-$1,198,822.12</td><td>$1,213,959.50</td></tr><tr><td>Fri, 3</td><td style="color: red;">$14,971.31</td><td>IRA, </td><td>-$1,198,995.62</td><td>$1,213,966.88</td></tr><tr><td>Sat, 4</td><td style="color: red;">$14,855.14</td><td>Haircut, </td><td>-$1,199,119.25</td><td>$1,213,974.38</td></tr><tr><td>Sun, 5</td><td style="color: red;">$14,788.97</td><td></td><td>-$1,199,192.75</td><td>$1,213,981.75</td></tr><tr><td>Mon, 6</td><td style="color: red;">$14,604.88</td><td>cellPhone, nstarElectric, cellPhoneGoal, </td><td>-$1,199,293.50</td><td>$1,213,898.38</td></tr><tr><td>Tue, 7</td><td style="color: red;">$14,538.71</td><td></td><td>-$1,199,367.00</td><td>$1,213,905.75</td></tr><tr><td>Wed, 8</td><td style="color: red;">$14,472.54</td><td></td><td>-$1,199,440.88</td><td>$1,213,913.38</td></tr><tr><td>Thu, 9</td><td style="color: red;">$14,406.37</td><td>Credit-Card, </td><td>-$1,199,514.38</td><td>$1,213,920.75</td></tr><tr><td>Fri, 10</td><td style="color: red;">$16,328.99</td><td>Paycheck, IRA, </td><td>-$1,197,599.25</td><td>$1,213,928.25</td></tr><tr><td>Sat, 11</td><td style="color: red;">$16,262.81</td><td></td><td>-$1,197,672.75</td><td>$1,213,935.62</td></tr><tr><td>Sun, 12</td><td style="color: red;">$16,196.64</td><td></td><td>-$1,197,746.62</td><td>$1,213,943.25</td></tr><tr><td>Mon, 13</td><td style="color: red;">$16,130.47</td><td></td><td>-$1,197,820.12</td><td>$1,213,950.62</td></tr><tr><td>Tue, 14</td><td style="color: red;">$16,064.30</td><td></td><td>-$1,197,893.88</td><td>$1,213,958.12</td></tr></tbody></table>
+<br>
+</div>
+<!-- --------------------------------- -->
+<br><hr>
+<!-- --------------------------------- -->
+Budget Bills:<button type="button" onclick="javascript:showDiv(this, 'bugetEntry')">Hide</button><div id="bugetEntry"><table><tbody><tr><td><form action="props.jsp" method="get">
+<input name="description" value="cellPhone" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option selected="selected" value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="04/06/2011" type="text">Amount: <input name="amount" value="87.91" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="cellPhone" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="estimated_tax" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option selected="selected" value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="02/25/2012" type="text">Amount: <input name="amount" value="308.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="estimated_tax" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="nstarElectric" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option selected="selected" value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="04/06/2011" type="text">Amount: <input name="amount" value="30.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="nstarElectric" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="Retirement" type="text"><select name="event"><option value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option selected="selected" value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option selected="selected" value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="02/26/1997" type="text">Amount: <input name="amount" value="75000.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="Retirement" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="XMas" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option selected="selected" value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="12/26/2011" type="text">Amount: <input name="amount" value="200.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="XMas" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="cellPhoneGoal" type="text"><select name="event"><option value="bill">Bill</option><option value="income">Income</option><option selected="selected" value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option selected="selected" value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="04/06/2011" type="text">Amount: <input name="amount" value="87.91" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="cellPhoneGoal" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="Haircut" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="3" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option selected="selected" value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="02/04/2011" type="text">Amount: <input name="amount" value="50.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="Haircut" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="AAAGoal" type="text"><select name="event"><option value="bill">Bill</option><option value="income">Income</option><option selected="selected" value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option selected="selected" value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="01/01/2012" type="text">Amount: <input name="amount" value="53.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="AAAGoal" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="holidaysVacation" type="text"><select name="event"><option value="bill">Bill</option><option value="income">Income</option><option selected="selected" value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option selected="selected" value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="09/10/2012" type="text">Amount: <input name="amount" value="1400.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="holidaysVacation" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="Rent" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option selected="selected" value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="04/01/2011" type="text">Amount: <input name="amount" value="1550.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="Rent" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="newCar" type="text"><select name="event"><option value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option selected="selected" value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option selected="selected" value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="01/01/2010" type="text">Amount: <input name="amount" value="2000.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="newCar" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="XMasGoal" type="text"><select name="event"><option value="bill">Bill</option><option value="income">Income</option><option selected="selected" value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option selected="selected" value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="12/25/2011" type="text">Amount: <input name="amount" value="200.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="XMasGoal" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="IRA" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option selected="selected" value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="02/10/2012" type="text">Amount: <input name="amount" value="99.92" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="IRA" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr><tr><td><form action="props.jsp" method="get">
+<input name="description" value="AAA" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option selected="selected" value="yearly">Yearly</option><!-- from - to --></select>Date: <input name="date" value="01/01/2012" type="text">Amount: <input name="amount" value="53.0" type="text"><input name="submitType" value="editBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Change</button>
+</form>
+<form action="props.jsp" method="get">
+<input name="submitType" value="deleteBill" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<input name="description" value="AAA" type="hidden">
+<button type="submit">Delete</button>
+</form>
+</td></tr></tbody></table></div>
+<!-- --------------------------------- -->
+<hr>
+
+<!-- --------------------------------- -->
+Current Bills:<button type="button" onclick="javascript:showDiv(this, 'currentEntry')">Hide</button><div id="currentEntry"><form action="props.jsp" method="get">
+AmEx-balance: <input name="AmEx-balance" value="1957" type="text"><br>
+AmEx-bill: <input name="AmEx-bill" value="1354" type="text"><br>
+AmEx-cardname: <input name="AmEx-cardname" value="AmEx" type="text"><br>
+AmEx-due: <input name="AmEx-due" value="04/09/2011" type="text"><br>
+AmEx-lastUpdate: <input name="AmEx-lastUpdate" value="02/04/2012" type="text"><br>
+Chase-balance: <input name="Chase-balance" value="0.0" type="text"><br>
+Chase-bill: <input name="Chase-bill" value="0.0" type="text"><br>
+Chase-cardname: <input name="Chase-cardname" value="Chase" type="text"><br>
+Chase-due: <input name="Chase-due" value="04/22/2011" type="text"><br>
+Chase-lastUpdate: <input name="Chase-lastUpdate" value="01/16/2012" type="text"><br>
+bank-Balance: <input name="bank-Balance" value="15907" type="text"><br>
+bank-bankName: <input name="bank-bankName" value="bank" type="text"><br>
+<input name="submitType" value="saveCurrent" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Save</button>
+</form>
+</div>
+<!-- --------------------------------- -->
+<br><hr><br>
+<!-- --------------------------------- -->
+Config: <button type="button" onclick="javascript:showDiv(this, 'misc')">Hide</button><div id="misc"><form action="props.jsp" method="get">
+misc-creditCardInterest: <input name="misc-creditCardInterest" value="1.0" type="text"><br>
+misc-outstanding: <input name="misc-outstanding" value="0.0" type="text"><br>
+misc-presavings: <input name="misc-presavings" value="0.0" type="text"><br>
+misc-monthlyBudget: <input name="misc-monthlyBudget" value="2157.97" type="text"><br>
+misc-skipAhead: <input name="misc-skipAhead" value="0" type="text"><br>
+misc-weeklyExpensesGas: <input name="misc-weeklyExpensesGas" value="80.0" type="text"><br>
+misc-futureDays: <input name="misc-futureDays" value="93" type="text"><br>
+misc-bankInterest: <input name="misc-bankInterest" value="0.16" type="text"><br>
+misc-weeklyExpenses: <input name="misc-weeklyExpenses" value="463.2" type="text"><br>
+<input name="submitType" value="saveMisc" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Save</button>
+</form>
+</div>
+
+<!-- --------------------------------- -->
+<br><hr><br>
+<!-- --------------------------------- -->
+Paycheck: <button type="button" onclick="javascript:showDiv(this, 'paycheck')">Hide</button><div id="paycheck"><form action="props.jsp" method="get">
+paycheck-ssnTaxes: <input name="paycheck-ssnTaxes" value="0.0" type="text"><br>
+paycheck-amount: <input name="paycheck-amount" value="2168.71" type="text"><br>
+<select name="recurrance"><option value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option selected="selected" value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select><br>paycheck-endSsn: <input name="paycheck-endSsn" value="12/30/2011" type="text"><br>
+paycheck-date: <input name="paycheck-date" value="01/27/2012" type="text"><br>
+paycheck-skipPaycheck:<input name="paycheck-skipPaycheck" "="" type="checkbox"><br>
+paycheck-nextPaycheck: <input name="paycheck-nextPaycheck" value="0.0" type="text"><br>
+paycheck-end401k: <input name="paycheck-end401k" value="12/30/2011" type="text"><br>
+paycheck-contribution401k: <input name="paycheck-contribution401k" value="0.0" type="text"><br>
+<input name="submitType" value="savePaycheck" type="hidden">
+<input name="username" value="null" type="hidden">
+<input name="password" value="null" type="hidden">
+<button type="submit">Save</button>
+</form>
+</div>
+
+<!-- --------------------------------- -->
+<br><hr><br>
+<!-- --------------------------------- -->
+<form action="props.jsp" name="newBill"><div>New Bill: <input name="description" type="text"><select name="event"><option selected="selected" value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select>every <input name="periodicity" value="1" type="text"> <select name="recurrance"><option selected="selected" value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option><!-- from - to --></select>Date: <input class="hasDatepicker" id="datepicker" name="date" type="text">Amount: <input name="amount" type="text"><input name="username" value="null" type="hidden"><input name="password" value="null" type="hidden"><input name="submitType" value="newBill" type="hidden"><input value="Add" type="SUBMIT"></div></form>
+<!-- --------------------------------- -->
+<br><hr><br>
+<!-- --------------------------------- -->
+<form action="props.jsp"><div>New Credit Card: <input name="cardname" type="text">Balance: <input name="balance" type="text">Next Bill: <input name="bill" type="text">Pay Date: <input name="due" type="text"><input name="username" value="null" type="hidden"><input name="password" value="null" type="hidden"><input name="submitType" value="newCreditCard" type="hidden"><input value="Add" type="SUBMIT"></div></form>
+<!-- --------------------------------- -->
+<br><hr><br>
+<!-- --------------------------------- -->
+<form action="props.jsp"><div>New Account: <input name="bankName" type="text">Balance: <input name="Balance" type="text"><input name="username" value="null" type="hidden"><input name="password" value="null" type="hidden"><input name="submitType" value="newAccount" type="hidden"><input value="Add" type="SUBMIT"></div></form>
+<!-- --------------------------------- -->
+<br><hr><br>
+
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body></html>

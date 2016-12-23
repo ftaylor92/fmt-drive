@@ -1,0 +1,125 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#undef min
+#undef max</pre>
+<pre>#include&quot;CProdMap.h&quot;
+#include&quot;frankutils.h&quot;
+#include&quot;Fetcher.h&quot;
+#include&quot;PluginUtils.h&quot;</pre>
+<pre>#define	FLUSH_TOP		0
+#define DATA_PICT_GAP	4
+#define	MENU_PICT_GAP	3
+#define	MENU_WIDTH		11
+#define	MENU_HEIGHT		9
+#define LINE_SPACING	2
+#define	CHAR_HEIGHT		11
+#define	DESCRIPTION_MAX_WIDTH	150
+#define	MAX_SHAPE_HEIGHT	50</pre>
+<pre>void	trimString(char *s);</pre>
+<pre>#define	ktopleftCorner string(&quot;topleft&quot;)
+#define	ktoprightCorner string(&quot;topright&quot;)
+#define	kbottomleftCorner string(&quot;bottomleft&quot;)
+#define	kbottomrightCorner string(&quot;bottomright&quot;)</pre>
+<pre>CTeam::CTeam(const string val, CFootballConvPlugin *plug)
+{
+	itsPlugin= plug;
+	mValues= val;
+}</pre>
+<pre>CPlayer::CPlayer() : mTeam(NULL), x(0), y(0), h(0), w(0)
+{
+	mColor= &quot;FFFFFF&quot;;
+	mForeColor= &quot;000000&quot;;
+}</pre>
+<pre>CPlayer::~CPlayer()
+{</pre>
+<pre>}</pre>
+<pre>CPlayer::CPlayer(const CPlayer&amp; t) : x(0), y(0), h(0), w(0)
+{
+	if(this != &amp;t)
+	{		
+		mTeam= t.mTeam;
+	}
+}</pre>
+<pre>CPlayer&amp; CPlayer::operator=(const CPlayer&amp; t)
+{
+	if(this != &amp;t)
+	{
+	}
+	</pre>
+<pre>	return(*this);
+}
+
+</pre>
+<pre>checked_shape_iter::checked_shape_iter() : pShape(NULL)
+{
+}</pre>
+<pre>void	checked_shape_iter::SetPointer(void)
+{
+	pShape= &amp;(iter-&gt;second);
+}</pre>
+<pre>void	checked_shape_iter::SetPointer(CPlayer *p)
+{
+	pShape= p;
+}</pre>
+<pre>bool checked_shape_iter::operator==(const checked_shape_iter ci) const
+{
+	return(&amp;(ci.iter-&gt;second) == pShape);
+}</pre>
+<pre>/*Boolean checked_shape_iter::operator==(const CPlayer* cp) const
+{
+	return(cp == pShape);
+}*/</pre>
+<pre>bool checked_shape_iter::operator!=(const checked_shape_iter ci) const
+{
+	return(&amp;(ci.iter-&gt;second) != pShape);
+}</pre>
+<pre>checked_shape_iter* checked_shape_iter::operator++()
+{
+	iter++;
+	return(this);
+}</pre>
+<pre>/*void checked_shape_iter::operator=(const checked_shape_iter&amp; cpy)
+{
+	iter= cpy.iter;
+	pShape= cpy.pShape;
+}*/</pre>
+<pre>void checked_shape_iter::operator=(const ShapeMapIter&amp; i)
+{
+	iter= i;
+}</pre>
+<pre>bool checked_shape_iter::operator!=(const ShapeMapIter i) const
+{
+	return(i != iter);
+}</pre>
+<pre>void	trimString(char *s)
+{
+char *firstNonBlank = s;
+char *currChar,*lastNonBlank;
+	if(firstNonBlank == NULL) return;
+	lastNonBlank = firstNonBlank + strlen(firstNonBlank);
+	while(*firstNonBlank == ' ' || *firstNonBlank == '\t'){firstNonBlank++;}
+	if(firstNonBlank == lastNonBlank){
+		*s = 0;
+		return;
+	}
+	currChar = firstNonBlank;
+//	while(*--lastNonBlank == ' ' &amp;&amp; (lastNonBlank &gt; firstNonBlank));
+	lastNonBlank--;
+	while((*lastNonBlank == ' ' || *lastNonBlank == '\t') &amp;&amp; (lastNonBlank &gt; firstNonBlank)){lastNonBlank--;}
+	short len = lastNonBlank - firstNonBlank + 1;
+	memcpy(s,firstNonBlank,len);
+	s[len] = 0;
+}</pre>
+
+</body>
+
+</html>

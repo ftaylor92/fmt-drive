@@ -1,0 +1,64 @@
+<html>
+	<head>	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Edit Paycheck</title> 
+		<link rel="stylesheet" href="./jquery/jquery.mobile.css" />
+		<script src="./jquery/jquery.js"></script>
+
+<link rel="stylesheet" href="date_input.css" type="text/css">
+<script type="text/javascript" src="jquery.date_input.js"></script>
+
+		<script src="./jquery/jquery.mobile.js"></script> <!--
+<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script> -->
+		<script src="./database.js"></script>
+		<script src="./dailybalance.js"></script>
+		<script src="./beans.js"></script>
+		<script src="./edit.js"></script>
+	</head> 
+<body> 
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		$('#paycheck').val(document.userAccounts.paycheck.paycheck);
+		$('#ddate').val(document.userAccounts.paycheck.date.getFormattedString());
+		$('#endFourOneK').val(document.userAccounts.paycheck.end401k.getFormattedString());
+		$('#endSsn').val(document.userAccounts.paycheck.endSsn.getFormattedString());
+		$('#skipPaycheck').attr('checked', document.userAccounts.paycheck.skipPaycheck);
+		$('#nextPaycheck').val(document.userAccounts.paycheck.nextPaycheck);
+		$('#contributionFourOneK').val(document.userAccounts.paycheck.contribution401k);
+		$('#ssnTaxes').val(document.userAccounts.paycheck.ssnTaxes);
+		$('#amount').val(document.userAccounts.paycheck.amount);
+		//alert("recurrance: "+ RECUR_TYPE[document.userAccounts.paycheck.recurrance])
+		$('#recurrance').val(document.userAccounts.paycheck.recurType);	//RECUR_TYPE[document.userAccounts.paycheck.recurrance]
+		
+		//$("#ddate").date_input();
+	});
+</script>
+
+<!--div style="width: 500px;" data-role="fieldcontain"><label for="paycheck">Paycheck Amount:</label><input type="text" name="paycheck" id="paycheck" value="0.0" class="paycheck" /></div -->
+<div style="width: 500px;" data-role="fieldcontain"><label for="amount">Paycheck Amount:</label><input type="number" name="amount" id="amount" value="0.0" class="amount" /></div>
+<!--TODO: HTML5 input type="date" with value going into field -->
+<div style="width: 500px;" data-role="fieldcontain"><label for="ddate">Pay Date:</label><input type="date" name="ddate" id="ddate" value="01/01/2000" class="ddate" /></div>
+
+<!-- div style="width: 500px;" data-role="fieldcontain"><label for="endFourOneK">401k Contributions Ends Date:</label><input type="text" name="endFourOneK" id="endFourOneK" value="01/01/2000" class="endFourOneK" /></div -->
+<div style="width: 500px;" data-role="fieldcontain"><label for="endFourOneK">401k Contribution Ends Date:</label><input type="date" name="endFourOneK" id="endFourOneK" value="01/01/2000" class="endFourOneK" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="endSsn">SSN Contributions End Date:</label><input type="date" name="endSsn" id="endSsn" value="01/01/2000" class="endSsn" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="skipPaycheck">Skip Next Paycheck:</label><input data-inline="true" type="checkbox" name="skipPaycheck" id="skipPaycheck" value="false" class="skipPaycheck" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="nextPaycheck">Next Paycheck Amount (if differnt than normal):</label><input type="number" name="nextPaycheck" id="nextPaycheck" value="0.0" class="nextPaycheck" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="contributionFourOneK">401k Contribution:</label><input type="number" name="contributionFourOneK" id="contributionFourOneK" value="0.0" class="contributionFourOneK" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="ssnTaxes">SSN Taxed amount:</label><input type="number" name="ssnTaxes" id="ssnTaxes" value="0.0" class="ssnTaxes" /></div>
+recurrance: <select name="recurrance" class="recurrance" id="recurrance">
+	<option selected value="once">Once</option>
+	<option value="daily">Daily</option>
+	<option value="weekly">Weekly</option>
+	<option value="biweekly">Bi-Weekly</option>
+	<option value="monthly">Monthly</option>
+	<option value="yearly">Yearly</option>
+</select>
+
+<button style="width: 100px;" data-inline="true" xonclick="alert($('input:date[name=endFourOneK]').val());" onclick="editPaycheck($('#recurrance').val(), $('input[name=ddate]').val(), $('input[name=endFourOneK]').val(), $('input[name=endSsn]').val(), $('#skipPaycheck').attr('checked'), $('input[name=nextPaycheck]').val(), $('input[name=contributionFourOneK]').val(), $('input[name=ssnTaxes]').val(), $('input[name=amount]').val(), $('input[name=ssnTaxes]').val())">Edit</button>
+</body>
+</html>

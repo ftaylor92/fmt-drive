@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>time-select</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="./js/three.js"></script>
+	<script src="./js/namespace.js" ></script>
+	<script src="./js/prototype.js" ></script>
+	<script src="./js/shapes.js" ></script>
+	<script src="./js/android.js" ></script>
+	<script src="./js/time-select.js" ></script>
+
+</head>
+<body>
+	<label for="datetime-slider">Date & Time: </label>
+	<input id="datetime-slider" type="datetime" onchange="sundialTimepackage.doDateTime('dt');" /><br/>
+
+	<label for="date-slider">Date: </label>
+	<button onclick="sundialTimepackage.step('date', -1);">-</button>
+	<input id="date-slider" type="range" min ="1" max="365" step ="1" onchange="sundialTimepackage.doDateTime('d');" />
+	<button onclick="sundialTimepackage.step('date', 1);">+</button>
+	<button onclick="sundialTimepackage.step('date', 28);">++</button>
+	<button id="run-date" onclick="sundialTimepackage.step('date', -2);">></button>
+	<!-- input id="date-val" type="date" placeholder="2014-01-31" size="10" / -->
+	<br/>
+	<label for="time-slider">Time: </label>
+	<button onclick="sundialTimepackage.step('time', -1);">-</button>
+	<input id="time-slider" type="range" min ="0" max="1440" step ="1" onchange="sundialTimepackage.doDateTime('t');" />
+	<button onclick="sundialTimepackage.step('time',1);">+</button>
+	<button onclick="sundialTimepackage.step('time',60);">++</button>
+	<button id="run-time" onclick="sundialTimepackage.step('time', -2);">></button><br/>
+	<!-- input id="time-val" type="time" placeholder="19:42+5" size="7" / -->
+	<canvas width=300 height=300 id="clock-canvas" > <!-- style="background-color:white" -->
+		canvas didnt load
+	</canvas>
+<script>
+	sundialTimepackage.setDateTime();
+</script>
+</body>
+</html>

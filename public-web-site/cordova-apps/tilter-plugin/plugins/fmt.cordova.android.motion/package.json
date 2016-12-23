@@ -1,0 +1,14 @@
+{
+    "version": "0.2.6",
+    "name": "fmt.cordova.android.motion",
+    "cordova_name": "Motion",
+    "description": "Cordova Android Motion Plugin",
+    "license": "Apache 2.0",
+    "repo": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-motion.git",
+    "issue": "https://issues.apache.org/jira/browse/CB/component/12320636",
+    "keywords": [
+        "cordova",
+        "motion"
+    ],
+    "engines": []
+}

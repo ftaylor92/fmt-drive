@@ -1,0 +1,112 @@
+<html>
+<head><title>Angles in HTML5</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+	<canvas id="colorFields" height=500 width=500 style="border:1px solid #000000;">Upgrade Your Browser to view Canvas</canvas>
+	
+	<script>
+		var cnvs=document.getElementById("colorFields");
+		var context= cnvs.getContext("2d");
+		
+		var imageObj = new Image();
+		imageObj.onload = function() {
+			context.drawImage(imageObj, 0, 0);
+			
+			//example - blue
+			context.beginPath();
+			context.moveTo(100, 20);
+			// line 1
+			context.lineTo(200, 160);
+			// quadratic curve
+			context.quadraticCurveTo(230, 200, 250, 120);
+			// bezier curve
+			context.bezierCurveTo(290, -40, 300, 200, 400, 150);
+			// line 2
+			context.lineTo(500, 90);
+			//context.arcTo(500, 90, 200,200, 50);
+			context.lineWidth = 5;
+			context.strokeStyle = 'blue';
+			context.stroke();
+			
+			//arcto - green
+			  context.beginPath();
+			  context.lineWidth="3";
+			  context.strokeStyle="green";
+			  context.moveTo(20, 20);
+			  context.arcTo(380, 20, 380, 380, 50);
+			  //context.closePath();
+			  context.stroke();
+			
+			//Lines - maroon
+			context.beginPath();
+			context.lineWidth= 3;
+			context.strokeStyle = 'maroon';
+			context.moveTo(150, 135);	// Top Corner
+			context.lineTo(150, 125);	// Bottom Right
+			context.lineTo(85, 125);	// Bottom Left
+			context.lineTo(75, 160);	// Bottom Left
+			context.lineTo(125, 125);
+			//context.closePath();
+			// Fill the path
+			//context.fill();
+			context.stroke();
+			
+			//line - red
+			context.beginPath();
+			context.lineWidth= 5;
+			context.strokeStyle= "red";
+			context.moveTo(10, 50);
+			context.lineTo(50, 70);
+			context.globalAlpha = 0.9;
+			context.closePath();
+			context.stroke();
+			
+			//text - cyan
+			try{
+				context.font="12px Arial";
+				context.fillStyle = "cyan";
+				context.fillText("Something", 10,250);
+				context.strokeStyle= "Coral";
+				context.fillStyle = "yellow";
+				context.font="20px Arial";
+				context.strokeText("outlines", 10,270);
+			}catch(ex){
+				console.error(ex)
+			}
+			
+			//Filled Square - gray
+			context.beginPath();
+			context.lineWidth= 3;
+			context.strokeStyle = 'darkgray';
+			context.fillStyle = "lightgray";
+			context.moveTo(300, 300);	// Top Corner
+			context.lineTo(340, 300);	// Bottom Right
+			context.lineTo(340, 270);	// Bottom Left
+			context.lineTo(300, 270);	// Bottom Left
+			context.lineTo(300, 300);
+			//context.closePath();
+			// Fill the path
+			context.fill();
+			context.stroke();
+			
+			//fillRect - Chartreuse 
+			context.globalAlpha = 1.0;
+			context.fillStyle = "Chartreuse";
+			context.fillRect(200,200,150,75);
+			
+			//gradient
+			// Create gradient
+			var grd=context.createRadialGradient(75,50,5,90,60,100);
+			grd.addColorStop(0,"DarkSeaGreen");
+			grd.addColorStop(1,"white");
+
+			// Fill with gradient
+			context.globalAlpha = 0.9;
+			context.fillStyle=grd;
+			context.fillRect(10,10,150,80);
+		};
+		imageObj.src = 'img/sundial3.png';
+	</script>
+</body>
+</html>

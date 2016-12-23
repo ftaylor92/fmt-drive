@@ -1,0 +1,40 @@
+<html>
+
+<body>
+
+<script type="text/javascript">
+
+function openGoogle() 
+{
+	window.open("http://www.google.com");
+}
+
+function multiply(a, b) {
+
+
+
+  var answer= a * b;
+
+  return answer;
+}
+
+var date= new Date();
+var year= date.getFullYear();
+
+document.write("<h3>Happy New Year in "+ year + "!!!</h3>");
+
+if(year >= 2009)
+{
+  document.write("Good Luck President Obama!<br/>");
+}
+else
+{
+  document.write("Goodbye President Bush<br/>");
+}
+
+</script>
+
+<button type="button" onclick="openGoogle();">Click Me!</button>
+
+</body>
+</html>

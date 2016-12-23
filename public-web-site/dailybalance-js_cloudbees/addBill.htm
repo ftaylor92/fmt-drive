@@ -1,0 +1,63 @@
+<html>
+	<head>	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Add Bill</title> 
+		<link rel="stylesheet" href="./jquery/jquery.mobile.css" />
+		<script src="./jquery/jquery.js"></script>
+		<script src="./jquery/jquery.mobile.js"></script> <!--
+<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script> -->
+		<script src="./database.js"></script>
+		<script src="./dailybalance.js"></script>
+		<script src="./beans.js"></script>
+		<script src="./edit.js"></script>
+
+	<!-- script src="http://jqueryui.com/jquery-1.5.1.js"></script>
+	<script src="http://jqueryui.com/ui/jquery.ui.core.js"></script>
+	<script src="http://jqueryui.com/ui/jquery.ui.widget.js"></script>
+
+	<script src="http://jqueryui.com/ui/jquery.ui.datepicker.js"></script>
+	<link rel="stylesheet" href="../demos.css" -->
+	</head> 
+<body> 
+<script>
+	$(document).ready(function() {
+		//$('#billName').val(document.userAccounts.current.accounts[0].balance);
+		//$("#datepicker").datepicker();
+		//$(function() {$("#datepicker").datepicker();});
+	});
+
+	/*$(function() {
+		$( "#datepicker" ).datepicker();
+	});*/
+</script>
+
+<div style="width: 500px;" data-role="fieldcontain"><label for="billName">Bill Name:</label><input type="text" name="billName" id="billName" value="BillName" class="billName" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="amount">Amount (cost):</label><input type="number" name="amount" id="amount" value="0.0" class="amount" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="dueDate">Due Date:</label><input type="date" name="dueDate" id="datepicker" value="2013-01-01" class="dueDate" /></div>
+
+type:<select name="billType" class="billType" id="billType">
+	<option selected value="bill">Bill</option>
+	<option value="income">Income</option>
+	<option value="goal">Goal</option>
+	<option value="accumulator">Accumulate Savings</option>
+</select>
+
+<div style="width: 500px;" data-role="fieldcontain"><label for="periodicity">Every:</label><input type="text" name="periodicity" id="periodicity" value="1" class="periodicity" /></div>
+<!-- div style="width: 500px;" data-role="fieldcontain"><label for="recurrance">Recurrs:</label><select name="recurrance"><option selected value="once">Once</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="biweekly">Bi-Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option></select></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="billType">Type:</label><select name="billType"><option selected value="bill">Bill</option><option value="income">Income</option><option value="goal">Goal</option><option value="accumulator">Accumulate Savings</option></select></div -->
+
+
+recurrance: <select name="recurrance" class="recurrance" id="recurrance">
+	<option selected value="once">Once</option>
+	<option value="daily">Daily</option>
+	<option value="weekly">Weekly</option>
+	<option value="biweekly">Bi-Weekly</option>
+	<option value="monthly">Monthly</option>
+	<option value="yearly">Yearly</option>
+</select>
+
+<button style="width: 100px;" data-inline="true" onclick="addBill($('#billType').val(), $('#recurrance').val(), $('input:text[name=billName]').val(), $('input[name=amount]').val(), $('input[name=dueDate]').val(), $('input:text[name=periodicity]').val())">Add</button>
+</body>
+</html>

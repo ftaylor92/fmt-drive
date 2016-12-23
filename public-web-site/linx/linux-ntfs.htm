@@ -1,0 +1,37 @@
+<html>
+<head><title>NTFS Disks on Linux</title></head>
+<body bgcolor="FloralWhite">
+	<h4>NTFS Disks on Linux</h4>
+	1) install <a href="http://sourceforge.net/projects/fuse">FUSE</a><br/>
+	<pre>
+	tar zxvf fuse-2.7.0.tar.gz
+	cd fuse-2.7.0
+	./configure
+	su root
+	make
+	make install
+	/sbin/modprobe fuse
+	</pre><br/>
+	2) instal <a href="http://sourceforge.net/projects/linux-ntfs/">ntfsprogs</a>, which includes mtfsmount<br/>
+	<pre>
+	tar zxvf ntfsprogs-2.0.0.tar.gz
+	cd ntfsprogs-2.0.0
+	./configure --enable-fuse-module
+	make
+	su root
+	make install
+	</pre><br/>
+	see: <a href="http://www.linux-ntfs.org">linux-ntfs</a><br/>
+	To see which file systems are supported: <code>cat /proc/filesystem</code><br/>
+	To see which disks are mountable: <code>/sbin/fdisk -l</code><br/>
+	To mount Windows/NTFS partition or NTFS disk:<br/>
+	<code>mkdir /mnt/c</code>	-	faux directory where files will be seen<br/>
+	<code>su root</code><br />
+	<code>/sbin/modprobe fuse</code><br />
+	<code>/usr/local/bin/ntfsmount /dev/hds1 /mnt/c <strike>fuse.ntfs locale=EN=en_US.utf8 0 0</strike></code>	-	now files are accessible at <code>/mnt/c/</code> directory<br/>
+	<code>&quot;/dev/hds1&quot;</code> was taken from <code>/sbin/fdisk -l</code> listing<br/>
+	Unmount before shudown:<br/>
+	<code>umount /mnt/c or<br/>
+	umount /dev/hds1</code><br/>
+</body>
+</html>

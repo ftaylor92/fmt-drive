@@ -1,0 +1,36 @@
+<html>
+<head><title>Small Projects</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+</body>
+<h3>My Small Projects</h3>
+<ul>
+	<li><a href="http://fmtmac-mathematics.herokuapp.com/newton.jsp">physics</a></li>
+	<li><a href="http://fmtmac-mathematics.herokuapp.com/euclid.jsp">Euclid Infinite Primes</a></li>
+	<li><a href="http://fmtmac-mathematics.herokuapp.com/germain.jsp">Germian Primes</a></li>
+	<li><a href="http://fmtmac-mathematics.herokuapp.com/goldbach.jsp">Goldbach Conjecture</a></li>
+	<li><a href="http://dl.dropbox.com/u/688127/public-web-site/pi.htm">PI (&pi;)</a></li>
+	<li><a href="http://fmtmac-mathematics.herokuapp.com/pointMath.jsp">PointMath</a></li>
+	<li><a href="https://files-site.herokuapp.com/xslt.jsp">XSLT</a></li>
+	<li><a href="https://files-site.herokuapp.com/image-rotate.jsp">ImageRotate</a></li>
+	<li><a href="./bearing/angleTwoPoints.htm">calculate Bearing from Two Points</a></li>
+	<li><a href="./sum-of-doubled/sum-doubled.htm">calculate sum of number doubled each iteration</a></li>
+	<li><a href="./fractals/loan-calc.htm">loan calculator</a></li>
+	<li><a href="./fractals/factorials.htm">factorials</a></li>
+	<li><a href="./clock-javascript/clock.htm">clock</a></li>
+	<li><a href="./slideshow/slides.htm">slideshow</a></li>
+	<li><a href="http://tinyurl.com/sundial-experiments">sundial</a></li>
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+</ul>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>FTP Script</title>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <meta name="author" content="taylorfr">
+</head>
+<body>
+<h3>FTP in a script</h3>
+<h4><code></code></h4>
+<code><u><br>
+crontab</u><br>
+3,7,13,18,23,28,32,37,42,47,52,57 * * * * /usr/local/bin/tacoma.sh &gt;&gt;
+/usr/local/toast/tacoma.error 2&gt;&amp;<br>
+<br>
+<br>
+<u>ftptacoma.sh</u><br>
+ftp &lt;&lt;**<br>
+open tacoma<br>
+binary<br>
+prompt<br>
+lcd /tmp/milkfiles<br>
+cd /usr/local/toast<br>
+mget *.tar<br>
+mdelete *.tar<br>
+bye<br>
+**<br>
+cd /usr/local/toast<br>
+tar xvf *.tar<br>
+rm *.tar<br>
+<br>
+<u>.netrc file</u><br>
+machine tacoma login ftptacoma password ftptacoma<br>
+<br>
+</code>
+</body>
+</html>

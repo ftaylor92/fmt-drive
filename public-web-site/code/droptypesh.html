@@ -1,0 +1,94 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#ifndef	__DROPTYPESH__
+#define	__DROPTYPESH__</pre>
+<pre>#define PLAYER_BASE_DIVIDER	1000</pre>
+<pre>#include&lt;CObject.h&gt;
+#ifdef min
+#undef min
+#endif</pre>
+<pre>#ifdef max
+#undef max
+#endif</pre>
+<pre>#include &lt;assert.h&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;</pre>
+<pre>class Player;
+typedef vector&lt;Player*&gt;					PlayerArray;
+typedef PlayerArray::iterator			PlayerArrayIter;
+typedef PlayerArray::const_iterator		PlayerArrayConstIter;
+</pre>
+<pre>class DropSlot {
+public:
+	short		NumVisitors(void);
+	Player*		GetTopPlayer(void);
+	void		ResetTopPlayer(void);
+	void		SetTopPlayer(int);
+	void	SetTopPlayer(Player*);
+	Player*		GetFirstFreePlayer(void);
+	void		SetShownPlayer(short);
+	RgnHandle	GetRgn(void)	{RgnHandle	rH;	RectRgn(rH, &amp;place);return rH;}
+	DropSlot	*Copy(void);
+	DropSlot(const DropSlot&amp;);
+	DropSlot&amp; operator=(const DropSlot&amp;);
+	DropSlot();
+	~DropSlot();
+/*	void 	Write(CTypedFile *aFile);
+	void	IFromFile(CTypedFile *aFile);*/
+	</pre>
+<pre>	string	name;
+	Rect	place;
+	Rect	menuArrow;
+	short	UN;
+	short	mMin,mMax;
+	short	mShownPlayer;
+	PlayerArray	*mVisitors;
+private:
+	RGBColor	itsColor;
+};</pre>
+<pre>typedef vector&lt;DropSlot*&gt;					DropList;
+typedef DropList::iterator				DropListIter;
+typedef DropList::const_iterator		DropListConstIter;</pre>
+<pre>class Player {
+public:
+	PicHandle	pic;
+	int			id;
+	DropSlot	*currBase;
+	short		depth;
+	string		name;//[128];
+	short		totem;
+	string		url;//[256];
+	char		G[8];
+	char		AB[8];
+	char		H[8];
+	char		RBI[8];
+	char		AVG[8];
+	char		R[8];
+	string		position;//[32];
+	short		RIMSlot;
+	long		salary;
+	Boolean		injured;
+	vector&lt;string&gt;	textField;
+	/*Pitcher*/
+	char		ERA[8];
+	char		IP[8];
+	void		SetID(const int);
+	</pre>
+<pre>	Player();
+	~Player();
+};
+//} Player;</pre>
+<pre>#endif //__DROPTYPESH__</pre>
+
+</body>
+
+</html>

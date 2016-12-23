@@ -1,0 +1,448 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#include &quot;DataFormats.h&quot;
+#include &quot;PlugInUtils.h&quot;</pre>
+<pre>#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;Errno.h&gt;</pre>
+<pre>#include &lt;cmath.macos.h&gt;</pre>
+<pre>CRowItemsTable::CRowItemsTable(CTableHeader	*aHeader, CList *anItemsList, const char* aTitle)
+{
+	header = aHeader;
+	items = anItemsList;</pre>
+<pre>	if (aTitle)
+	{
+		const size_t	len(strlen(aTitle));</pre>
+<pre>		if (len &lt; kMaxTableNameLen)
+			strcpy(title, aTitle);
+		else
+		{
+			strncpy(title, aTitle, (kMaxTableNameLen - 1));
+			title[kMaxTableNameLen - 1] = '\0';
+		}
+	}
+	else
+		sprintf(title, &quot;Untitled&quot;);
+}</pre>
+<pre>CRowItemsTable::CRowItemsTable()
+{
+	header = NULL;
+	items = NULL;
+	sprintf(title, &quot;Untitled&quot;);
+}</pre>
+<pre>void CRowItemsTable::Dispose()
+{
+	ForgetList(header);
+	ForgetList(items);
+	inherited::Dispose();
+}</pre>
+<pre>void CRowItemsTable::GetColumnHeader(short index, char* aStr) const
+{//index is zero based!!!
+	header-&gt;GetNthTitleString(index+1, aStr);
+}</pre>
+<pre>Boolean CRowItemsTable::IsColumnNumeric(short index)
+{
+	return header-&gt;GetTreatAsNumbers(index);
+}
+</pre>
+<pre>CRowItem *CRowItemsTable::GetRow(short index)
+{//index is zero based!!!
+	return (CRowItem *)items-&gt;NthItem(index+1);
+}</pre>
+<pre>void CRowItemsTable::GetRowLabel(short index, char* aStr)
+{//index is zero based!!!
+	CRowItem *rowItem = GetRow(index);
+	if(rowItem)
+		rowItem-&gt;GetRowLabel(aStr);
+	else
+		aStr[0] = '\0';
+}</pre>
+<pre>void CRowItemsTable::SetRowLabel(short index, const char* newLabel)
+{//index is zero based!!!
+	CRowItem *rowItem = GetRow(index);
+	if(rowItem)
+		rowItem-&gt;SetRowLabel(newLabel);
+}</pre>
+<pre>void CRowItemsTable::GetCell(short row, short col, char* aStr)
+{
+	CRowItem *rowItem = GetRow(row);
+	if(rowItem) {
+		rowItem-&gt;GetDataStr(col, aStr); // jo ez igy ???
+	}
+}</pre>
+<pre>void CRowItemsTable::GetTitle(char* aStr) const
+{
+	strcpy(aStr, title);
+}</pre>
+<pre>void CRowItemsTable::SortByCode(const char* keyCode, SortOrder order)
+{
+	short numItems = items-&gt;GetNumItems();
+	for(short i=1; i&lt;=numItems; i++){
+		CRowItem *smallest = (CRowItem *)items-&gt;NthItem(i);// in case it's descending, this is actually the greatest
+		for(short j=i+1; j&lt;=numItems; j++){
+			CRowItem *next = (CRowItem *)items-&gt;NthItem(j);
+			short comp = CompareItems(next,smallest,keyCode);
+			if((order == ascendigSort) &amp;&amp; (comp &lt; 0))
+				smallest = next;
+			if((order == descendingSort) &amp;&amp; (comp &gt; 0))
+				smallest = next;
+		}
+		items-&gt;MoveToIndex(smallest,i);
+	}
+}</pre>
+<pre>void CRowItemsTable::CheckNumericalColumns()
+{
+	short numColumns = GetNumCols();
+	short numRows = GetNumRows();
+	for(short c=0; c&lt;numColumns; c++)
+	{
+		Boolean	numeric = TRUE;
+		char		data[kMaxItemDataLen];</pre>
+<pre>		for(short r=1; r&lt;=numRows; r++)
+		{
+			CRowItem *row = (CRowItem *)items-&gt;NthItem(r);
+			row-&gt;GetDataStr(c,data);</pre>
+<pre>			double number = strtod(data, NULL);
+			</pre>
+<pre>			if (errno == ERANGE)
+			{
+				if (mTreatDashAsNbr &amp;&amp; (data[0] == '-' &amp;&amp; data[1] == '\0'))
+					continue;</pre>
+<pre>				numeric = FALSE;
+				break;
+			}
+		}
+		header-&gt;SetTreatAsNumbers(c, numeric);
+	}
+}</pre>
+<pre>Boolean CRowItemsTable::IsURL(short row, short col)
+{
+	CRowItem*	rowItem = GetRow(row);
+	return (rowItem) ? rowItem-&gt;IsURL(col) : FALSE;
+}</pre>
+<pre>void CRowItemsTable::SetURL(short row, short col, const char* url)
+{
+	CRowItem*	rowItem = GetRow(row);
+	if (rowItem)
+		rowItem-&gt;SetURL(col, url);
+}</pre>
+<pre>const char* CRowItemsTable::GetURL(short row, short col)
+{
+	CRowItem*	rowItem = GetRow(row);
+	return (rowItem) ? rowItem-&gt;GetURL(col) : NULL;
+}</pre>
+<pre>void CRowItemsTable::SetItemDataImage(short row, short col, PicHandle	imageH)
+{
+	CRowItem*	rowItem = GetRow(row);
+	if (rowItem)
+		rowItem-&gt;SetItemDataImage(col, imageH);
+}</pre>
+<pre>PicHandle CRowItemsTable::GetItemDataImage(short row, short col)
+{
+	CRowItem*	rowItem = GetRow(row);
+	return (rowItem) ? rowItem-&gt;GetItemDataImage(col) : NULL;
+}</pre>
+<pre>CItemData*	CRowItemsTable::GetItemData(short row, short col)
+{
+	CRowItem*	rowItem = GetRow(row);
+	return rowItem ? rowItem-&gt;GetData(col) : NULL;
+}</pre>
+<pre>short CRowItemsTable::CompareItems(CRowItem *itemA, CRowItem *itemB, const char* keyCode)
+{
+	if((itemA == NULL) || (itemB == NULL))	return 0;
+	</pre>
+<pre>	CItemData *dataA = itemA-&gt;GetData(keyCode);
+	CItemData *dataB = itemB-&gt;GetData(keyCode);
+	</pre>
+<pre>	if((dataA == NULL) || (dataB == NULL))	return 0;
+	</pre>
+<pre>	Boolean treatAsNumbers = header-&gt;GetTreatAsNumbers(keyCode);
+	</pre>
+<pre>	short ret;
+	</pre>
+<pre>	if(treatAsNumbers)
+	{
+		const double valA(dataA-&gt;GetNumericValue());
+		const double valB(dataB-&gt;GetNumericValue());</pre>
+<pre>		ret = (valA &lt; valB) ? -1 : ((valB &lt; valA) ? 1 : 0);
+	}
+	else {
+		ret = strcmp(dataA-&gt;GetString(), dataB-&gt;GetString());
+	}
+	return ret;
+}</pre>
+<pre>void	CRowItemsTable::InsertRows(short firstRow, short rowCnt)
+{
+	char	titleString[kMaxColHdrLen];</pre>
+<pre>	for (int i(0); i &lt; rowCnt; ++i)
+	{
+		CRowItem *nextRow = new CRowItem;
+		ASSERT(nextRow);</pre>
+<pre>		nextRow-&gt;IList();
+		</pre>
+<pre>		for (int j(0); j &lt; header-&gt;GetNumItems(); ++j)
+		{
+			header-&gt;GetNthTitleString((j + 1), titleString);
+			nextRow-&gt;Append(new CItemData(titleString, &quot;-&quot;));
+		}
+			</pre>
+<pre>		items-&gt;InsertAt(nextRow, (long) (firstRow + 1));
+	}
+}</pre>
+<pre>#pragma mark -</pre>
+<pre>CItemData*	CRowItemsTableIter::operator*() const
+{
+	return mRowColTable-&gt;GetItemData(mRow, mCol);
+}</pre>
+<pre>void	CRowItemsTableIter::IncrementRowCol(void)
+{
+	if (mCol &lt; (mRowColTable-&gt;GetNumCols() - 1))
+		++mCol;
+	else
+	{
+		++mRow;
+		mCol = 0;
+	}
+}		</pre>
+<pre>void	CRowItemsTableIter::DecrementRowCol(void)
+{
+	if (mCol &gt; 0)
+		--mCol;
+	else
+	{
+		--mRow;
+		ASSERT(mRow &gt;= 0);
+		mCol = mRowColTable-&gt;GetNumCols() - 1;
+	}
+}</pre>
+<pre>#pragma mark -</pre>
+<pre>CColumnHeader::CColumnHeader(const char* aTitle, Boolean isNumber)
+{
+	const size_t	len(strlen(aTitle));</pre>
+<pre>	if (len &lt; kMaxColHdrLen)
+		strcpy(code, aTitle);
+	else
+	{
+		strncpy(code, aTitle, (kMaxColHdrLen - 1));
+		code[kMaxColHdrLen - 1] = '\0';
+	}</pre>
+<pre>	treatAsNumbers = isNumber;
+}</pre>
+<pre>void CColumnHeader::Dispose()//alexa 4/11/99
+{
+	inherited::Dispose();
+}</pre>
+<pre>#pragma mark -</pre>
+<pre>CItemData::CItemData(const char* aCode, const char* aString, Boolean clickable) : mClickable(clickable), mImageH(NULL)
+{
+	const size_t	len(strlen(aCode));</pre>
+<pre>	if (len &lt; kMaxItemCodeLen)
+		strcpy(code, aCode);
+	else
+	{
+		strncpy(code, aCode, (kMaxItemCodeLen - 1));
+		code[kMaxItemCodeLen - 1] = '\0';
+	}</pre>
+<pre>	SetString(aString);
+}</pre>
+<pre>void CItemData::Dispose()//alexa 4/11/99
+{
+	DnitItemData();</pre>
+<pre>	inherited::Dispose();
+}</pre>
+<pre>void CItemData::DnitItemData(void)
+{
+	if (mImageH)
+	{
+		KillPicture(mImageH);
+		mImageH = NULL;
+	}</pre>
+<pre>	if (data)
+	{
+		delete [] data;
+		data = NULL;
+	}
+}</pre>
+<pre>void CItemData::SetString(const char* aString)
+{
+	DnitItemData();</pre>
+<pre>	data = new char[strlen(aString) + 1];
+	strcpy(data, aString ? aString : &quot;&quot;);
+}</pre>
+<pre>void CItemData::SetNumericValue(double val)
+{
+	char	numberString[32];
+	sprintf(numberString, &quot;%f&quot;, val);
+	</pre>
+<pre>	SetString(numberString);
+}</pre>
+<pre>double CItemData::GetNumericValue(void) const
+{
+	return IsDash() ? -HUGE_VAL : atof(data);
+}</pre>
+<pre>Boolean CItemData::IsNumeric(void) const
+{
+	const double number(strtod(data, NULL));
+	return (errno != ERANGE) ? TRUE : FALSE;
+}</pre>
+<pre>Boolean CItemData::IsDash(void) const
+{
+	return ((data) &amp;&amp; (data[0] == '-' &amp;&amp; data[1] == '\0'));
+}</pre>
+<pre>void CItemData::SetItemDataImage(PicHandle h)
+{
+	if (mImageH)
+	{
+		KillPicture(mImageH);
+		mImageH = NULL;
+	}</pre>
+<pre>	mImageH = h;
+}</pre>
+<pre>static const char*	kURLBeginning = &quot;http:\/\/&quot;;</pre>
+<pre>Boolean CItemData::IsURL(void) const
+{
+	return (!strncmp(data, kURLBeginning, strlen(kURLBeginning))) ? TRUE : FALSE;
+}</pre>
+<pre>#pragma mark -</pre>
+<pre>	static Boolean IterSameCode(CItemData *anItem, const char* aCode)
+	{
+		return (strcmp(anItem-&gt;code, aCode) == 0);
+	}</pre>
+<pre>CRowItem::CRowItem()
+{
+	selected = FALSE;
+	rowLabel[0] = '\0';
+}</pre>
+<pre>void CRowItem::Dispose()//alexa 4/11/99
+{
+	DisposeItems();//alexa 4/11/99
+	inherited::Dispose();
+}</pre>
+<pre>CItemData *CRowItem::GetData(const char* aCode)
+{
+	return (CItemData *)FirstSuccess1((TestFunc1)IterSameCode, (long)aCode);
+}</pre>
+<pre>CItemData	*CRowItem::GetData(short colIndex)
+{
+	return (CItemData *) NthItem(colIndex+1);
+}</pre>
+<pre>#pragma mark -</pre>
+<pre>void CRowItem::GetDataStr(const char* aCode, char* aStr)
+{
+	CItemData *anItemData = GetData(aCode);
+	ASSERT(anItemData);
+	if (anItemData)
+		strcpy(aStr, anItemData-&gt;GetString());
+}</pre>
+<pre>void CRowItem::GetDataStr(short colIndex, char* aStr)
+{
+	CItemData *anItemData = (CItemData *)NthItem(colIndex+1);
+	ASSERT(anItemData);
+	if(anItemData)
+		strcpy(aStr, anItemData-&gt;GetString());
+}</pre>
+<pre>Boolean CRowItem::GetClickable(short colIndex)
+{
+	const CItemData *anItemData = (CItemData *)NthItem(colIndex+1);
+	ASSERT(anItemData);
+	return (anItemData) ? anItemData-&gt;IsClickable() : FALSE;
+}</pre>
+<pre>Boolean CRowItem::IsURL(short colIndex)
+{
+	const CItemData *anItemData = (CItemData *)NthItem(colIndex+1);
+	ASSERT(anItemData);
+	return (anItemData) ? anItemData-&gt;IsURL() : FALSE;
+}</pre>
+<pre>void			CRowItem::SetURL(short colIndex, const char* url)
+{
+	CItemData *anItemData = (CItemData *)NthItem(colIndex+1);
+	ASSERT(anItemData);
+	if (anItemData)
+		anItemData-&gt;SetURL(url);
+}</pre>
+<pre>const char*	CRowItem::GetURL(short colIndex)
+{
+	CItemData *anItemData = (CItemData *)NthItem(colIndex+1);
+	ASSERT(anItemData);
+	return (anItemData) ? anItemData-&gt;GetURL() : NULL;
+}</pre>
+<pre>void CRowItem::SetItemDataImage(short colIndex, PicHandle imageH)
+{
+	CItemData *anItemData = (CItemData *)NthItem(colIndex+1);
+	ASSERT(anItemData);
+	if (anItemData)
+		anItemData-&gt;SetItemDataImage(imageH);
+}</pre>
+<pre>PicHandle CRowItem::GetItemDataImage(short colIndex)
+{
+	CItemData *anItemData = (CItemData *)NthItem(colIndex+1);
+	ASSERT(anItemData);
+	return (anItemData) ? anItemData-&gt;GetItemDataImage() : NULL;
+}</pre>
+<pre>void CRowItem::GetRowLabel(char* aStr) const
+{
+	strcpy(aStr, rowLabel);
+}</pre>
+<pre>void CRowItem::SetRowLabel(const char* newLabel)
+{
+	strcpy(rowLabel, newLabel);
+}</pre>
+<pre>#pragma mark -</pre>
+<pre>	static Boolean IterSameHeaderCode(CColumnHeader *anItem, const char* aCode)
+	{
+		return (strcmp(anItem-&gt;code, aCode) == 0);
+	}</pre>
+<pre>void CTableHeader::Dispose()//alexa 4/11/99
+{
+	inherited::Dispose();
+}</pre>
+<pre>Boolean	CTableHeader::GetTreatAsNumbers(const char* aCode)
+{
+	CColumnHeader *aHeader = (CColumnHeader *)FirstSuccess1((TestFunc1)IterSameHeaderCode, (long)aCode);
+	return aHeader ? aHeader-&gt;treatAsNumbers : FALSE;
+}</pre>
+<pre>Boolean	CTableHeader::GetTreatAsNumbers(short index)
+{
+	CColumnHeader *aHeader = (CColumnHeader *)NthItem(index+1);
+	return aHeader ? aHeader-&gt;treatAsNumbers : FALSE;
+}</pre>
+<pre>void CTableHeader::SetTreatAsNumbers(short index, Boolean numeric)
+{// index is zero based
+	CColumnHeader *aHeader = (CColumnHeader *)NthItem(index+1);
+	if (aHeader)
+		aHeader-&gt;treatAsNumbers = numeric;
+}</pre>
+<pre>void CTableHeader::GetNthTitleString(short indexInList, char* aStr)
+{//index is NOT zero based!!! it starts from 1
+	CColumnHeader *aHeader = (CColumnHeader *)NthItem(indexInList);
+	if(aHeader)
+		strcpy(aStr, aHeader-&gt;code);
+	else
+		aStr[0] = '\0';
+}</pre>
+<pre>Boolean CTableHeader::GetColIndex(const char* aCode, short&amp; index)
+{
+	Boolean	found(FALSE);</pre>
+<pre>	index = -1;</pre>
+<pre>	CColumnHeader *aHeader = (CColumnHeader *)FirstSuccess1((TestFunc1)IterSameHeaderCode, (long)aCode);
+	if (aHeader)
+	{
+		index = FindIndex(aHeader);
+		found = TRUE;
+	}</pre>
+<pre>	return found;
+}</pre>
+
+</body>
+
+</html>

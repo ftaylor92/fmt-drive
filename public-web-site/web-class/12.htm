@@ -1,0 +1,73 @@
+<html>
+<head>
+	<script type="text/javascript">
+		function calculate() {
+			var total= 0.0;
+
+			var table= document.getElementById("shoppingCart");
+
+			var i= 1;
+
+			for(i= 1; i < table.rows.length; i++) {
+				document.write("Item: "+ table.rows[i].cells[0].innerHTML);
+				document.write("<br />");
+				document.write("Price: "+ table.rows[i].cells[1].innerHTML);
+				document.write("<br />");
+				document.write("Quantity: "+ table.rows[i].cells[2].innerHTML);
+				document.write("<br />");
+
+
+				total= total+ parseFloat(table.rows[i].cells[1].innerHTML)*parseInt('1');
+				document.write("<br />");
+			}
+			document.write("Total Cost: $"+ total);
+		}
+	</script>
+</head>
+<body>
+<form action="13.htm">
+<table border="1" id="shoppingCart">
+<thead>
+What I want for Christmas is:
+	<tr><th>item</th><th>price</th><th>quantity</th></tr></thead>
+<tbody>
+<script type="text/javascript">
+	var items= new Array(3);
+	
+	items[0]= new Object();
+	items[0].name= "Bicycle";
+	items[0].price= 199.99;
+	items[0].quantity= 1;
+
+	items[1]= new Object();
+	items[1].name= "Computer";
+	items[1].price= 2000.00;
+	items[1].quantity= 2;
+
+	items[2]= new Object();
+	items[2].name= "iPod";
+	items[2].price= 149.99;
+	items[2].quantity= 4;
+	
+	
+	/*var items= ["Bicycle", "computer", "iPod"];
+	var prices= [199.99, 2000.00, 149.99];
+	var quantities= [1, 2, 4];*/
+	
+	var i= 0;
+	for(i= 0; i < items.length; i++) {
+		var item= items[i];
+		document.write("<tr><td>"+ item.name +"</td><td>$"+ item.price +"</td><td><input type='text' name='quantity"+ i +"'/></td></tr>");
+	}
+</script>
+	<tr><td>Bicycle</td><td>199.99</td><td><input type="text" /></td></tr>
+	<tr><td><b>computer</b></td><td>2000.00</td><td><input type="text" /></td></tr>
+	<tr><td>iPod</td><td>149.99</td><td><input type="text" /></td></tr>
+</tbody>
+</table>
+Calulate Sales Tax: <input type="checkbox" name="taxed" /><br/>
+
+<input type="submit" value="Calculate"/>
+</form>
+</body>
+</html>

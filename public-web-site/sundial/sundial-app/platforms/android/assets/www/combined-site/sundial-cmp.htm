@@ -1,0 +1,77 @@
+<html>
+<head>
+	
+</head>
+<body onload="sundialShadowpackage.init()">
+
+	<h2>Current Sundial</h2>
+
+	<noscript>
+		<p style="color: #A00; font-weight: bold">
+			Sorry, but this page requires JavaScript!
+		</p>
+	</noscript>
+
+	<p style="color:#A00; font-weight: bold" id="message-cmp"></p>
+	
+	<div id="sundialInputs">
+Name: <input name="current-sundialName" title="sundial Name" type="text" id="current-sundialName" size="15" required="true" />
+Time: <input name="current-dtime" title="time" type="datetime" id="current-dtime" size="20" required="true" />
+Latitude: <input title="current-latitude" type="number" id="current-latitude" min="-90" max="90" size="9" required="true" />
+Longitude: <input title="current-longitude" type="number" id="current-longitude" min="-180" max="180" size="9" required="true" />
+
+
+<!-- button id="addDial" onclick="sundialTwopackage.createDial()">Add SunDial</button><br/>
+
+<-- input type="range" min="-10" max="10" value="0" step="2" / ->
+</div>
+<hr/>
+<div id="buttons">
+	<table><tr><td>
+		<button id="ani" onclick="sundialTwopackage.animate()">Animate All</button><br/>
+	</td><td>
+		<button style="visibility:hidden" id="pause" onclick="sundialTwopackage.step()" >Pause</button><br/>
+		</td>
+		</tr>
+	</table>
+</div>
+<hr/ -->
+<div id="current-sundialCanvases" >
+
+</div>
+
+<script>
+	/*document.getElementById('sundialName').value= "Wakefield";
+	document.getElementById('dtime').value= (new Date()).getFormattedDateTime(); //new Date(2014, 5, 21);
+	document.getElementById('latitude').value= '42.5109955';
+	document.getElementById('longitude').value= '-71.0382657';
+*/
+
+
+	// test for presence of geolocation
+	/*console.log("check geo");
+	if (navigator && navigator.geolocation) {
+		console.log("geo");
+		navigator.geolocation.getCurrentPosition(geo_success, geo_error);
+	} else {
+		console.log("no geo");
+		error('Geolocation is not supported.');
+					geo_error(null);
+	}
+
+	function geo_success(position) {
+		console.log("geo-success");
+		document.getElementById('latitude').value= position.coords.latitude;
+		document.getElementById('longitude').value= position.coords.longitude;
+		console.debug("Latitude, Longitude: "+ position.coords.latitude+", "+position.coords.longitude);
+		console.debug("Here&Now: "+ (new Date()));
+	}
+
+	function geo_error(position) {
+		console.log("geo-fail");
+		document.getElementById('latitude').value= 42.5109955;	//Wakefield, MA, USA
+		document.getElementById('longitude').value= -71.0382657;
+	}	*/
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>package impacts</title>
+</head>
+
+<body>
+
+<pre>package impacts.common.sim.messageupdater;
+ </pre>
+<pre>// Java import statements.
+import junit.framework.TestCase;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+import java.text.ParseException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.File;
+			</pre>
+<pre>// External project import statements
+import impacts.tkar.util.GCCSmFormats;</pre>
+<pre>// Internal project import statements
+import impacts.common.sim.messageupdater.MessageTransformer;
+import impacts.common.sim.messageupdater.TWMessage;
+import impacts.common.sim.messageupdater.TWDate;</pre>
+<pre>/**
+ * JUnit tester for Message Updater
+ * &lt;P&gt;
+ */
+public class MessageTester extends TestCase
+{
+	//protected void setUp() {} protected void tearDown() {}
+	</pre>
+<pre>	public void testDate()
+	{
+		TWDate date= new TWDate(&quot;111422:05Z7&quot;, &quot;SEP&quot;, &quot;02&quot;);
+		</pre>
+<pre>		assertEquals(&quot;111422:05Z SEP 2002&quot;, GCCSmFormats.zuluSecond( date.getDate() ) );
+	}
+	</pre>
+<pre>	/**
+	 * must have a valid C:/fava/test.asc and C:/fava/trans.asc files
+	 */
+	public void testTransform()
+	{
+		try
+		{
+			final File in= new File(&quot;C:/fava/test.asc&quot;);
+			final File trans= new File(&quot;C:/fava/testConv.asc&quot;);
+			final File master= new File(&quot;C:/fava/trans.asc&quot;);
+			</pre>
+<pre>			//instantiate object
+			FileReader		fIn	 = new FileReader( in );
+	      BufferedReader reader = new BufferedReader( fIn );
+			TWMessage tw= new TWMessage( &quot;\r\r\n&quot; );
+			tw.readMessage( reader );
+			reader= null;
+			fIn= null;
+			</pre>
+<pre>			//do transform
+			TWDate newDate = new TWDate(&quot;290254Z&quot;, &quot;AUG&quot;, &quot;1996&quot;);
+			tw.transform( newDate );
+			</pre>
+<pre>			//write object to file
+			FileWriter fOut = new FileWriter( trans );
+			BufferedWriter bufOut = new BufferedWriter( fOut );
+			tw.writeMessage( bufOut );
+			tw= null;
+			</pre>
+<pre>			bufOut.close();
+			fOut.close();
+			bufOut= null;
+			fOut= null;
+			</pre>
+<pre>			//compare master transformed file to new transformed file
+			fIn	 = new FileReader( trans );
+			FileReader mIn	 = new FileReader( master );
+			</pre>
+<pre>			int g= 0;
+			int c;
+			</pre>
+<pre>			while( ( c = fIn.read() ) != -1 )
+			{
+				g++;
+				if( mIn.read() != c )
+				{
+					System.out.println(&quot;Error at: &quot; + g + &quot; char: &quot; + c);
+					fail();	//if differences in files
+				}
+			}
+			</pre>
+<pre>			assertTrue( true );	//passed
+		}
+		catch( Exception e)
+		{
+			System.err.println( e.toString() );
+			fail();
+		}
+	}
+	</pre>
+<pre>	/**
+	 * must have a valid C:/fava/test2.asc and C:/fava/trans2.asc files
+	 */
+	public void testTransformTwo()
+	{
+		try
+		{
+			final File in= new File(&quot;C:/fava/test2.asc&quot;);
+			final File trans= new File(&quot;C:/fava/testConv2.asc&quot;);
+			final File master= new File(&quot;C:/fava/trans2.asc&quot;);
+			</pre>
+<pre>			//instantiate object
+			FileReader		fIn	 = new FileReader( in );
+	      BufferedReader reader = new BufferedReader( fIn );
+			TWMessage tw= new TWMessage( System.getProperty( &quot;line.separator&quot; ) );
+			tw.readMessage( reader );
+			reader= null;
+			fIn= null;
+			</pre>
+<pre>			//do transform
+			TWDate newDate = new TWDate(&quot;290254Z&quot;, &quot;AUG&quot;, &quot;1996&quot;);
+			tw.transform( newDate );
+			</pre>
+<pre>			//write object to file
+			FileWriter fOut = new FileWriter( trans );
+			BufferedWriter bufOut = new BufferedWriter( fOut );
+			tw.writeMessage( bufOut );
+			tw= null;
+			</pre>
+<pre>			bufOut.close();
+			fOut.close();
+			bufOut= null;
+			fOut= null;
+			</pre>
+<pre>			//compare master transformed file to new transformed file
+			fIn	 = new FileReader( trans );
+			FileReader mIn	 = new FileReader( master );
+			</pre>
+<pre>			int g= 0;
+			int c;
+			</pre>
+<pre>			while( ( c = fIn.read() ) != -1 )
+			{
+				g++;
+				if( mIn.read() != c )
+				{
+					System.out.println(&quot;Error at: &quot; + g + &quot; char: &quot; + c);
+					fail();	//if differences in files
+				}
+			}
+			</pre>
+<pre>			assertTrue( true );	//passed
+		}
+		catch( Exception e)
+		{
+			System.err.println( e.toString() );
+			fail();
+		}
+	}</pre>
+<pre>	
+	public void testChecksumUpdateOne()
+	{
+		try
+		{
+			assertEquals(&quot;12345k5&quot;, MessageTransformer.updateChecksum(&quot;12345k9&quot;));
+		}
+		catch(ParseException e)
+		{
+			System.err.println(e.toString() + &quot; at character &quot; + e.getErrorOffset() );
+			fail();
+		}
+	}
+	</pre>
+<pre>	public void testChecksumUpdateTwo()
+	{
+		try
+		{
+			assertEquals(&quot;12345Z5&quot;, MessageTransformer.updateChecksum(&quot;12345Z&quot;));
+		}
+		catch(ParseException e)
+		{
+			System.err.println(e.toString() + &quot; at character &quot; + e.getErrorOffset() );
+			fail();
+		}
+	}
+	</pre>
+<pre>	/**
+	 * checks that {@link MessageUpdater}.checksum() works
+	 */
+	public void testChecksumOne()
+	{
+		try
+		{
+			assertEquals('8', MessageTransformer.checksum(&quot;11111111&quot;));
+		}
+		catch(ParseException e)
+		{
+			System.err.println(e.toString() + &quot; at character &quot; + e.getErrorOffset() );
+			fail();
+		}
+	}
+	public void testChecksumTwo()
+	{
+		try
+		{
+			assertEquals('3', MessageTransformer.checksum(&quot;09-12-74&quot;));
+		}
+		catch(ParseException e)
+		{
+			System.err.println(e.toString() + &quot; at character &quot; + e.getErrorOffset() );
+			assertEquals( 2, e.getErrorOffset() );
+		}
+	}
+	public void testChecksumThree()
+	{
+		try
+		{
+			assertEquals('3', MessageTransformer.checksum(&quot;09/12/1974&quot;));
+		}
+		catch(ParseException e)
+		{
+			System.err.println(e.toString() + &quot; at character &quot; + e.getErrorOffset() );
+			assertEquals( 2, e.getErrorOffset() );
+		}
+	}	</pre>
+<pre>	public MessageTester(String name)
+	{
+		super(name);
+	}
+	</pre>
+<pre>	public static Test suite()
+	{
+		return new TestSuite( MessageTester.class );
+	}
+	</pre>
+<pre>	public static void main(String args[])
+	{
+		junit.swingui.TestRunner.run(MessageTester.class);
+	}
+}</pre>
+
+</body>
+
+</html>

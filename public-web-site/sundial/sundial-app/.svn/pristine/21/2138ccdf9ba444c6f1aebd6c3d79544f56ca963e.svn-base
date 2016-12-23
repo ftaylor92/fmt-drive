@@ -1,0 +1,64 @@
+<html>
+<head>
+	<title>Sundial</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<!-- script src="./require.js"></script -->
+	<script src="./Sun.js"></script>
+	<script src="./Dial.js"></script>
+	<script src="./shapes.js"></script>
+	<script src="./sundial.js"></script>
+	<script src="./prototype.js"></script>
+	<script src="./navy.js"></script>
+</head>
+<body>
+<h2>Sundial Animator</h2>
+<div id="sundialInputs">
+Name: <input name="sundialName" title="sundial Name" type="text" id="sundialName" size="15" required="true" />
+Time: <input name="dtime" title="time" type="datetime" id="dtime" size="20" required="true" />
+Latitude: <input title="latitude" type="number" id="latitude" min="-90" max="90" size="9" required="true" />
+Longitude: <input title="longitude" type="number" id="longitude" min="-180" max="180" size="9" required="true" />
+
+
+<button id="addDial" onclick="createDial()">Add SunDial</button><br/>
+
+<!-- input type="range" min="-10" max="10" value="0" step="2" / -->
+</div>
+<hr/>
+<div id="buttons">
+<button id="ani" onclick="animate()">Animate All</button><br/>
+<button style="visibility:hidden" id="pause" onclick="step()" >Pause</button><br/>
+</div>
+<hr/>
+<div id="sundialCanvases" >
+<!-- canvas id="myCanvas" width="457" height="468" style="border:1px solid #000000;" -->
+</canvas> 
+</div>
+
+<script>
+	document.getElementById('sundialName').value= "Wakefield";
+	document.getElementById('dtime').value= (new Date()).getFormattedDateTime(); //new Date(2014, 5, 21);
+	document.getElementById('latitude').value= '42.5109955';
+	document.getElementById('longitude').value= '-71.0382657';
+
+	// test for presence of geolocation
+	if (navigator && navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(geo_success, geo_error);
+	} else {
+		error('Geolocation is not supported.');
+					geo_error(null);
+	}
+
+	function geo_success(position) {
+		document.getElementById('latitude').value= position.coords.latitude;
+		document.getElementById('longitude').value= position.coords.longitude;
+		console.debug("Latitude, Longitude: "+ position.coords.latitude+", "+position.coords.longitude);
+		console.debug("Here&Now: "+ (new Date()));
+	}
+
+	function geo_error(position) {
+		document.getElementById('latitude').value= 42.5109955;	//Wakefield, MA, USA
+		document.getElementById('longitude').value= -71.0382657;
+	}	
+</script>
+</body>
+</html>

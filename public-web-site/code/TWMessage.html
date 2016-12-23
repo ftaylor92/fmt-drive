@@ -1,0 +1,171 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>package impacts</title>
+</head>
+
+<body>
+
+<pre>package impacts.common.sim.messageupdater;
+ </pre>
+<pre>// Java import statements.
+import java.util.ArrayList;
+import java.io.IOException;
+import java.text.ParseException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.util.StringTokenizer;</pre>
+<pre>// External project import statements</pre>
+<pre>// Internal project import statements</pre>
+<pre>/**
+ * TW Message
+
+ */
+class TWMessage//implements Serializable
+{
+	private final	ArrayList mLines= new ArrayList(12);
+	private long	mDateChange = 0;	//in seconds
+	private String newLineChar;
+	</pre>
+<pre>	/**
+	 * constructor.
+	 * @param newLineChar what to use for line breaks
+	 */
+	public TWMessage( final String newLineChar )
+	{
+		this.newLineChar = newLineChar;
+	}
+	</pre>
+<pre>	/**
+	 * takes date string and adds it to newDate, updates checksum and returns string reflecting all the updates
+	 * @param dayTime string to add to newDate
+	 * @param newDate date to add dayTime to
+	 * @return updated date as string with updated checksum
+	 * @throws ParseException is errors in conversion and updating
+	 */
+	public static String updateChecksumAddToDate( final String dayTime, final TWDate newDate ) throws ParseException
+	{
+		//set date differential
+		long dateChange = TWDate.differential( dayTime );	//add this date to newDate
+		</pre>
+<pre>		//add differential to newDate that user inputted in GUI
+		TWDate addDate = TWDate.add( newDate, dateChange );
+		</pre>
+<pre>		//update it's checksum on ddHHMMZ
+		String updateChecksumOnDayHrMin = MessageTransformer.updateChecksum( addDate.getDayHourMin() );
+		</pre>
+<pre>		return( updateChecksumOnDayHrMin );
+	}
+	</pre>
+<pre>	/**
+	 * Serailizes message in
+	 * @param in stream to read message from
+	 * @return if TWMessage Object was read in completely
+	 * @throws IOException if error reading object data from stream
+	 */
+	public boolean readMessage( final BufferedReader in ) throws IOException
+	{
+		mLines.clear();
+		boolean completeMessage = false;
+		</pre>
+<pre>		String line;
+		do
+		{
+			line = in.readLine();
+			</pre>
+<pre>			if( line == null )
+			{
+				break;  //throw( new IOException( &quot;Incomplete message in file&quot; ) );	//error if not just blank lines at EOF
+			}
+			else if ( line.trim().length() &gt; 0 )
+			{
+				mLines.add( line );
+			}
+			</pre>
+<pre>			if ( line.startsWith( &quot;NNNN&quot; ) )
+			{
+				completeMessage = true;
+			}
+		}
+		while( false == completeMessage );
+		</pre>
+<pre>		return completeMessage;
+	}</pre>
+<pre>	/**
+	 * Serailizes message out
+	 * @param out stream to write message to
+	 * @throws IOException if IO errors
+	 */
+	public void writeMessage( final BufferedWriter out ) throws IOException
+	{
+		for( int i = 0; i &lt; mLines.size(); i++ )
+		{
+			out.write( (String)mLines.get( i ) );
+			out.write( newLineChar );	//out.newLine();
+		}
+	}
+	</pre>
+<pre>	/**
+	 * transforms message date information and updates all checksums
+	 * @param newDate the new Date to switch to 
+	 * @throws ParseException if token data to be converted is in a bad format
+	 */
+	protected void transform( final TWDate newDate ) throws ParseException
+	{
+		String line;
+		StringBuffer newLine;
+		for( int i = 0; i &lt; mLines.size(); i++ )
+		{
+			line = (String)mLines.get( i );
+		 	newLine = new StringBuffer( line.length() );
+			</pre>
+<pre>			if ( line.startsWith( &quot;XXX&quot; ) )
+			{
+				parseXXX( line, newLine, newDate );
+			}
+			else if ( line.startsWith( &quot;YYY&quot; ) )
+			{
+				parseYYY( line, newLine, newDate );
+			}
+			else if ( line.startsWith( &quot;ZZZ&quot; ) )
+			{
+				parseZZZ( line, newLine, newDate );
+			}
+			else if ( line.startsWith( &quot;XYZ&quot; ) )
+			{
+				parseXYZ( line, newLine, newDate );
+			}
+			else
+			{	//copy line or check that message line isn't corrupted
+				newLine.append( line );
+			}
+			</pre>
+<pre>			mLines.set( i , newLine.toString() ); //replace old line with new line
+		}
+	}
+
+</pre>
+<pre>	/**
+	 * completely recontructs the unfinished part of a tokenized line and puts it in the StringBuffer using / separator
+	 * @param strtok a strtok which had already been run on the current message line
+	 * @param newLine the StringBuffer which holds the reconstructed line as a string
+	 */
+	protected void completeLine( final StringTokenizer strtok, final StringBuffer newLine )
+	{
+		//write out any remaining tokens
+		while ( strtok.hasMoreTokens() )
+		{
+			newLine.append( '/' );
+			String token = strtok.nextToken();
+			//if date, change to newDate
+			newLine.append( token );
+		}
+	}
+}</pre>
+
+</body>
+
+</html>

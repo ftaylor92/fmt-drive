@@ -1,0 +1,50 @@
+<html>
+<head>
+	<title>Android Apps - MicroMage Software</title>
+	<link rel="shortcut icon" href="../NCS.ico"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.75"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body bgcolor="Cornsilk">
+	<center><h2>Android Applications and Mobile Web Sites</h2></center>
+<br/>
+<ul>
+	<li><img height="96" width="96" src="../gpsdiary/icon.png" /><a href="../gpsdiary/gpsdiary.htm">GPS Diary</a>- App<br/>
+and <a href="https://gps-site.herokuapp.com">GPS Analysis website</a></li>
+
+	<li><img src="../dailybalance/icon.png" /><a href="../dailybalance/dailyBalance.htm">Julep-DailyBalances</a>-FutureFinance(FuFi) App<br/>
+and <a href="http://tinyurl.com/dailybalances">Julep website</a></li>
+
+	<li><img height="96" width="96" src="http://dl.dropboxusercontent.com/u/688127/public-web-site/sundial/sundial-app/www/img/logo.png" /><a href="http://play.google.com/store/apps/details?id=com.fmt.sundial&feature=more_from_developer">SunDial Experiments</a> App<br/>
+and <a href="http://tinyurl.com/sundial-experiments">SunDial Experiments website</a>, and <a href="http://dl.dropboxusercontent.com/u/688127/public-web-site/sundial/sundial-app/www/combined-site/menu-minimal.htm">Mobile website</a><br/>Uses <a href="https://sourceforge.net/projects/modularhtml">Modular-HTML</a> sourceforge library</li>
+
+</ul>
+<br/>
+<h3><u><span style="color:OrangeRed;">One-Tap Suite</span></u>:</h3>
+<ul >
+	<li><img src="../music-app/album.png" /><a href="../music-app/music-app.htm">Quick Play Music</a> App</li>
+	<li><img src="../images/Bookmarks.png" /><a href="http://play.google.com/store/apps/details?id=com.fmt.bookmarks.complete&feature=more_from_developer">One-Tap Bookmark Widget</a><br/>
+and <a href="http://tinyurl.com/complete-bookmarks">Complete Bookmarks website</a></li>
+	<li><img src="../google-script/icon.png" /><a href="../google-script/onetap-note.htm">One-Tap Note Taker</a> App</li>
+	
+	<li><img src="../BPL/icon.png" /><a href="http://play.google.com/store/apps/details?id=fmt.org.bpl&feature=more_from_developer">One-Tap Boston Public Library</a> (unofficial) App (based on <a href="../BPL/bpl.htm">this html</a>) to access The <a href="http://www.bpl.org">BPL</a> web site</li>
+</ul>
+<br/><hr/>
+My <a href="http://dl.dropboxusercontent.com/u/688127/public-web-site/index.html">Home Page</a><br/>
+
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+</body>
+</html>

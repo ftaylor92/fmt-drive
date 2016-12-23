@@ -1,0 +1,31 @@
+<html>
+<head>
+
+<script language="JavaScript" type="text/javascript">
+if(document.images) {
+
+	histnorm=new Image();
+	histnorm.src="images/button.jpg";
+	histover=new Image();
+	histover.src="images/button-over.jpg";
+
+}
+
+function chgImage(htmlObj, newImage) {
+
+	if(document.images)
+	{
+		htmlObj.src= newImage;
+	}
+
+}
+</script>
+</head>
+<body bgcolor=pink>
+
+<a href="http://www.amazon.com" target="cart">
+<img id="firstButton" src="images/button.jpg" onMouseover="chgImage(this, histover.src);" onMouseout="chgImage(this, histnorm.src);"/>
+</a>
+
+</body>
+</html>

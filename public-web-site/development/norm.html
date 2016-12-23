@@ -1,0 +1,120 @@
+<HTML>
+<TITLE>MovenPick</TITLE>
+<HEAD>
+<!-- defining styles for DHTML -->
+
+	<LINK REL=STYLESHEET HREF="norm.css" TYPE="text/css">
+
+	<style>
+	.spanstyle {
+		position:absolute;
+		visibility:visible;
+		top:-50px;
+		font-size:38pt;
+		font-family:IMPACT;
+		color:#FFCC66;
+	}
+
+	.spanstyle1 {
+		position:absolute;
+		visibility:visible;
+		top:-50px;
+		font-size:14pt;
+		font-family:ARIAL BLACK;
+		font-style:italic;
+		color:#CC3300;
+	}
+	</style>
+
+<!-- Dhtml text animations -->
+
+	<script language="JavaScript">
+
+	step1 = -5
+	xpos1 = 540
+	ypos1=30
+
+	function anim1(){
+		if ( document.all) { //IE
+    	
+    	
+			xpos1=xpos1+step1
+			ypos1=ypos1		
+		
+    			var thisspan = span1.style
+	    		thisspan.posLeft=xpos1
+				thisspan.posTop=ypos1
+    	
+		}
+	
+		else if ( document.layers) {
+    	
+   			xpos1=xpos1+step1
+			ypos1=ypos1
+	    		var thisspan = document.span1
+    			thisspan.left=xpos1
+			thisspan.top=ypos1
+	    	}
+		if (xpos1>180){
+			var timer=setTimeout("anim1()", 10)
+		}
+	}
+
+
+	step2 = -1
+	xpos2 = 320
+	ypos2 = 75
+
+
+
+	function anim2(){
+		if ( document.all) { //IE
+    	
+			ypos2=ypos2+step2
+			xpos2=xpos2		
+	
+		
+    			var thisspan = span2.style
+    			thisspan.posLeft=xpos2
+				thisspan.posTop=ypos2
+
+     	
+		}
+	
+		else if ( document.layers) {
+    	
+   			ypos2=ypos2+step2
+			xpos2=xpos2
+	    		var thisspan = document.span2
+    			thisspan.left=xpos2
+			thisspan.top=ypos2
+	    	}
+		if (ypos2>15){
+			var timer=setTimeout("anim2()",18)
+		}
+	}
+
+
+
+		</script>
+</HEAD>
+<BODY onLoad=" anim1(); anim2();">
+
+	<script>
+	<!-- Animation JavaScript -
+
+
+	    document.write("<span id='span1' class='spanstyle'>")
+		document.write("Moving Header")
+	    document.write("</span>")
+
+	    document.write("<span id='span2' class='spanstyle1'>")
+		document.write("By Frank Taylor")
+	    document.write("</span>")
+
+
+	// - End of JavaScript - -->
+	</script>
+
+</BODY>
+</HTML>

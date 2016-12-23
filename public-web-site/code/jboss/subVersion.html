@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.9.79  (Win32)">
+	<META NAME="CREATED" CONTENT="20050405;20522839">
+	<META NAME="CHANGED" CONTENT="16010101;0">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		P { margin-bottom: 0.08in }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<PRE>SubVersion
+
+Initialize
+Install from http://subversion.tigris.org
+check that ra-local exists with: svn --version
+svnadmin create C:/development/CVSRepository
+
+Add files
+svn import C:/development/web/projectFolder file:///C:/development/CVSRepository -m &quot;initial import&quot;
+
+Checkout (only checked out files are recognized by subVersion)
+svn checkout file:///C:/development/CVSRepository projectFolder
+
+create a .cvsignore file in projectFolder with the following contents:
+build
+dist
+build.properties
+----
+svn propset svn:ignore -F ./projectFolder/.cvsignore ./projectFolder
+
+to exclude folders and files from source control
+
+svn status - to see differences
+svn diff - differences in local version and source control version
+svn commit - to commit changes to source control
+svn update - to update source files to latest version
+svn revert - reverts files to source control version</PRE>
+</BODY>
+</HTML>

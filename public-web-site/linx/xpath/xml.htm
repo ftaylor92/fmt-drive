@@ -1,0 +1,82 @@
+<html>
+<head><title>XML XSL XSLT XPath XQuery</title></head>
+<body>
+	<center><h3>XML XSL XSLT XPath XQuery</h3></center>
+	XPath <a href="http://www.stylusstudio.com/docs/v62/d_xpath4.html#wp524437">examples</a><br />
+	XPath IBM <a href="http://www.ibm.com/developerworks/library/x-javaxpathapi/index.html#N100CD">examples</a><br />
+	XPath .NET <a href="http://www.developer.com/net/net/article.php/11087_3383961_2/NET-and-XML-XPath-Queries.htm">examples</a><br />
+	NotePad++ <a href="http://geek.sylvainw.com/2010/03/28/using-notepad-to-quickly-format-xml/">XML Plugin</a><br />
+	<br />
+	XSLT Examples:<br/>
+	to <a href="./splat.xsl">HTML</a><br/>
+	to <a href="./splat-excel-w-spaces.xsl">Text</a><br/>
+	<br/>
+	XPath Examples:<br/>
+	//AMXML/Command/Account/CommercialPolicy/Forms/Form[FormType="SUPP"]//FormID<br/>
+	//AMXML/Command/Account/CommercialPolicy/Forms/Form[FormType]//FormID<br/>
+	<br/>
+	Java:<br>
+	<pre>
+	String input= "C:/Users/n0216484/Desktop/114608_56012370BAO1_PARIS_v222.xml";
+	
+	DocumentBuilderFactory domFactory = 
+	DocumentBuilderFactory.newInstance();
+	domFactory.setNamespaceAware(true); 
+	DocumentBuilder builder = domFactory.newDocumentBuilder();
+	Document doc = builder.parse(input);
+	XPath xpath = XPathFactory.newInstance().newXPath();
+
+	////AMXML/Command/Account/CommercialPolicy/Forms/Form[FormType="SUPP"]//FormID
+	XPathExpression expr = Common.xPath.compile("//AMXML/Command/Account/CommercialPolicy/Forms/Form");
+	Object result = expr.evaluate(doc, XPathConstants.NODESET);
+	NodeList nodes = (NodeList)result;
+	for (int i = 0; i < nodes.getLength(); i++) {
+		String FormId= "none";
+		boolean isSUPP= false;
+		for(int j= 0; j < nodes.item(i).getChildNodes().getLength(); j++) {
+			String nodeName= nodes.item(i).getChildNodes().item(j).getNodeName();
+			String nodeVal= nodes.item(i).getChildNodes().item(j).getTextContent();
+			if(nodeName.equals("FormID"))	{
+				FormId= nodeVal;
+			}
+			if(nodeName.equals("FormType"))	{
+				isSUPP= nodeVal.trim().toUpperCase().equals("SUPP");
+			}
+		}
+
+		if(isSUPP) System.out.println(FormId+ " ");
+	</pre>
+	<hr />
+	<pre>
+	//set up XPath object with namespaces
+	public static final XPathFactory  factory=XPathFactory.newInstance();
+	public static final XPath xPath=factory.newXPath();
+	public static final NamespaceContext ctx = new NamespaceContext() {
+        public String getNamespaceURI(String prefix) {
+            String uri;
+            if (prefix.equals("AMXML"))
+                uri = "http://www.lmig.com/AMXML";
+            else if (prefix.equals("xs"))
+                uri = "http://www.w3.org/2001/XMLSchema-instance";
+            else
+                uri = null;
+            return uri;
+        }// Dummy implementation - not used!
+        public Iterator getPrefixes(String val) {
+            return null;
+        }
+       
+        // Dummy implemenation - not used!
+        public String getPrefix(String uri) {
+            return null;
+        }
+    };
+    
+    static {
+    	xPath.setNamespaceContext(ctx);
+    }
+	...
+	inXmlStr= Common.xPath.evaluate(aPat.match, new InputSource(new FileInputStream(input)));
+	</pre>
+</body>
+</html>

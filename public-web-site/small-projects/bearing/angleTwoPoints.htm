@@ -1,0 +1,64 @@
+<html>
+<head><title></title></html>
+<body>
+<script>
+	function bearing(lat1, lon1, lat2, lon2) {
+		//translate two points from lat,long to x,y
+		var p1= {x: lat1, y:lon1};
+		var p2= {x: lat2, y:lon2};
+
+		//find the distance between the points in the x and y directions
+		//since the center of the circle is arbitrary, we will always make p1 the 12 o'clock hand 			//i.e. the center of the circle is directly under p1 and halfway down to where p2 is
+		var dist={x: Math.abs(p1.x-p2.x), y: Math.abs(p1.y-p2.y)};
+
+		//because of tricky math, I calculated the center by breaking up the circle into four
+		//quadrants depending on where p2 is in relation to p1
+		var center= null;
+		if( p1.x < p2.x) {
+			if( p1.y > p2.y) {
+				center={x: p1.x, y: p1.y-dist.y/2};	
+			} else {
+				center={x: p1.x, y: p1.y+dist.y/2};
+			}
+		} else {
+			if( p1.y < p2.y) {
+				center={x: p1.x, y: p1.y+ dist.y/2};
+			} else {
+				center={x: p1.x, y: p1.y- dist.y/2};
+			}
+		}
+
+
+		//alert("x: "+ center.x+ " y: "+ center.y);
+		
+		//I used the above code to find the radius, except a^2+b^2=c^2, the original example had a
+		// * instead of a +, which isn't what Pythagoras found
+		var radius= Math.sqrt(Math.pow(Math.abs(center.x - p2.x), 2) + Math.pow(Math.abs(center.y - p2.y), 2));
+		//Then I drew a picture, and found that the angle will be the opposite side of the right 			//triangle divided by the hypoteneuse, which is the sin(angle).
+		
+		//for more about Greek Geometry, see http://dl.dropbox.com/u/688127/public-web-site/pi.htm
+		return (dist.y/2)/radius;
+	}
+
+//So I checked my work with a sin() function:
+	function calc(lat1, lon1, lat2, lon2) {
+		document.write("for bearing("+lat1+", "+lon1+", "+lat2+" , "+lon2+"), see <a href='angleTwoPoints-notes.htm'>code</a><br/>");
+		//var ang= bearing(10, -10, 50 , -50); 
+		var ang= bearing(parseFloat(lat1), parseFloat(lon1), parseFloat(lat2) , parseFloat(lon2));
+		document.write("angle: "+ ang+"<br/>");
+		document.write("("+lat1+"-"+lat2+")*ang: "+ (parseFloat(lat1)-parseFloat(lat2))*ang+"<br/>");
+		document.write("should equal this: ("+lat1+"-"+lat2+")* Math.sin(angle): "+ (parseFloat(lat1)-parseFloat(lat2))* Math.sin(ang)+"<br/>");
+	}
+</script>
+	<h3>Bearning Calculator</h3>
+	<form id="params" name="params">
+	Point 1:<br/>
+	Lat: <input type="text" name="lat1" />
+	Long: <input type="text" name="lon1" />
+	<br/>Point 2:<br/>
+	Lat: <input type="text" name="lat2" />
+	Long: <input type="text" name="lon2" /><br/>
+	<input type="submit" value="calculate bearing" onclick="calc(document.params.lat1.value, document.params.lon1.value, document.params.lat2.value , document.params.lon2.value);return true;" />
+	</form>
+</body>
+</html>

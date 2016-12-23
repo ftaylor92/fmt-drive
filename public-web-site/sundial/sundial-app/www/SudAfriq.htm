@@ -1,0 +1,382 @@
+<html>
+	<!--
+see:
+http://www.inside-r.org/questions/position-sun-given-time-day-latitude-and-longitude
+http://www.saao.ac.za/public/viewing-the-sky/sun/approximate-position-of-the-sun-altitude-and-azimuth-from-any-location-at-any-time-for-low-accuracy-calculation/
+http://www.davidcolarusso.com/astro/	
+	-->
+	<head>
+		<title>SudAfriq</title>
+	</head>
+	<body>
+		<script>
+	function sunPosition(year, month, day, hour, min, sec, latitude, longitude) {
+		//prototypes:
+		Date.prototype.getDOY = function() {
+			var onejan = new Date(this.getFullYear(),0,1);
+			return Math.ceil((this - onejan) / 86400000);
+		} 
+		Date.prototype.getJulianNoTime= function() {
+			return Math.floor((this / 86400000) -
+			(this.getTimezoneOffset()/1440) + 2440587.5);
+		}
+		Date.prototype.getJulian= function() {
+		  //Get Julian date - 2400000
+			console.log("hours: "+ this.getHours());
+			console.log("minutes: "+ this.getMinutes());
+			console.log("days: "+ this.getDate());
+			console.log("day-of-Year: "+ this.getDOY());
+			console.log("month: "+ this.getMonth());
+			console.log("year: "+ this.getFullYear());
+
+		  var hour= this.getHours() + this.getMinutes() / 60.0 + this.getSeconds() / 3600.0 // hour plus fraction
+		  var delta= this.getFullYear() - 1949;
+		  var leap= Math.round(delta / 4) //former leapyears
+		  var jd= 32916.5 + delta * 365 + leap + this.getDOY() + this.getHours() / 24.0;
+		  return jd+ 2400000;
+		}
+		Date.prototype.getJulianForm= function() {
+			
+		  var id = form.DayList.selectedIndex+1;
+		  var mm = this.getMonth();
+		  var iyyy = this.getFullYear();
+		  var ysgn = 1-2*form.ADBC.selectedIndex;
+		  var jy=ysgn*iyyy, ja, jm, jul;
+		  if (iyyy < 1) {
+			alert("Enter positive year, then specify A.D. or B.C.\n(There was no year 0.)")
+			return;
+		  }
+		  if (jy<0) ++jy;
+		  if (mm > 2) jm=mm+1;
+		  else { --jy; jm=mm+13;}
+		  jul = tolong(Math.floor(365.25*jy)+Math.floor(30.6001*jm)+id+1720995);
+		  if (id+31*(mm+12*ysgn*iyyy) >= form.IGREG) {
+			ja = tolong(0.01*jy);
+			jul += 2-ja+tolong(0.25*ja);
+		  }
+		  form.JD.value = jul;
+		  civcheck=caldat(jul,form);
+		  SetDoW(form,jul);
+		  SetDelta();
+		  if (civcheck.mm != mm || civcheck.dd != id || civcheck.yyyy != iyyy
+			  || civcheck.ab != ysgn) {
+			  form.JD.value = "no such!";
+			  form.dayofweek.value = "???";
+			  document.Delta.delta.value = "???";
+		  }
+
+		}
+		//inputs:
+		/*var latitude, longitude;
+		var hour, minute, second, year, month, day;
+		year= 1997;
+		month= 8;
+		day= 25;
+		hour=12;
+		min=0;
+		sec=0;
+        latitude=46.5;
+		longitude=6.5;*/
+		var dtime= new Date(year,month-1,day,hour, min, sec,0);
+		
+		console.log("Sun Position 1");
+		
+		var twopi= 2 * Math.PI;
+		var deg2rad= Math.PI / 180.0;
+ 
+		//var doy= getDayOfYear(year, month, day);
+		
+		console.log("DOY="+dtime.getDOY());
+		
+		  /*Get Julian date - 2400000
+		  hour <- hour + min / 60 + sec / 3600 # hour plus fraction
+		  delta <- year - 1949
+		  leap <- trunc(delta / 4) # former leapyears
+		  jd <- 32916.5 + delta * 365 + leap + day + hour / 24*/
+	  
+		var jd= dtime.getJulian();
+		jd-= 2400000;
+		console.log("Julian of "+dtime+"="+jd);
+		
+		  /*The input to the Atronomer's almanach is the difference between
+		  # the Julian date and JD 2451545.0 (noon, 1 January 2000)
+		  time <- jd - 51545.*/
+		var time= jd- 51545;
+		console.log("time="+time);
+		
+		  /*Mean longitude
+  mnlong <- 280.460 + .9856474 * time
+  mnlong <- mnlong %% 360
+  mnlong[mnlong < 0] <- mnlong[mnlong < 0] + 360*/
+		var mnlong= 280.460+ 0.9856474* time;
+		mnlong %= 360;
+		if(mnlong < 0)	mnlong+= 360;
+		console.log("mnlong="+mnlong);
+		
+ 
+  /*Mean anomaly
+  mnanom <- 357.528 + .9856003 * time
+  mnanom <- mnanom %% 360
+  mnanom[mnanom < 0] <- mnanom[mnanom < 0] + 360
+  mnanom <- mnanom * deg2rad*/
+		var mnanom= 357.528 + 0.9856003 * time;
+		mnanom %= 360;
+		if(mnanom < 0)	mnanom+= 360;
+		console.log("mnanom="+mnanom);
+		
+  /*Ecliptic longitude and obliquity of ecliptic
+  eclong <- mnlong + 1.915 * sin(mnanom) + 0.020 * sin(2 * mnanom)
+  eclong <- eclong %% 360
+  eclong[eclong < 0] <- eclong[eclong < 0] + 360
+  oblqec <- 23.429 - 0.0000004 * time
+  eclong <- eclong * deg2rad
+  oblqec <- oblqec * deg2rad*/
+  var eclong= mnlong + 1.915 * Math.sin(mnanom) + 0.020 * Math.sin(2.0 * mnanom);
+  eclong %= 360;
+  if(eclong < 0)	eclong+= 360;
+  var oblqec= 23.429 - 0.0000004 * time;
+  eclong*= deg2rad;
+  oblqec*= deg2rad;
+		console.log("eclong="+eclong);
+		console.log("oblqec="+oblqec);
+		
+	/*Celestial coordinates
+  # Right ascension and declination
+  num <- cos(oblqec) * sin(eclong)
+  den <- cos(eclong)
+  ra <- atan(num / den)
+  ra[den < 0] <- ra[den < 0] + pi
+  ra[den >= 0 & num < 0] <- ra[den >= 0 & num < 0] + twopi
+  dec <- asin(sin(oblqec) * sin(eclong))*/
+	var num= Math.cos(oblqec) * Math.sin(eclong);
+  var den= Math.cos(eclong);
+		var ra= Math.atan(num / den)
+  if(den < 0)	ra+= Math.PI;
+  if(den >= 0 && num < 0)	ra+= twopi;
+
+  var dec= Math.asin(Math.sin(oblqec) * Math.sin(eclong));
+		console.log("ra="+ra);
+		console.log("dec="+dec);
+
+  // Local coordinates
+  // Greenwich mean sidereal time
+  var gmst= 6.697375 + 0.0657098242 * time + hour;
+console.log("gmst1="+gmst);
+  gmst%= 24; // gmst %% 24
+  if(gmst < 0) gmst+= 24;
+	console.log("gmst="+gmst);
+	console.log("longitude="+longitude);
+ 
+ // Local mean sidereal time
+  var lmst= gmst + longitude / 15.0;
+  lmst%= 24;
+  if(lmst < 0) lmst+= 24;
+  lmst= lmst * 15.0 * deg2rad;
+	console.log("lmst="+lmst);
+ 
+  // Hour angle
+  var ha= lmst - ra;
+  if(ha < -Math.PI)  ha+= Math.PI* 2;
+  if(ha > Math.PI)   ha-= Math.PI* 2;
+	console.log("ha="+ha);
+ 
+  // Latitude to radians
+  latitude= latitude * deg2rad;
+	console.log("latitude="+latitude);
+ 
+  //Azimuth and elevation
+  var el= Math.asin(Math.sin(dec) * Math.sin(latitude) + Math.cos(dec) * Math.cos(latitude) * Math.cos(ha));
+  var az= Math.asin(-Math.cos(dec) * Math.sin(ha) / Math.cos(el));
+  var elc= Math.asin(Math.sin(dec) / Math.sin(latitude));
+  if(el >= elc) az= Math.PI - az;
+  if(el <= elc && ha > 0) az= az+ Math.PI* 2;
+console.log("el="+el);
+console.log("az="+az);
+console.log("elc="+elc);
+ 
+  el= el / deg2rad;
+  az= az / deg2rad;
+  latitude= latitude / deg2rad;
+ 
+var azAndEl= new Array();
+azAndEl[0]= az;
+azAndEl[1]= el;
+
+  console.log("azAndEl: "+ azAndEl);
+  //return(azAndEl);
+  }
+
+//Date,Time,,Declination,
+//9/25/1997,16:40:00,
+//Azimuth angle,Elevation (refracted)
+//210.3033,57.2438,-1.0200,261.5604,
+//278.1448,18.2934,-1.0200
+//Mean anomaly,Mean longitude,Julian day
+//184.4535,50717.1094
+//261.5604,184.4535,50717.1094->50474.16666666651
+sunPosition(1997,9,25,16,40,0,28.00,-26.25);
+/*sunPosition(2012,12,22,12,0,0,-41,0);
+sunPosition(2012,12,22,12,0,0,-3,0);
+sunPosition(2012,12,22,12,0,0,3,0);
+sunPosition(2012,12,22,12,0,0,41,0);
+*/
+
+		console.log("Sun Position 2");
+		/*examples-
+
+       (a) Cape Town       Feb 15   10:30   1995
+       (b) Bloemfontein    May 20   13:35   1996
+       (c) Johannesburg   Sept 25   16:45   1997
+
+       (1) find Y, the year minus 1900:
+
+       (a) Y = 95
+       (b)     96
+       (c)     97
+*/
+
+		//inputs:
+		var latitude, longitude;
+		var hour, minute, second, year, month, day;
+		year= 1997;
+		month= 8;
+		day= 25;
+		hour=12;
+		min=0;
+		sec=0;
+        latitude=46.5;
+		longitude=6.5;
+
+	var Y= year- 1900;
+		console.log("Y="+Y);
+	
+	
+       /*(2) find Z(J) from this table:
+           Jan   J= 1   Z(J)=-0.5*        Jul   J= 7   Z(J)=180.5
+           Feb        2            30.5*        Aug      8             211.5
+           Mar        3            58.5         Sep      9             242.5
+           Apr        4            89.5         Oct     10             272.5
+           May        5           119.5         Nov     11             303.5
+           Jun        6           150.5         Dec     12             333.5
+           (* reduce by one for a leap year)
+
+       (a) Z(J) =  30.5
+       (b)        119.5
+       (c)        242.5
+
+       (3) find D the number of days from this formula:
+           D = integer(365.25 x Y) + Z(J) + K + UT/24
+           where K is the day of the month and UT is the universal time
+
+       (a) D = int(365.25 x 95) +  30.5 + 15 +  8.500/24  = 34743.854
+       (b)        int(365.25 x 96) + 119.5 + 20 + 11.583/24  = 35203.983
+       (c)        int(365.25 x 97) + 242.5 + 25 + 14.750/24  = 35697.115
+
+       (4) find T the fraction of a julian century from this formula:
+              T = D/36525
+
+       (a) T = 0.9512349
+       (b)     0.9638325
+       (c)     0.9773337
+
+       (5) find L the mean longitude of the sun from this formula:
+           L = 279.697 + 36000.769 x T
+
+       (a) L = 34524.885  => 324.885   (removing multiples of 360 degrees)
+       (b)     34978.408  =>  58.408
+       (c)     35464.462  => 184.462      
+
+       (6) find M the mean anomaly of the sun from this formula:
+              M = 358.476 + 35999.050 x T
+
+       (a) M = 34602.029 =>  42.029   (removing multiples of 360 degrees)
+       (b)        35055.530 => 135.530
+       (c)        35541.561 => 261.561
+
+       (7) find epsilon the obliquity from this formula:
+           epsilon = 23.452 - 0.013 x T
+
+       (a) epsilon = 23.4396
+       (b)           23.4395                     
+       (c)           23.4393
+
+       (8) find lambda the ecliptic longitude of the sun from this formula:
+           lambda = L + (1.919 - 0.005 x T) x sin(M) + 0.020 x sin(2M)
+
+       (a) lambda = 324.885 + 1.9142 x  0.6695 + 0.020 x  0.9946 = 326.186
+       (b)                   58.408 + 1.9142 x  0.7005 + 0.020 x -0.9998 =  59.729
+       (c)                   184.462 + 1.9141 x -0.9892 + 0.020 x  0.2903 = 182.574
+
+       (9) find alpha the right ascension of the sun from this formula:
+           alpha = arctan (tan(lambda) x cos(epsilon))      in same quadrant as
+                                                                         lambda
+       (a) alpha = 328.428
+       (b)          57.537
+       (c)         182.362
+
+      (10) find delta the declination of the sun from this formula:
+           delta = arcsin (sin(lambda) x sin(epsilon))
+
+       (a) delta = -12.789
+       (b)          20.093
+       (c)          -1.024
+
+      (11) to proceed you need to know LONG the east-longitude of your location:
+
+                                          east-longitude          latitude
+
+       Windhoek                            17.10                -22.57
+       Cape Town                           18.37                -33.92
+       P.E.                                25.67                -33.97
+       Bloemfontein                        26.12                -29.20
+       Johannesburg                        28.00                -26.25
+       Durban                              30.93                -29.92
+
+      (12) find HA the hour angle of the sun from this formula:
+              HA = L - alpha + 180 + 15 x UT + LONG
+
+       (a) HA = 324.885 - 328.428 + 180 + 15 x  8.500 + 18.37  = -37.673
+       (b)           58.408 -  57.537 + 180 + 15 x 11.583 + 26.12  =  20.736
+       (c)          184.462 - 182.362 + 180 + 15 x 14.750 + 28.00  =  71.350
+
+      (13) find the altitude of the center of the sun ALT from this formula:
+
+       ALT [degrees] =       
+            ARCSIN [ SIN(LAT) x SIN(DEC)  +  COS(LAT) x COS(DEC) x COS(HA) ]
+
+       (a) ALT = ARCSIN ( -.5580 x -.2214  +  .8298 x .9752 x .7915 ) = 49.822
+
+       (b)            ARCSIN ( -.4879 x  .3435  +  .8729 x .9391 x .9352 ) = 36.800
+
+       (c)            ARCSIN ( -.4423 x -.0182  +  .8969 x .9998 x .3198 ) = 17.147
+
+      (14) find the azimuth of the sun AZ from this formula:
+
+       AZ [degrees] = ARCTAN [ SIN(HA) /
+
+                      (COS(HA) x SIN(LAT)  -  TAN(DEC) x COS(LAT) ]
+
+       (a) AZ = ARCTAN [ -.6112/ ( .7915 x -.5580  -  -.2270 x .8298 ) ]
+                   = ARCTAN (  2.4130 ) =  67.49   {i.e. east of true north}
+
+       (b)          ARCTAN [  .3541/ ( .9352 x -.4879  -   .3658 x .8729 ) ] 
+                      ARCTAN ( -0.45656 ) = -24.54 = 335.46  {i.e. west of true north}
+
+       (c)          ARCTAN [  .9475/ ( .3198 x -.4423  -  -.01787 x .8969 ) ]
+                      ARCTAN ( -7.5546 ) = -82.46 = 277.54   {i.e. west of true north}
+
+       COMPARISON WITH COMPUTER ALMANAC PROGRAM
+
+        rough calculation here      computer almanac calculation    difference
+
+       (a) alt = 49.8, az =  67.5       ALT = 49.8, AZ =  67.5           none
+       (b) alt = 36.8, az = 335.5       ALT = 36.8, AZ = 335.5           none
+       (c) alt = 17.1, az = 277.5       ALT = 17.1, AZ = 277.5           none*/
+	   
+	   function getJulianDays(dtime) {
+            var julianDays = Math.floor(( dtime / 86400000) - ( dtime.getTimezoneOffset() / 1440) + 2440587.5);
+            return julianDays;
+        }
+	   </script>
+	</body>
+</html>

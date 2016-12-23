@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+	<TITLE>St. Boniface Haiti</TITLE>
+<SCRIPT LANGUAGE="JavaScript" TYPE="TEXT/JAVASCRIPT">
+if(document.images) {
+
+histnorm=new Image
+	histnorm.src="images/history.jpg"
+	histover=new Image
+	histover.src="images/historyo.jpg"
+	faqnorm=new Image
+	faqnorm.src="images/faq.jpg"
+	faqover=new Image
+	faqover.src="images/faqo.jpg"
+	donatenorm=new Image
+	donatenorm.src="images/donate.jpg"
+	donateover=new Image
+	donateover.src="images/donateo.jpg"
+
+}
+
+function chgImage(htmlobj,newimage) {
+
+	if(document.images)
+	{
+		document[htmlobj].src= eval(newimage+".src");
+	}
+
+}
+</SCRIPT>
+</HEAD>
+<body bgcolor=white>
+	<P ALIGN=CENTER>
+	<TABLE border=0 cellpadding=0 cellspacing=0>
+		<TR>
+			<TD><a href="hhome.html" TARGET="content"><img name="missiont" onMouseover="document.missiont.src='images/missionto.jpg'" onMouseout="document.missiont.src='images/missiont.jpg'" src="images/missiont.jpg" /></a></TD>
+			<TD><a href="projects.html" TARGET="content" NAME="faq"><img name="projectst" onMouseover="document.projectst.src='images/projectso.jpg'" onMouseout="document.projectst.src='images/projects.jpg'" src="images/projects.jpg" /></a></TD>
+			<TD><a href="http://www.allcharities.com/servlet/npo_detail?ein_pk=043067595" TARGET="content"><img name="donatet" onMouseover="document.donatet.src='images/donateo.jpg'" onMouseout="document.donatet.src='images/donate.jpg'" src="images/donate.jpg" /></a></TD>
+			<TD><a href="news.html" TARGET="content"><img name="news" onMouseover="document.news.src='images/newso.jpg'" onMouseout="document.news.src='images/news.jpg'" src="images/news.jpg" /></a></TD>
+			<TD><a href="donate.html" TARGET="content" NAME="faq"><img name="history" onMouseover="document.history.src='images/historyo.jpg'" onMouseout="document.history.src='images/history.jpg'" src="images/history.jpg" /></a></TD>
+			<TD><a href="faq.html" TARGET="content"><img name="faq" onMouseover="document.faq.src='images/faqo.jpg'" onMouseout="document.faq.src='images/faq.jpg'" src="images/faq.jpg" /></a></TD>
+			
+		</TR>
+	</TABLE>
+	</P>
+</body>
+</HTML>

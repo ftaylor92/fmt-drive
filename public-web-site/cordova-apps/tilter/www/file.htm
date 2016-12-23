@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FileWriter Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+	var entry= null;
+	var fs= null;
+	var data= "some points";
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    }
+
+    function gotFS(fileSystem) {
+		fs= fileSystem;
+        fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+		entry= fileEntry;
+        fileEntry.createWriter(gotFileAppender, fail);
+        //fileEntry.createWriter(win, fail);
+    }
+
+	function appendData() {
+		entry.createWriter(gotFileAppender, fail);
+	}
+
+    function gotFileWriter(writer) {
+        writer.onwriteend = function(evt) {
+            console.log("contents of file now 'some sample text'");
+            writer.truncate(11);
+            writer.onwriteend = function(evt) {
+                console.log("contents of file now 'some sample'");
+                writer.seek(4);
+                writer.write(" different text");
+                writer.onwriteend = function(evt){
+                    console.log("contents of file now 'some different text'");
+                }
+            };
+        };
+        writer.write("some sample text");
+    }
+
+	function gotFileAppender(writer) {
+		writer.onwrite = function(evt) {
+			console.log("write success");
+		};
+		writer.seek(writer.length);
+    	writer.write(data);
+
+	}
+
+	function win(writer) {
+		writer.onwrite = function(evt) {
+			writer.seek(writer.length);
+				writer.write("appended text");
+			};
+		console.log("write success");
+	};
+
+
+    function fail(error) {
+        console.log(error.code);
+    }
+
+    </script>
+  </head>
+  <body>
+    <h1>Example</h1>
+    <p>Write File</p>
+	<button onclick="appendData()">append data</button>
+  </body>
+</html>
+

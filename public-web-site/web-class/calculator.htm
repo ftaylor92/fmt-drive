@@ -1,0 +1,28 @@
+<html>
+<head>
+<script type="text/javascript">
+function testThis() {
+	alert('Value 1 is ' + document.form1.box1.value);
+	alert('Value 2 is ' + document.form1.box2.value);
+	var result = parseInt(document.form1.box1.value) + parseInt(document.form1.box2.value)
+	var resultDiv= document.getElementById('result');
+	var resultHtml;
+
+	resultHtml= document.form1.box1.value+ " + "+ document.form1.box2.value+ "<br/>";
+	resultHtml+= "Result is: "+ result;
+
+	//resultDiv.innerHTML = 'Result is: ' + result;
+	resultDiv.innerHTML = resultHtml;
+}
+</script>
+</head>
+<body>
+<button type="button" onclick="testThis();">Click Me!</button>
+<form id="form1" name="form1">
+	<input type="textbox" id="box1" name="box1" size="5" maxLength="5" />
+	<input type="textbox" id="box2" name="box2" size="5" maxLength="5" />
+	<input type="button" value="Add Cost" onclick="testThis();return false;"/>
+</form>
+<div id="result" name="result"/>
+</body>
+</html>

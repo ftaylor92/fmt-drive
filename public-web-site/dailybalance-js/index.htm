@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+ <html> 
+	<head>	
+		<title>Daily Bank Balances</title> 
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="shortcut icon" href="./icon.ico"/>
+		<meta name="viewport" content="width=device-width, maximum-scale=2, minimum-scale=0.5, initial-scale=0.75"> 
+
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+	<script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+		<script src="./dailybalance.js"></script>
+		<script src="./beans.js"></script>
+		<script src="./database.js"></script>
+	</head> 
+<body>
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+
+	<center><h2>Daily Bank Balance</h2></center>
+
+		<center><small><table border="1"><thead><tr><th>Date</th><th>Balance</th><th>Event</th><th>Over</th><th>Savings</th></tr></thead>
+		<tbody><tr><td>Mon, 14</td><td style="color: red;">$15,840.83</td><td></td><td>-$1,700.62</td><td>$1,541.50</td></tr><tr><td>Tue, 15</td><td>$15,774.66</td><td></td><td>$1,774.25</td><td>$1,548.88</td></tr><tr><td>Wed, 16</td><td style="color: red;">$15,708.48</td><td></td><td>-$1,847.88</td><td>$1,556.38</td></tr><tr><td>Thu, 17</td><td style="color: red;">$15,642.31</td><td></td><td>-$1,921.50</td><td>$1,563.75</td></tr>
+		</tbody>
+		</table></small></center>
+
+	<h4>Daily Bank Balance's web site is a place to view, edit and save your future financial balances.</h4>
+	<p>Your account values are automatically synched to your <a href="http://play.google.com/store/apps/details?id=com.fmt&feature=search_result">Julep</a> cell phone app.  <img src="http://www.logoeps.com/wp-content/uploads/2011/06/android-robot-vector.jpg" height="42" width="42" />  click here for more <a href="http://dl.dropbox.com/u/688127/public-web-site/dailybalance/dailyBalance.htm">info</a>.</p>
+
+	<!-- p>Your <b>Account id</b> allows you to save and retrieve your data.  It is not fully protected against hackers :(<br/><small>The data on your cell phone is secure and private.  There is <em>NO WAY</em> for anyone to associate your online account with your cell phone in any way.  When you synch data to and from your cell phone and this web site, there is <em>NO WAY</em> for anyone to associate the values synched with your cell phone in any way.  However, the data on this web site can be hacked (and deleted) by a malicious hacker, so please make your account name anonymous, something like "myAccoun26" (not like &quot;MeghnaChakrabarti&quot;).  The nature of this freely hosted web site makes everything here open and free to sophisticated hackers who might want to see things, so if you just don't make account names or bank names anything traceable, then you can rest assured that no one can harm you by exposing your data.  Once the data from this site is synched to your cell phone, your data is safe and cannot be seen or deleted by anyone (cell phone synch not yet available).</small></p -->
+	<p></p>
+	
+	<form>
+		<div style="width: 300px;" data-role="fieldcontain"><label for="hacker">I am not a hacker</label><input type="checkbox" name="hacker" id="hacker" value="false" data-inline="true" class="hacker" /></div>	
+		<div style="width: 400px;" data-role="fieldcontain"><label for="malicious">I will not act maliciously on this site</label><input data-inline="true" type="checkbox" name="malicious" id="malicious" value="false" class="malicious" /></div>
+		<div style="width: 500px;" data-role="fieldcontain"><label for="accountName">Account ID:</label><input style="width: 480px;" type="text" name="accountName" id="accountName" class="accountName" /></div>
+		<div style="width: 500px;" data-role="fieldcontain"><label for="password">Password:</label><input style="width: 480px;" type="password" name="password" id="password" class="password" /></div>
+		<div class="accountFeedback"></div>
+		<div data-role="fieldcontain">
+			<button style="width: 100px;" data-inline="true" onclick="createAccount($('input:text[name=accountName]').val(),$('input[name=password]').val());return false;">Create Account</button><small>(from username and password entered here)</small>
+			<button style="width: 50px;" data-inline="true" onclick="login($('input:text[name=accountName]').val(), $('input[name=password]').val());return false;">Login</button><small style="display:none;">(JQuery buttons stick, so sometimes a few clicks are needed to login)</small>
+		</div>
+	</form>
+<br/>
+<a HREF="mailto:ftaylor92@bc.edu">contact me</a> with any problems or suggestions
+<div id='counter'></div>
+</body>
+</html>

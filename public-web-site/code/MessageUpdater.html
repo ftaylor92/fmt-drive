@@ -1,0 +1,224 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>package impacts</title>
+</head>
+
+<body>
+
+<pre>package impacts.common.sim.messageupdater;
+ </pre>
+<pre>// Java import statements.
+import javax.swing.JFrame;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
+import javax.swing.SwingConstants;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
+import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Container;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.Window;
+import java.awt.event.ActionListener;
+import java.util.prefs.Preferences;
+import java.io.File;
+import java.util.TimeZone;
+import java.util.Date;
+import java.util.logging.Logger;</pre>
+<pre>// External project import statements
+import com.saic.div491.printscreen.Hyperactive;
+import impacts.tkar.util.GCCSmFormats;
+import com.saic.div491.swing.JPanelRows;
+import impacts.tw.common.swing.WindowActionListener;
+import impacts.common.util.LogInit;</pre>
+<pre>// Internal project import statements
+import impacts.tw.common.dataloader.message.MsgFileFilter;
+import impacts.common.sim.messageupdater.MessageTransformer;</pre>
+<pre>/**
+ * Message Updater Application
+ * &lt;P&gt;
+ * @author   F Taylor  (originator)
+ * @author   $Author$  (latest)
+ * @version  $Revision$
+ */
+public class MessageUpdater extends JFrame
+{
+   private final static String DEF_DIR_PREF = &quot;DefaultDirectory&quot;;
+   </pre>
+<pre>   private Preferences  mPrefs;
+   private File         mDefaultDir;
+   private JTextField   mFilePath;
+   private SpinnerDateModel mStartDate;
+   private JCheckBox    mSpecialEOLn;
+   private MessageTransformer transformer;
+   </pre>
+<pre>   public MessageUpdater()
+   {
+      super(&quot;Message Updater&quot;);
+      </pre>
+<pre>      //preferences
+      mPrefs = Preferences.userRoot().userNodeForPackage( this.getClass() );
+      </pre>
+<pre>      mDefaultDir= new File( mPrefs.get( DEF_DIR_PREF, &quot;&quot; ) );
+      </pre>
+<pre>      //swing layout
+      setSize(300, 200);
+      addWindowListener(
+         new WindowAdapter()
+         {
+            public void windowClosing( WindowEvent e )
+            {
+               Window w = e.getWindow();
+               w.dispose();
+               System.exit( 0 );
+            }
+         }
+      );
+      JPanelRows rows= new JPanelRows();
+      </pre>
+<pre>      JPanel pane= rows.topRow();
+      pane.add( new JLabel(&quot;Raw Message File:&quot;) );
+      mFilePath = new JTextField(15);
+      mFilePath.setText( mDefaultDir.toString() );
+      pane.add( mFilePath );
+      JButton button= new JButton(&quot;Browse&quot;);
+      button.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+               MessageUpdater.this.browseFiles();
+            }
+         }
+      );
+      pane.add( button );
+      </pre>
+<pre>      pane= rows.nextRow();
+      </pre>
+<pre>      //Date
+      pane.add( new JLabel(&quot;Starting Date:&quot;) );
+      </pre>
+<pre>      mStartDate = new SpinnerDateModel();
+      //set date with seconds being 0'd and set to Zulu time
+      GregorianCalendar GMTDate = new GregorianCalendar();
+      GMTDate.set( Calendar.SECOND, 0 );
+      GMTDate.add( Calendar.HOUR_OF_DAY, GMTDate.get( Calendar.ZONE_OFFSET ) / -1000 / 60/ 60 );	//GMT offset
+      mStartDate.setValue( GMTDate.getTime());      
+      JSpinner dateSpinner = new JSpinner( mStartDate );
+      //set format to ddHHMM MMM yyyy format
+      JSpinner.DateEditor dateFormatter= new JSpinner.DateEditor( dateSpinner, &quot;ddHHmm':'ss'Z' MMM yyyy&quot; );
+      dateSpinner.setEditor( dateFormatter );
+      pane.add( dateSpinner );   //add it to GUI
+      </pre>
+<pre>      mSpecialEOLn = new JCheckBox(&quot;Include EOL &lt;cr&gt;&lt;cr&gt;&lt;lf&gt;&quot;);
+      pane.add( mSpecialEOLn );
+      </pre>
+<pre>      pane= rows.nextRow();
+      button= new JButton(&quot;Create&quot;);
+      button.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+               MessageUpdater.this.transformFile();
+            }
+         }
+      );
+      pane.add( button );
+      getContentPane().add( rows );
+      </pre>
+<pre>      pack();
+      show();
+   }
+      </pre>
+<pre>   /**
+    * does the transform file process and saves transformed file.
+    */
+   protected void transformFile()
+   {
+      final File selectedFile = new File( mFilePath.getText() );
+      </pre>
+<pre>      if ( selectedFile.isFile() )
+      {
+         WindowActionListener.setWaitCursor(this);
+                           </pre>
+<pre>         if ( null == transformer )
+         {
+            transformer = new MessageTransformer();
+         }
+         </pre>
+<pre>         final String newLineChar = mSpecialEOLn.isSelected() ? &quot;\r\r\n&quot; : System.getProperty( &quot;line.separator&quot;, &quot;\r\r\n&quot; );
+         final int errors = transformer.transform( selectedFile, new TWDate( mStartDate.getDate() ), newLineChar );</pre>
+<pre>         if ( errors != 0 )
+         {
+            LogInit.init( &quot;TRKW&quot;, &quot;MessageUpdating&quot; );
+         </pre>
+<pre>            if ( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog( this,
+                                    &quot;There were &quot; + errors + &quot; errors reading in Message File.  Open Log File?&quot;,
+                                    &quot;Message File Error&quot;, JOptionPane.YES_NO_OPTION, 
+                                    JOptionPane.ERROR_MESSAGE ) )
+            {  //if yes, show log file
+               showLogFile( "file:///" + LogInit.getLogDir() + &quot;/MessageUpdaterApp.0.0.log&quot;, null, transformer.getLogger() );
+            }
+         }
+         </pre>
+<pre>         mDefaultDir = selectedFile;
+         mPrefs.put( DEF_DIR_PREF, mDefaultDir.toString() );
+         </pre>
+<pre>         WindowActionListener.setDefaultCursor(this);
+      }
+      else
+      {
+         JOptionPane.showMessageDialog( this, &quot;Invalid File&quot;, &quot;File Error&quot;, JOptionPane.ERROR_MESSAGE );
+      }
+   }
+   </pre>
+<pre>   /**
+    * allows user to select file through native file chooser GUI
+    */
+   private void browseFiles()
+   {
+      JFileChooser chooser = new JFileChooser( mDefaultDir );
+      chooser.setFileFilter( new MsgFileFilter() );
+      if ( JFileChooser.APPROVE_OPTION == chooser.showOpenDialog( this ) )
+      {
+         mFilePath.setText( chooser.getSelectedFile().toString() );
+      }
+   }
+   </pre>
+<pre>   /**
+    * shows the message log file in separate window
+    * @param help
+    * @param tag
+    * @param sLogger reference to logger
+    */
+   public static void showLogFile( final String help, final String tag, final Logger sLogger )
+   {
+      ...thePane = new JEditorPane( help );...
+   }
+   </pre>
+<pre>   public static void main(String args[])
+   {
+      LogInit.init( &quot;IMPXTK&quot;, &quot;MessageUpdater&quot; );
+      </pre>
+<pre>      MessageUpdater updater= new MessageUpdater();
+   }</pre>
+<pre>}</pre>
+
+</body>
+
+</html>

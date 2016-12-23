@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title>logging</title>
+</head>
+<body>
+<big style="text-decoration: underline;"><big>java.util.logging.Logger</big></big><small>(1.4)
+(doesn&#8217;t work with JSP)</small><br>
+<br>
+<span style="text-decoration: underline;">example:</span><br>
+<code>public class JClass <br>
+{&nbsp;&nbsp; &nbsp;//set up logger<br>
+&nbsp;&nbsp; &nbsp;public static Logger logger=
+Logger.getAnonymousLogger();<br>
+<br>
+&nbsp;&nbsp; &nbsp;static {<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;try {<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Handler fh=
+new FileHandler("/tmp/JErrors.xml");<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;logger.addHandler( fh );<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;} catch ( Throwable ex ) {<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;System.err.println(ex);<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;}<br>
+&nbsp;&nbsp; &nbsp;}<br>
+<br>
+&nbsp;&nbsp; &nbsp;public static function()<br>
+&nbsp;&nbsp; &nbsp;{&nbsp;&nbsp; &nbsp;//use logger<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;logger.log( Level.INFO, "Staring
+the Program" );<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;...<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;logger.info( "Ending the Program"
+);<br>
+&nbsp;&nbsp; &nbsp;}<br>
+}<br>
+</code>
+<hr><code>
+.get/setLevel( Level newLevel )<br>
+.severe()<br>
+.warning()<br>
+.info()<br>
+.config()<br>
+.fine()<br>
+.finer()<br>
+.finest()<br>
+<br>
+Level&nbsp;&nbsp; &nbsp;.ALL<br>
+.SEVERE<br>
+&nbsp;&nbsp; &nbsp;.WARNING<br>
+&nbsp;&nbsp; &nbsp;.INFO<br>
+&nbsp;&nbsp; &nbsp;.CONFIG<br>
+&nbsp;&nbsp; &nbsp;.FINE<br>
+&nbsp;&nbsp; &nbsp;.FINER<br>
+&nbsp;&nbsp; &nbsp;.FINEST<br>
+&nbsp;&nbsp; &nbsp;.OFF</code>
+<br>
+<br>
+</body>
+</html>

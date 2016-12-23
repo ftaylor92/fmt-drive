@@ -1,0 +1,30 @@
+<html>
+<head>
+	<script type="text/javascript">
+		function calculate() {
+			var total= 0.0;
+
+			var table= document.getElementById("shoppingCart");
+
+			var i= 1;
+
+			for(i= 1; i < table.rows.length; i++) {
+				document.write("Item: "+ table.rows[i].cells[0].innerHTML);
+				document.write("<br />");
+				document.write("Price: "+ table.rows[i].cells[1].innerHTML);
+				document.write("<br />");
+				document.write("Quantity: "+ table.rows[i].cells[2].innerHTML);
+				document.write("<br />");
+
+
+				total= total+ parseFloat(table.rows[i].cells[1].innerHTML)*parseInt('1');
+				document.write("<br />");
+			}
+			document.write("Total Cost: $"+ total);
+		}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

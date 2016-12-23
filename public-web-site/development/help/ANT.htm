@@ -1,0 +1,335 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="ANT_files/filelist.xml">
+<link rel=Edit-Time-Data href="ANT_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Sample Simple ANT File</title>
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h3
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";}
+h4
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+code
+	{font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="3074"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=snow lang=EN-US style='tab-interval:.5in'>
+
+<A href="sub-ant.zip">sub-ant</A> multiple sub-directory ANT example<BR /><HR />
+
+<div class=Section1>
+
+<h3>Sample Simple ANT File</h3>
+
+<pre><span class=GramE>&lt;?xml</span> version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>&lt;project name=&quot;<span class=SpellE>ManningANT</span>&quot; &gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;property name=&quot;<span
+class=SpellE>common.folder</span>&quot; value=&quot;D<span class=GramE>:/</span><span
+class=SpellE>proj/fmt/common/source</span>&quot; /&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;path id=&quot;<span
+class=SpellE>common.classpath</span>&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>fileset</span> dir=&quot;${<span class=SpellE>common.folder</span>}/lib&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;include name=&quot;*.jar&quot;/&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/<span
+class=SpellE>fileset</span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/path&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;init&quot; description=&quot;creates folders for build&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&lt;<span
+class=SpellE>mkdir</span> dir=&quot;build/classes&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>mkdir</span> dir=&quot;dist&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;compile&quot; depends=&quot;init&quot; description=&quot;compiles Java&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;ant dir=&quot;<span
+class=GramE>./</span>com&quot; /&gt;&nbsp;&nbsp;&nbsp; &lt;!-- compiles subproject--&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>subant</span> <span class=SpellE>buildpath</span>=&quot;<span
+class=GramE>./</span>&quot; /&gt; </pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>subant</span> dir=&quot;<span class=GramE>./</span>**&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>javac</span> <span class=SpellE>srcdir</span>=&quot;<span
+class=SpellE>src</span>/&quot; <span class=SpellE>destdir</span>=&quot;build/classes/&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE><span class=GramE>classpath</span></span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>pathelement</span> path=&quot;<span class=SpellE>sqlj/lib/translator.jar</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/<span
+class=SpellE>classpath</span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/<span
+class=SpellE>javac</span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;doc&quot; depends=&quot;init&quot; description=&quot;generates <span
+class=SpellE>JavaDoc</span>&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>javadoc</span> <span class=SpellE>destdir</span>=&quot;build/classes&quot; <span
+class=SpellE>sourcefiles</span>=&quot;<span class=SpellE>fava</span>/*.java&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/<span
+class=SpellE>javadoc</span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;deploy&quot; depends=&quot;<span
+class=SpellE>compile<span class=GramE>,doc</span></span>&quot; description=&quot;deploys compiled library&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;jar <span
+class=SpellE>destfile</span>=&quot;dist/<span class=SpellE>project.jar</span>&quot; <span
+class=SpellE>basedir</span>=&quot;build/classes&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!--FTP --&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;run&quot; depends=&quot;compile&quot; description=&quot;runs the Java application&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;java <span
+class=SpellE>classname</span>=&quot;<span class=SpellE>fava.firstCIFA</span>&quot; <span
+class=SpellE>classpath</span>=&quot;build/classes&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>arg</span> value=&quot;a&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/java&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;<span
+class=SpellE>sqlj</span>&quot; description=&quot;runs SQL-J pre-compiler over <span
+class=SpellE>sqlj</span> files&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;java <span
+class=SpellE>classname</span>=&quot;<span class=SpellE>sqlj.tools.Sqlj</span>&quot; <span
+class=SpellE>args</span>=&quot;<span class=SpellE>src</span>/*.<span
+class=SpellE>sqlj</span>&quot; fork=&quot;yes&quot; <span class=SpellE>failonerror</span>=&quot;yes&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE><span class=GramE>classpath</span></span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE><span class=GramE>pathelement</span></span> location=&quot;C:/oracle/ora92/sqlj/lib/translator.jar&quot;/&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE><span class=GramE>pathelement</span></span> location=&quot;C:/oracle/ora92/sqlj/lib/runtime12.jar&quot;/&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE><span class=GramE>pathelement</span></span> location=&quot;C:/oracle/ora92/jdbc/lib/classes12.jar&quot;/&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/<span
+class=SpellE>classpath</span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/java&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;zip&quot; description=&quot;Zips up all the code&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;zip <span
+class=SpellE>destfile</span>=&quot;<span class=SpellE>website.zip</span>&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>zipfileset</span> dir=&quot;H<span class=GramE>:/</span><span
+class=SpellE>usr</span>/hero&quot; includes=&quot;<span class=SpellE>build.xml</span>&quot; prefix=&quot;website&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>zipfileset</span> dir=&quot;H<span class=GramE>:/</span><span
+class=SpellE>usr/hero/dd</span>&quot; prefix=&quot;website/<span class=SpellE>deploydescriptors</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/zip&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;<span
+class=SpellE>cvs</span>&quot; description=&quot;<span class=SpellE>SubVersion</span>=<span
+class=SpellE>cvs</span>-like tasks&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>svn</span> <span class=SpellE>javahl</span>=&quot;false&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>createRepository</span> path=&quot;H<span class=GramE>:/</span><span
+class=SpellE>usr</span>/CVSROOT&quot;/&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/<span
+class=SpellE>svn</span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;target name=&quot;run-style&quot; depends=&quot;<span
+class=SpellE>buildJar</span>&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;java <span
+class=SpellE>classname</span>=&quot;<span class=SpellE>com.puppycrawl.tools.checkstyle.gui.Main</span>&quot; </pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+class=SpellE><span class=GramE>classpathref</span></span>=&quot;<span
+class=SpellE>style.classpath</span>&quot; fork=&quot;true&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>arg</span> value=&quot;-c <span class=SpellE>sun_checks.xml</span> -<span
+class=GramE>r .&quot;</span> /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE><span class=GramE>classpath</span></span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE><span class=GramE>pathelement</span></span> location=&quot;${build}/<span
+class=SpellE>style.jar</span>&quot;/&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/<span
+class=SpellE>classpath</span> &gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='mso-spacerun:yes'>&nbsp; </span>&lt;/java&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/target&gt;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;target name=&quot;format-java&quot; unless=&quot;disabled&quot;</pre><pre><span
+style='mso-tab-count:2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+class=GramE>description</span>=&quot;TRY-CATCH: check-out all java source files, format them&quot;&gt;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=SpellE><span class=GramE>trycatch</span></span>&gt;</pre><pre><span
+style='mso-tab-count:2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=GramE>try</span>&gt;</pre><pre><span style='mso-tab-count:3'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=SpellE>antcall</span> target=&quot;<span class=SpellE>eq</span>-java&quot;/&gt;</pre><pre><span
+style='mso-tab-count:3'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=SpellE>antcall</span> target=&quot;co-java&quot;/&gt;</pre><pre><span
+style='mso-tab-count:3'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=SpellE>antcall</span> target=&quot;format-java&quot;/&gt;</pre><pre><span
+style='mso-tab-count:3'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=SpellE>antcall</span> target=&quot;java&quot;/&gt;</pre><pre><span
+style='mso-tab-count:2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/try&gt;</pre><pre><span
+style='mso-tab-count:2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=GramE>catch</span>&gt;</pre><pre><span style='mso-tab-count:3'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=SpellE>antcall</span> target=&quot;<span class=SpellE>java.undo</span>&quot;/&gt;</pre><pre><span
+style='mso-tab-count:2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/catch&gt;</pre><pre><span
+style='mso-tab-count:2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/<span
+class=SpellE>trycatch</span>&gt;</pre><pre><span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/target&gt;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;target name=&quot;clean-all&quot; depends=&quot;<span
+class=SpellE>props<span class=GramE>,clean</span></span>&quot; description=&quot;calls clean target on all subprojects&quot;&gt;</pre><pre><span
+style='mso-tab-count:2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;delete dir=&quot;${common-build}&quot;/&gt;</pre><pre><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='mso-spacerun:yes'>&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;<span
+class=SpellE>antcall</span> target=&quot;local&quot; <span class=SpellE>inheritAll</span>=&quot;true&quot;&gt;</pre><pre><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='mso-spacerun:yes'>&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;</span>&lt;<span
+class=SpellE>param</span> name=&quot;subproject-target&quot; value=&quot;clean&quot;/&gt;</pre><pre><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='mso-spacerun:yes'>&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/<span
+class=SpellE>antcall</span>&gt;</pre><pre><span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/target&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;</pre><pre><span
+class=GramE>&lt;!--</span> -------------------JBOSS------------------ Targets--&gt;</pre><pre>&nbsp; &lt;target name=&quot;<span
+class=SpellE>buildWAR</span>&quot; depends=&quot;<span class=SpellE>init<span
+class=GramE>,build</span></span>&quot;</pre><pre>&nbsp;&nbsp; <span
+class=GramE>description</span>=&quot;Create the WAR file&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>mkdir</span> dir=&quot;${jar}&quot; /&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;war <span
+class=SpellE>destfile</span>=&quot;${jar}/${<span class=SpellE>warFile</span>}&quot; <span
+class=SpellE>webxml</span>=&quot;${<span class=SpellE>dd</span>}/<span
+class=SpellE>web.xml</span>&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>fileset</span> dir=&quot;${web}&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>fileset</span> dir=&quot;${web}/DHTML&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>fileset</span> dir=&quot;${web}/form&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>fileset</span> dir=&quot;${web}/JSP&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;/<span
+class=SpellE>fileset</span>&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>fileset</span> dir=&quot;${<span class=SpellE>dd</span>}&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;include name=&quot;*.properties&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;/<span
+class=SpellE>fileset</span>&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;lib dir=&quot;${lib}&quot; /&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;classes dir=&quot;${<span
+class=SpellE>buildDir</span>}&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;include name=&quot;**/*.class&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;exclude name=&quot;com/<span
+class=SpellE>ejbean</span>/**&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;/classes&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>metainf</span> dir=&quot;${<span class=SpellE>dd</span>}&quot; includes=&quot;<span
+class=SpellE>jboss-web.xml</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>metainf</span> dir=&quot;${<span class=SpellE>dd</span>}&quot; includes=&quot;<span
+class=SpellE>jboss.xml</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>metainf</span> dir=&quot;${<span class=SpellE>dd</span>}&quot; includes=&quot;<span
+class=SpellE>context.xml</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>metainf</span> dir=&quot;${<span class=SpellE>dd</span>}&quot; includes=&quot;<span
+class=SpellE>jbosscmp-jdbc.xml</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>metainf</span> dir=&quot;${<span class=SpellE>dd</span>}&quot; includes=&quot;<span
+class=SpellE>jaws.xml</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>metainf</span> dir=&quot;${<span class=SpellE>dd</span>}&quot; includes=&quot;<span
+class=SpellE>jboss-client.xml</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;<span
+class=SpellE>metainf</span> dir=&quot;${<span class=SpellE>dd</span>}&quot; includes=&quot;faces-<span
+class=SpellE>config.xml</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; </pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/war&gt;</pre><pre>&nbsp; &lt;/target&gt;</pre><pre>&nbsp;</pre><pre>&nbsp; &lt;target name=&quot;<span
+class=SpellE>buildJAR</span>&quot; depends=&quot;<span class=SpellE>init<span
+class=GramE>,build</span></span>&quot;</pre><pre>&nbsp;&nbsp; <span
+class=GramE>description</span>=&quot;Create the JAR EJB file&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp; &lt;jar <span
+class=SpellE>destfile</span>=&quot;${jar}/${<span class=SpellE>jarFile</span>}&quot; <span
+class=SpellE>basedir</span>=&quot;${<span class=SpellE>buildDir</span>}&quot; includes=&quot;com/<span
+class=SpellE>Calculator.class<span class=GramE>,com</span>/ejbean</span>/**&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>metainf</span> dir=&quot;${<span class=SpellE>dd</span>}&quot; includes=&quot;<span
+class=SpellE>ejb-jar.xml<span class=GramE>,jboss.xml,faces</span>-config.xml</span>&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp; &lt;/jar&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>fileset</span> dir=&quot;${<span class=SpellE>dd</span>}&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;include name=&quot;*.properties&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp; &lt;/<span
+class=SpellE>fileset</span>&gt;</pre><pre>&nbsp; &lt;/target&gt;</pre><pre>&nbsp;</pre><pre>&nbsp; &lt;target name=&quot;<span
+class=SpellE>buildEAR</span>&quot; depends=&quot;<span class=SpellE>init<span
+class=GramE>,buildWAR</span></span>&quot;</pre><pre>&nbsp;&nbsp; <span
+class=GramE>description</span>=&quot;Create the EAR file&quot;&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;delete file=&quot;${jar}/${<span
+class=SpellE>earFile</span>}&quot; /&gt;</pre><pre>&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;ear <span
+class=SpellE>destfile</span>=&quot;${jar}/${<span class=SpellE>earFile</span>}&quot; <span
+class=SpellE>appxml</span>=&quot;${<span class=SpellE>dd-rel</span>}/<span
+class=SpellE>application.xml</span>&quot;&gt;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;<span
+class=SpellE>fileset</span> dir=&quot;${jar}&quot; includes=&quot;*.jar,*.war&quot; /&gt;</pre><pre>&nbsp;&nbsp;&nbsp; &lt;/ear&gt;</pre><pre>&nbsp; &lt;/target&gt;</pre><pre>&lt;/project&gt;</pre>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><span class=GramE>see</span> XSLT: <code><span
+style='font-size:10.0pt'>&lt;style in=&quot;${<span class=SpellE>inFileXML</span>}&quot;
+out=&quot;${<span class=SpellE>transformedXML</span>}&quot; style=&quot;..${<span
+class=SpellE>XSLTFile</span>}&quot;/&gt;<o:p></o:p></span></code></p>
+
+<h4><span class=GramE>non-ANT</span></h4>
+
+<p class=MsoNormal><span class=GramE><code><span style='font-size:10.0pt'>compile</span></code></span><code><span
+style='font-size:10.0pt'>: <span class=SpellE>javac</span> -<span class=SpellE>classpath</span>
+lib/<span class=SpellE>junit/junit.jar</span> <span class=SpellE>src/firstTest.java</span></span></code><span
+style='font-size:10.0pt;font-family:"Courier New"'><br>
+<code>run: java -<span class=SpellE>classpath</span> lib/<span class=SpellE>junit/junit.jar;src</span>/
+<span class=SpellE>junit.textui.TestRunner</span> <span class=SpellE>firstTest</span></code></span></p>
+
+</div>
+
+</body>
+
+</html>

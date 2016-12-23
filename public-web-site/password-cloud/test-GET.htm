@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+ <html> 
+	<head>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	</head>
+<body>
+<div id="ajaxError"></div>
+
+<script>
+function getXMLHttpRequestObject()
+{
+  var xmlhttp;
+  /*@cc_on
+  @if (@_jscript_version >= 5)
+    try {
+      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+      try {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (E) {
+        xmlhttp = false;
+      }
+    }
+  @else
+  xmlhttp = false;
+  @end @*/
+  if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+    try {
+      xmlhttp = new XMLHttpRequest();
+    } catch (e) {
+      xmlhttp = false;
+    }
+  }
+  return xmlhttp;
+}
+var http = new getXMLHttpRequestObject();
+ 
+var url = "https://fmt-password.herokuapp.com/rest/password";
+var parameters = "?username=ftaylor92&site=com.fmt.bookmarks&password=matt88";
+http.open("GET", url+"?"+parameters, true);
+http.onreadystatechange = function() { //Handler function for call back on state change.
+    if(http.readyState == 4) {
+        alert(http.responseText);
+    }
+}
+http.send(null);
+
+
+
+
+</script>
+</body>

@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title>CSS Positions</title>
+
+	<script type="text/javascript">
+	    function move() {
+		var photo= document.getElementById("photo");
+		var horizPosition= document.getElementById("horiz").value;
+		photo.style.position= "absolute";
+		photo.style.left= horizPosition;
+	    }
+	</script>
+
+	<link rel="stylesheet" type="text/css" href="stylesheet-1.css" />
+
+	<style type="text/css">
+	    body {background: cornsilk;}
+	</style>
+
+</head>
+<body>
+
+<img src="me.jpg" id="photo" /><br />
+
+<textarea id="horiz" cols="5" rows="1" style="border-style: dotted;"></textarea>
+<button onclick="javascript:move();">move it</button>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>Your Web Page</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+</head>
+<body>
+
+Your Web Site Here
+
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+<br/>
+</body>
+</html>

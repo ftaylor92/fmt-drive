@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+	<TITLE>St. Boniface Haiti</TITLE>
+<SCRIPT LANGUAGE="JavaScript" TYPE="TEXT/JAVASCRIPT">
+	picnorm=new Image
+	picnorm.src="images/services.jpg"
+
+mypics=new Array("images/nuns.jpg","images/schoolkids.jpg","images/nannette.jpg","images/fourkids.jpg","images/deveer.jpg","images/logo4.jpg","images/lila.jpg", "images/church.jpg","images/clinic.jpg");
+thispic=0;
+imgcnt=mypics.length-1;
+
+function changeslide(direction)
+{
+thispic=thispic + direction;
+
+if(thispic > imgcnt)
+{
+thispic = 0;
+}
+
+if(thispic < 0)
+{
+thispic = imgcnt;
+}
+
+document.slide.src=mypics[thispic];
+}
+</SCRIPT>
+
+</HEAD>
+	<body bgcolor=white>
+
+<h2 align=CENTER>Haiti Slides
+</h2>
+<p align=center><img src="images/nuns.jpg" name="slide" align=CENTER>
+<p align=center>
+<a href="javascript:changeslide(-1);" align=CENTER>previous</a>
+&nbsp;&nbsp;<a href="javascript:changeslide(1);" align=CENTER>next</a>
+
+	</body>
+</HTML>

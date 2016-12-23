@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE>JBoss Notes</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.9.79  (Win32)">
+	<META NAME="AUTHOR" CONTENT="Taylor">
+	<META NAME="CREATED" CONTENT="20050301;11550000">
+	<META NAME="CHANGEDBY" CONTENT="Frank Taylor">
+	<META NAME="CHANGED" CONTENT="20050405;21134365">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in; margin-left: 0.79in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 12pt; so-language: ar-SA }
+		A:link { color: #0000ff }
+		A:visited { color: #606420 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#0000ff" VLINK="#606420" DIR="LTR">
+<P CLASS="western" ALIGN=CENTER STYLE="margin-bottom: 0in"><FONT SIZE=5>JBoss
+Notes</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<OL>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">JBoss-mySQL
+	connection</FONT></P>
+	<OL>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Install
+		JBoss, MySQL including ConnectJ mysql-connector-java-X-bin.jar<SPAN LANG="en-US">
+		file in &lt;myconfig&gt;/lib/</SPAN></FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Copy
+		server/default to server/&lt;myconfig&gt;</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Add/change
+		&lt;myconfig&gt;/conf/login-config.xml with </FONT><A HREF="http://login-config.html/"><U><FONT FACE="Courier10 BT, monospace"><FONT COLOR="#0000ff">xml</FONT></FONT></U></A><FONT FACE="Courier10 BT, monospace">.</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Add/change
+		&lt;myconfig&gt;/deploy/mysql-ds.xml from &lt;jboss&gt;/docs/examples/jca</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Copy
+		mysql-connector-java-3.2.0-bin.jar to &lt;myconfig&gt;/lib</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Create
+		DB &amp; tables in MySQL, then GRANT ALL PRIVILEGES on &lt;db&gt;.*
+		to &lt;jbossuser&gt;@localhost IDENTIFIED by &lsquo;&lt;matt88-password&gt;&rsquo;
+		with GRANT OPTION;</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Run
+		./bin/run.bat &ndash;c &lt;myconfig&gt; to start,
+		</FONT><A HREF="http://localhost:8080/jmx-console"><U><FONT FACE="Courier10 BT, monospace"><FONT COLOR="#0000ff">http://localhost:8080/jmx-console</FONT></FONT></U></A>
+		<FONT FACE="Courier10 BT, monospace">JBoss-system, type=server to
+		stop.</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"></P>
+	</OL>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Project</FONT></P>
+	<OL>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">See
+		hero1.zip for JDBC in Java (not in JSP), and JSP, Servlets, and
+		JavaScript, CSS, forms.</FONT></P>
+	</OL>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Server</FONT></P>
+	<OL>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Run
+		./bin/run.bat &ndash;c &lt;type[default]&gt; to start,
+		</FONT><A HREF="http://localhost:8080/jmx-console"><U><FONT FACE="Courier10 BT, monospace"><FONT COLOR="#0000ff">http://localhost:8080/jmx-console</FONT></FONT></U></A>
+		<FONT FACE="Courier10 BT, monospace">JBoss-system, type=server to
+		stop.</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">First
+		App: From J2EETutorial14/J2EETutorial, JBossStartGuide &amp;
+		Designing Enterprise Applications with J2EE.PDF</FONT></P>
+		<OL TYPE=i>
+			<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Downloaded
+			JBoss &amp; MySQL, unzipped bank demo and JBoss demo extra files.</FONT></P>
+			<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Set
+			the .properties file and ran ant scripts to compile and make EAR,
+			which will be tied into NetBeans (JSG ch.4-4.1.6,DEA ch.7.3)</FONT></P>
+			<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Build.xml
+			and jboss-build.xml complement eachother</FONT></P>
+			<OL>
+				<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">For
+				Database(JSG ch.8): see C:\bin\jboss\docs\examples\jca\</FONT>
+				<FONT FACE="Courier10 BT, monospace">mysql-ds.xml as DB xml file
+				examples.(JSG Ch.8.1.2)</FONT></P>
+			</OL>
+		</OL>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Web
+		App Directory structure (DEA ch.7.3.4.2), then how to access
+		external web addresses(DEA ch.7.3.4.4)</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Setup
+		deployment directory and mysql-ds.xml file in
+		/server/myconfig/deploy/ (JSG ch.8.2.2) and JAR file in
+		/server/myconfig/lib/.</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Edited
+		jboss-build.xml and changed /bank/sql/create-db.sql to let ANT
+		manipulate MySQL database, then ran ANT (JSG ch.4.1.7.2)</FONT></P>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">Deployed
+		web app (JSG ch.4.1.8) and ran it as a straingt Java/Swing app.
+		With ANT.</FONT></P>
+	</OL>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">My
+	first web app(J2eetutorial14/examples/web/hello1)</FONT></P>
+	<OL>
+		<LI><P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier10 BT, monospace">ANT
+		build works.</FONT></P>
+	</OL>
+</OL>
+</BODY>
+</HTML>

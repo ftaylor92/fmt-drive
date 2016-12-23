@@ -1,0 +1,39 @@
+<html>
+<body>
+<!-- label for="country_name">Country : </label><input id="country_name" name="country_name" type="text" list="country" />
+<datalist id="country">
+   <option value="Afghanistan">
+   <option value="Albania">
+   <option value="Algeria">
+   <option value="Andorra">
+   <option value="Angola">
+</datalist> 
+<input type="range" min="0" max="50" value="10" / -->
+
+<br/><label for="latitude-slider">latitude: </label>
+<input id="latitude-slider" type ="range"  min ="-90.0" max="90.0" step ="0.1" onchange="document.getElementById('lat').value=this.value" />
+<input id="lat" type="text" placeholder="42.5" size="8" />
+
+<br/><label for="longitude-slider">longitude: </label>
+<input id="longitude-slider" type ="range" min ="-359.9" max="359.9" step ="0.1" onchange="document.getElementById('lon').value=this.value" />
+<input id="lon" type="text" placeholder="-71.1" size="8" />
+
+<!-- br/><label for="country-slider">country: </label>
+<input id="country-slider" type ="range" list="country" onchange="document.getElementById('cou').value=this.value"  />
+<input id="cou" type="text" placeholder="fff" / -->
+
+<br/><label for="time-slider">time: </label>
+<input id="time-slider" type ="range" onchange="document.getElementById('tim').value=this.value" />
+<input id="tim" type="text" placeholder="10:00" size="5" />
+
+<br/><label for="date-slider">date: </label>
+<input id="date-slider" type ="range" onchange="document.getElementById('dat').value=this.value" />
+<input id="dat" type="text" placeholder="2014-01-01" size="8" />
+
+<canvas id="worldMap" height=100 width=200>WebGL not Supported</canvas>
+
+<script>
+	
+</script>
+</body>
+</html>

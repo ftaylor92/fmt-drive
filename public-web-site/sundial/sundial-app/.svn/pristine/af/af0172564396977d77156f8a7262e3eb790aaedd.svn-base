@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Compass Example</title>
+
+	<script src="../Sun.js"></script>
+	<script src="../Dial.js"></script>
+	<script src="../shapes.js"></script>
+	<script src="../sundial.js"></script>
+	<script src="../prototype.js"></script>
+	<script src="../navy.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+	var watchID = null;
+	var tiltAngle= -1;
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+	
+	window.addEventListener("devicemotion", function(event) {
+          // Process event.acceleration, event.accelerationIncludingGravity,
+          // event.rotationRate and event.interval
+		        {acceleration: {x: v^2/r, y: 0, z: 0},
+				   accelerationIncludingGravity: {x: v^2/r, y: 0, z: 9.81},
+				   rotationRate: {alpha: 0, beta: 0, gamma: -v/r*180/pi} };
+      }, true);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        startWatch();
+    }
+	
+	// Start watching the compass
+    //
+    function startWatch() {
+
+		// Update acceleration every 3 seconds
+        var options = { frequency: 3000 };
+
+        //watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+
+		
+		/*var heading= new Object();
+		heading.magneticHeading= 45;
+		heading.trueHeading= 45;
+		heading.headingAccuracy= 30;
+		heading.timestamp= new Date();
+		
+		drawCompass(heading);*/
+		
+		window.addEventListener('deviceorientation', function(eventData) {
+		// gamma is the left-to-right tilt in degrees, where right is positive
+		var tiltLR = eventData.gamma;
+
+		// beta is the front-to-back tilt in degrees, where front is positive
+		var tiltFB = eventData.beta;
+
+		// alpha is the compass direction the device is facing in degrees
+		var dir = eventData.alpha
+
+		// deviceorientation does not provide this data
+		var motUD = null;
+
+		// call our orientation event handler
+		deviceOrientationHandler(tiltLR, tiltFB, dir, motUD);
+		}, false);
+    }
+
+
+    // onSuccess: Get the current heading
+    //
+    function onSuccess(acceleration) {
+		drawProtractor(acceleration);
+    }
+	
+	
+	
+	function deviceOrientationHandler(tiltLR, tiltFB, dir, motUD) {
+		tiltAngle= tiltLR;
+		if(tiltFB > 75
+		var txt= 'Orientation: tiltLR:' + tiltLR+" tiltFB: "+ tiltFB+" dir: "+ dir+" motUD: "+ motUD;
+		console.debug(txt);
+		var element = document.getElementById('accelerometer2');
+		element.innerHTML = txt;
+	}
+	
+	function drawProtractor(acceleration) {
+		//Heading Text
+        var element = document.getElementById('accelerometer');
+		var txt= 'Acceleration: x:' + acceleration.x+" y: "+ acceleration.y+" z: "+ acceleration.z+" timestamp: "+ acceleration.timestamp;
+		console.debug(txt);
+        element.innerHTML = txt;
+		
+		//Protractor Graphics
+		var c=document.getElementById("protractor");
+		var ctx=c.getContext("2d");
+
+		var imageObj = new Image();
+		imageObj.onload = function() {
+			//ctx.drawImage(imageObj,0, 0);
+			
+			//translate context to center of canvas
+			//ctx.translate(100, 100);
+
+			// rotate 45 degrees clockwise
+			//ctx.rotate(degToRad(heading.trueHeading));
+			// Save the current context
+			ctx.save();
+			// Translate to the center point of our image
+			ctx.translate(imageObj.width * 0.5, imageObj.height * 0.5);
+			// Perform the rotation
+			ctx.rotate(degToRad(heading.trueHeading));
+			// Translate back to the top left of our image
+			ctx.translate(-imageObj.width * 0.5, -imageObj.height * 0.5);
+			// Finally we draw the image
+			ctx.drawImage(imageObj, 0, 0);
+			// And restore the context ready for the next loop
+			ctx.restore();
+		};
+		imageObj.src = "./protractor-android.png";
+		
+		var radius= 240;
+		var origin= new Point(477/2, 250);
+		var levelLine= new Line(origin, new Point(origin.x+ Math.cos(tiltLR)* radius, origin.y+ Math.sin(tiltLR)* radius))
+		levelLine.draw(ctx, 2, "Ochre");
+		//draw line from 477/2, 250 to Math.cos(
+	}
+
+    // onError: Failed to get the heading
+    //
+    function onError(accelerationError) {
+        alert('Compass error: ' + accelerationError.code);
+    }
+
+    </script>
+  </head>
+  <body>
+    <h1>GPS Heading</h1>
+    <p>getCurrentHeading</p>
+	<div id="accelerometer">Waiting for heading...</div>
+	<div id="accelerometer2">Waiting for heading...</div>
+	<canvas id="protractor" height=255 width=477 >WebGL not available for your Browser</canvas>
+	<script>
+		startWatch();
+	</script>
+  </body>
+</html>
+

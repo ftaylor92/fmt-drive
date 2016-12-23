@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title>3D with sine cosine and tangent</title>
+	<script type="text/javascript" src="./shapes.js"></script>
+	<script type="text/javascript" src="./prototype.js"></script>
+	<script type="text/javascript" src="./three-dimension.js"></script>
+</head>
+<body>
+	<h2>2D to 3D with Sine, Cosine and Tangent</h2>
+	<div id="sundialInputs">
+		Horizontal-angle: <input name="hangle" title="horizontal angle" type="number" id="hangle" size="3" required="true" value=45 />
+		Vertical-angle: <input name="vangle" title="vertical angle" type="number" id="vangle" size="3" required="true" value=45 />
+		Depth: <input name="depth" title="depth" type="number" id="depth" min=0 size="3" required="true" value=40 />
+		<button onclick="projection()">Project 3D on 2D Canvas</button><br/>
+	</div>
+	<hr/>
+	<div id="threeDimensionalCanvas" >
+	<canvas id="twoDimensionalCanvas" width="457" height="468" style="border:1px solid #000000;">
+		Upgrade to <a href="http://www.mozilla.org/en-US/firefox">Firefox web browser</a> to use &lt;canvas&gt; tag.
+	</canvas> 
+	</div>
+
+	<script>
+		projection();
+	</script>
+
+</body>
+</html>

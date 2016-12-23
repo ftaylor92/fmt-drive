@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>3D with sine cosine and tangent</title>
+	<script type="text/javascript" src="./js/namespace.js"></script>
+	<script type="text/javascript" src="./js/shapes.js"></script>
+	<script type="text/javascript" src="./js/prototype.js"></script>
+	<script type="text/javascript" src="./js/three-dimension.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+	<script type="text/javascript" charset="utf-8">
+		var watchAcc= null;
+
+		document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady() {
+		    var options = { frequency: 1024 };
+		    watchAcc = navigator.accelerometer.watchAcceleration(onSuccessAcc, onErrorAcc, options);
+		}
+		function onSuccessAcc(acceleration) {
+			setInputs(acceleration.x,acceleration.y,acceleration.z);
+			projection();
+		}
+		function onErrorAcc(accelerationError) {
+		    alert('Compass error: ' + accelerationError.code);
+		}
+		
+		function setInputs(x,y,z) {
+			document.getElementById('level-x').value= x;
+			document.getElementById('level-y').value= y;
+			document.getElementById('level-z').value= z;
+		}
+	</script>
+</head>
+<body>
+	<h2>2D to 3D with Sine, Cosine and Tangent</h2>
+	<div id="sundialInputs">
+		X: <input type="number" id="level-x" size="2" required="true" value=0.1 />
+		Y: <input type="number" id="level-y" size="2" required="true" value=9.9 />
+		Z: <input type="number" id="level-z" size="2" required="true" value=0.1 />
+		<button onclick="projection()">Update</button><br/>
+	</div>
+	<hr/>
+	<canvas id="twoDimensionalCanvas" width="457" height="468" style="border:1px solid #000000;">
+		Upgrade to <a href="http://www.mozilla.org/en-US/firefox">Firefox web browser</a> to use &lt;canvas&gt; tag.
+	</canvas>
+
+	<script>
+		projection();
+	</script>
+
+</body>
+</html>

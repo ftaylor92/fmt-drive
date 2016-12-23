@@ -1,0 +1,30 @@
+var notification = device.notifications.createNotification('Calling mongo labs');
+device.ajax(
+    {
+      url: 'https://api.mongolab.com/api/1/databases/dailybalance/collections/system.users?apiKey=4faf2a26e4b020a46b49e5ed',
+      type: 'GET',
+      headers: {
+        'Content-Type': 'application/xml'
+      }
+    },
+    function onSuccess(body, textStatus, response) {
+      var parsedBody;
+      if(!(body && (parsedBody = JSON.parse(body)))) {
+        var error = {};
+        error.message = 'invalid body format';
+        error.content = body;
+          console.error('error: ',error);
+      }
+	  console.info('successfully received http response!: '+ parsedBody[0]._id.$oid);
+      console.info('successfully received http response!: '+ parsedBody._id.$oid);
+      notification.content = 'successfully received http response!';
+      notification.show();
+    },
+    function onError(textStatus, response) {
+      var error = {};
+      error.message = textStatus;
+      error.statusCode = response.status;
+        console.error('error: ',error);
+    });
+	
+	

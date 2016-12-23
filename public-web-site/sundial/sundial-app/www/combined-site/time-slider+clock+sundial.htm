@@ -1,0 +1,72 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+	<meta name="Description" content="Implementation in JavaScript of Meeus ephemeris algorithms">
+	<meta name="Keywords" content="Meeus,ephemeris,sun,moon,planets,astronomy,javascript,JavaScript">
+	<link href="default.css" rel=stylesheet type="text/css">
+
+
+
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+			<table>
+				<tr>
+					<td><label for="datetime-slider">Date & Time: </label>
+					<input id="datetime-slider" type="datetime" onchange="sundialTimepackage.doDateTime('dt');" />
+					<!-- br/ --></td>
+				</tr>
+				<tr>
+					<td><label for="date-slider">Date: </label>
+					<button onclick="sundialTimepackage.step('date', -1);">
+						-
+					</button>
+					<input id="date-slider" type="range" min ="1" max="365" step ="1" onchange="sundialTimepackage.doDateTime('d');" />
+					<button onclick="sundialTimepackage.step('date', 1);">
+						+
+					</button>
+					<button onclick="sundialTimepackage.step('date', 28);">
+						++
+					</button>
+					<button id="run-date" onclick="sundialTimepackage.step('date', -2);">
+						>
+					</button><!-- input id="date-val" type="date" placeholder="2014-01-31" size="10" />
+					<br/ --></td>
+				</tr>
+				<tr>
+					<td><label for="time-slider">Time: </label>
+					<button onclick="sundialTimepackage.step('time', -1);">
+						-
+					</button>
+					<input id="time-slider" type="range" min ="0" max="1440" step ="1" onchange="sundialTimepackage.doDateTime('t');" />
+					<button onclick="sundialTimepackage.step('time',1);">
+						+
+					</button>
+					<button onclick="sundialTimepackage.step('time',60);">
+						++
+					</button>
+					<button id="run-time" onclick="sundialTimepackage.step('time', -2);">
+						>
+					</button><!-- br/ --><!-- input id="time-val" type="time" placeholder="19:42+5" size="7" / --></td>
+				</tr>
+			</table><td>
+			<canvas width=100 height=100 id="clock-canvas" >
+				<!-- style="background-color:white" -->
+				canvas didn't load
+			</canvas></td>
+		</tr>
+	</table>
+
+	<script>
+	//var broadObj= new Object();
+	//broadObj.date= new Date();
+	////sundialTimepackage.setInitial(new Date());
+	//broadcastpackage.setupAll(broadObj);
+	//----
+
+	</script>
+</body>
+</html>

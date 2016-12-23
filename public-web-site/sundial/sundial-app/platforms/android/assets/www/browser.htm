@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>window.open Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        // external url
+        var ref = window.open(encodeURI('http://dl.dropboxusercontent.com/u/688127/public-web-site/sundial/three-js/cube.htm'), '_system', 'location=yes');
+		// _blank == in-app browser2
+        // relative document
+        //ref = window.open('shadow.htm', '_self');
+    }
+
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
+

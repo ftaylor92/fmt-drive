@@ -1,0 +1,31 @@
+// grab the shared storage
+var storage = device.sharedStorage;
+
+device.modeOfTransport.on('changed', function(signal) {
+
+    if (signal.current === 'driving') {
+        device.notifications.createNotification('Drive Safely!').show();
+		// get value
+		 var val = storage.getItem('com.fmt.longitude');
+		 console.info('Value for key "long" is' + val);
+		 val = storage.getItem('com.fmt.latitude');
+		 console.info('Value for key "lat" is' + val);
+    } else {
+		 // create GPS listener with update interval of 5 sec
+		 // you also use CELL or PASSIVE providers here
+		 var listener = device.location.createListener('GPS', 5000); 
+		 // regiter on location changed
+		 listener.on('changed', function (signal) {
+			 // on receiving location print it and stop the provider
+			 console.info('Lat: ' + signal.location.latitude);
+			 console.info('Lon: ' + signal.location.longitude);
+			 storage.setItem('com.fmt.longitude', signal.location.longitude);
+			 storage.setItem('com.fmt.latitude', signal.location.latitude);
+			 listener.stop();
+		 });
+
+		 // start the GPS listener
+		 listener.start();
+	}
+
+});

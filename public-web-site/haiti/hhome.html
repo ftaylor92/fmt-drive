@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+  <TITLE>home</TITLE>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</HEAD>
+<BODY BGCOLOR=white>
+<center>
+<IMG ALIGN=CENTER SRC="images/face.jpg" ALIGN="BOTTOM" NATURALSIZEFLAG=
+"0" WIDTH="305" HEIGHT="282" />
+<br>
+<br>
+<P ALIGN=CENTER><FONT SIZE=+4>Saint Boniface Haiti Foundation</FONT></P>
+<br>
+<br>
+
+<p><a href="http://haitihealth.org" onclick="window.location.replace('http://haitihealth.org');return false;">Current Web Site</a></p>
+<p><a href="sbhf.html">Page Update</a></p>
+<p><a href="or.html">Operating Room</a></p>
+<p><a href="dental.html">Dental</a></p>
+<p><a href="nutrition.html">Nutrition Center</a></p>
+<p><a href="xavier.html">Xavier House</a></p>
+<p><a href="retreats.html">Work Retreats</a></p>
+<p><a href="outreach.html">County Outreach</a></p>
+
+
+<br>
+<br>
+<br>
+</center>
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div><br/>
+<!-- Counter code version 1.0. Do NOT alter this code! http://counter.mycomputer.com --> 
+<SCRIPT language=JavaScript src="http://counter.mycomputer.com/get_counter.html?u=fmtmac&c=1">
+</SCRIPT>
+<NOSCRIPT>
+<a href="http://counter.mycomputer.com/">
+<img alt="Counter" src="http://counter.mycomputer.com/c.count?u=fmtmac&c=1" border=0></a>
+</NOSCRIPT>
+<!-- End of Counter Code --> 
+
+<br>
+</BODY>
+</HTML>

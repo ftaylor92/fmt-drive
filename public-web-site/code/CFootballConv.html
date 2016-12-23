@@ -1,0 +1,864 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#undef min
+#undef max
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+#include I_CClipboardFile
+#include I_Utils
+#include &quot;CL_Globals.h&quot;
+#include&quot;XMLStuff.h&quot;
+#include &quot;CFootballConv.h&quot;
+#include&quot;PlugInUtils.h&quot;
+#include&quot;Fetcher.h&quot;
+#include&quot;CFileFetch.h&quot;
+#include&quot;frankutils.h&quot;
+#include&quot;UnknownDataConstructor.h&quot;
+#include&quot;CList.h&quot;
+#include&quot;CRefObject.h&quot;</pre>
+<pre>#define DIAGRAM_FRAMES	16</pre>
+<pre>#define	ktopleftCorner string(&quot;topleft&quot;)
+#define	ktoprightCorner string(&quot;topright&quot;)
+#define	kbottomleftCorner string(&quot;bottomleft&quot;)
+#define	kbottomrightCorner string(&quot;bottomright&quot;)
+#define     FBC_SEPARATOR	&quot;,&quot;</pre>
+<pre>CPlugin *CreatePlugin();
+CPlugin *CreatePlugin()
+{
+	return new CFootballConvPlugin;
+}
+unsigned long GetComponentFlags();
+unsigned long GetComponentFlags()
+{
+	return kNULLModelPropertis;
+}</pre>
+<pre>static string GetWaterFromStone(char*, XMLElementSet*);
+static char* GetCharPtrFromStone(char*, XMLElementSet*);</pre>
+<pre>void CFootballConvPlugin::InitPlugin(long aDesignMode)
+{
+	CPlugin::InitPlugin(aDesignMode);
+	wasExternalDataStartup = FALSE;
+	</pre>
+<pre>}
+void CFootballConvPlugin::IFromFile(CTypedFile *file,long aDesignMode)
+{
+	inherited::IFromFile(file,aDesignMode);
+	wasExternalDataStartup = FALSE;
+}</pre>
+<pre>Boolean CFootballConvPlugin::CanCreateItem(short itemCode)
+{
+	return TRUE;
+}</pre>
+<pre>void CFootballConvPlugin::ExternalDataStartup()
+{
+	CPlugin::ExternalDataStartup();
+	wasExternalDataStartup = TRUE;
+}</pre>
+<pre>CFootballConvPlugin::CFootballConvPlugin() : mFieldFile(NULL), mMin(0), mMax(0), GpfList(NULL),
+	mFileWaiting(0), filePoints(false), firstFrame(true), mImageWidth(0), mImageHeight(0), Gwait(0),
+	dataSet(NULL), parser(NULL), rootElement(NULL), GframeDelay(5)
+{
+	xmlConsumers = new CList;
+	xmlConsumers-&gt;IList();
+}</pre>
+<pre>void CFootballConvPlugin::Dispose()
+{
+	KillXML();</pre>
+<pre>	CleanUpXMLSender();</pre>
+<pre>	ForgetList(xmlConsumers);
+	DisposeColorTable();
+	CPlugin::Dispose();
+	ClearAllFetchers();
+}
+CPluginItem *CFootballConvPlugin::NewItem(short itemCode,Point *preferedSize)
+{
+	return NULL;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::ModelParameterChanged(short anInputCode,short anIndex,StringPtr aValue)
+{
+	return ModelReturnOK;
+}</pre>
+<pre>void	CFootballConvPlugin::DoCommand(long theCommand)
+{
+	switch(theCommand)
+	{
+		case cmdOneImageDownloaded:
+			mFileWaiting--;
+			if(mFileWaiting &lt;= 0)
+				ParseXMLFile(mFieldFile, &quot;&quot;);
+			break;
+		default:
+			break;
+	}
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::DoScriptCommand(short aCommandCode,short numParam,UnknowData **data)
+{
+	ModelReturnCode retScript = InvalidScripCommand;
+	switch(aCommandCode)
+	{
+		case kSetXMLFieldCmd:
+			if(numParam != 0 &amp;&amp; data[0])	{
+				firstFrame= true;
+				CleanUpXMLSender();
+				SetFieldFile((char*)data[0]-&gt;data, kInitType);
+			}
+			break;
+		case kSetModifier:
+			if(numParam != 0 &amp;&amp; data[0])	{
+				CleanUpXMLSender();
+				SetFieldFile((char*)data[0]-&gt;data, string((char*)data[1]-&gt;data));
+			}
+			break;
+		case kAddXMLProducer:
+		{
+			/*string producerName;
+			string kind;
+			if(numParam != 0 &amp;&amp; data[0]) 
+				producerName = (char*)(data[0]-&gt;data);
+			if(numParam&gt; 1 &amp;&amp; data[1])
+				kind= (char*)(data[1]-&gt;data);
+				</pre>
+<pre>			CComponentRef *justtodelete= AddXMLProducer(producerName, kind);
+			ForgetObject(justtodelete);*/
+		}
+			break;
+		case kAddXMLConsumer:
+		{
+			string producerName;
+			string kind;
+			if(numParam != 0 &amp;&amp; data[0]) 
+				producerName = (char*)(data[0]-&gt;data);
+			if(numParam&gt; 1 &amp;&amp; data[1])
+				kind= (char*)(data[1]-&gt;data);
+				</pre>
+<pre>			(void)AddXMLConsumer((StringPtr)producerName.c_str());
+		}
+			break;
+		default:
+			break;
+	}
+	return retScript;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::SetFieldFile(char* url, const ProdType producerType)
+{
+	if(producerType == kInitType)
+	{
+		//mProdMap.empty();
+		mTeams.empty();
+	}
+	</pre>
+<pre>	if(strlen(url) &gt; 511) return ModelReturnNoUserData;	//char string too long</pre>
+<pre>	mCurrentProducerType= producerType;
+	</pre>
+<pre>	/*char	oldPath[512];
+	DataBuf	theData;
+	theData.buf = oldPath;
+	theData.len = 511;
+	itsPlugin-&gt;GetShellParameter(kXMLFieldParam, 0, &amp;theData);</pre>
+<pre>	if(strcmp(oldPath, url) != 0)*/
+	{
+		KillXML();
+		</pre>
+<pre>		LoadTextFile(this, url, &amp;mFieldFile);
+		//itsPlugin-&gt;SetShellParameter(kXMLFieldParam, 0, url);
+	}
+	</pre>
+<pre>	return ModelReturnOK;
+}</pre>
+<pre>CProducerRef* CFootballConvPlugin::AddXMLConsumer(StringPtr consumerName)
+{
+	CProducerRef *newRef(NULL);
+	RefInfo info;
+	info.componentName = consumerName;
+	newRef= (CProducerRef*)xmlConsumers-&gt;FirstSuccess1((TestFunc1)IterFindProducer,(long)&amp;info);</pre>
+<pre>	if(newRef != NULL)	return newRef;</pre>
+<pre>	newRef = new CProducerRef;
+	newRef-&gt;IProducerRef(this,consumerName);
+	xmlConsumers-&gt;Append(newRef);</pre>
+<pre>	return newRef;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::ParseXMLFile(char *xml, const char *kind)
+{
+/*	KillXML();
+	</pre>
+<pre>	int l= strlen(xml);
+	mFieldFile= new char[l+1];
+	strcpy(mFieldFile, xml);	//pointer to xml text
+	mCurrentProducerType= kind;*/
+	</pre>
+<pre>	return(ParseDataFiles());
+}</pre>
+<pre>CComponentRef *CFootballConvPlugin::AddXMLProducer(const string producerName, const string kind)
+{
+	//Add Producer to Map
+	ProdMapIter	CompRef= mProdMap.find(producerName);
+	if(CompRef == mProdMap.end())
+	{
+		CComponentRef *theProducer = new CComponentRef();	//inert new producer
+		if(theProducer)
+		{
+			theProducer-&gt;IComponentRef(this, (StringPtr)producerName.c_str());
+			mProdMap.insert(ProdPair(string(kind), *theProducer));
+			return theProducer;
+		}</pre>
+<pre>		CompRef= mProdMap.find(producerName);
+	}
+	</pre>
+<pre>	if(CompRef == mProdMap.end())
+		return(NULL);
+	else
+		return(&amp;(CompRef-&gt;second));
+}
+	</pre>
+<pre>ModelReturnCode CFootballConvPlugin::ParseDataFiles(void)
+{
+	ModelReturnCode	retCode(ModelReturnOK);
+	attributeSet	*attributes= NULL;
+	char			*value= NULL;
+	</pre>
+<pre>	if(mFieldFile)
+	{
+		int height= 0, width= 0;</pre>
+<pre>		rootElement = new SimPlayerXMLElement();
+		parser = new XMLParser();</pre>
+<pre>		char *beginParsing = parser-&gt;CheckForXMLHeader(mFieldFile);
+		if(parser-&gt;isDocumentValid()){
+			parser-&gt;parse(beginParsing,rootElement);
+		}
+		else retCode= ModelReturnERR;	//not good XML format
+		</pre>
+<pre>		//&lt;gamelineup&gt;
+		char *name = rootElement-&gt;GetName();
+		if(name != NULL || strcmp(name,&quot;play&quot;) == 0)
+		{
+			//PARSE ORDER IMPORTANT!!!
+			//&lt;background&gt;
+			XMLElementSet *creationSet = rootElement-&gt;GetElementsByName(&quot;creationinfo&quot;);
+			if(creationSet != NULL){
+				ParseCreationInfo(creationSet);
+				creationSet-&gt;Dispose();
+			}</pre>
+<pre>			//&lt;field&gt;
+			XMLElementSet *headerSet = rootElement-&gt;GetElementsByName(&quot;playheader&quot;);
+			if(headerSet != NULL){
+				ParsePlayHeader(headerSet);
+				headerSet-&gt;Dispose();
+			}
+						</pre>
+<pre>			//&lt;shapes&gt;
+			dataSet = rootElement-&gt;GetElementsByName(&quot;playdata&quot;);
+			if(dataSet != NULL){
+				ParsePlayData(dataSet);
+			}
+		}
+		else retCode= ModelReturnERR;	//not &lt;gamelineup&gt; type
+	}
+	</pre>
+<pre>	return retCode;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::ParsePlayData(XMLElementSet *shapeSet)
+{
+	attributeSet	*attributes(NULL);
+//	Rect		compRect;</pre>
+<pre>	if(shapeSet == NULL){
+		return ModelReturnERR;	//passed a null
+	}
+	</pre>
+<pre>	SimPlayerXMLElement *shapeDesc = (SimPlayerXMLElement *)shapeSet-&gt;GetFirstElement();
+	if(shapeDesc == NULL){
+		return ModelReturnERR;	//no &lt;shapes&gt; elements
+	}</pre>
+<pre>	/*&lt;producer&gt;
+	XMLElementSet *prodList = shapeDesc-&gt;GetElementsByName(&quot;producer&quot;);
+	if(prodList != NULL)
+	{
+		ParseProducer(prodList);
+		prodList-&gt;Dispose();
+	}*/
+	</pre>
+<pre>	//&lt;ball&gt;
+	XMLElementSet *chalkList = shapeDesc-&gt;GetElementsByName(&quot;echalk&quot;);
+	if(chalkList != NULL)
+	{
+		ParseEChalk(chalkList);
+		chalkList-&gt;Dispose();
+	}
+	</pre>
+<pre>	//&lt;valuespec&gt;
+	XMLElementSet *pfList = shapeDesc-&gt;GetElementsByName(&quot;pf&quot;);
+	if(pfList != NULL)
+	{
+		ParsePlayers(pfList);
+		//pfList-&gt;Dispose();
+	}</pre>
+<pre>	return ModelReturnOK;
+}</pre>
+<pre>void CFootballConvPlugin::ParseTeam(XMLElementSet *teamList)
+{
+	attributeSet	*attributes(NULL);</pre>
+<pre>	for(int i(0); i &lt; teamList-&gt;size(); i++)
+	{
+		SimPlayerXMLElement *team = (SimPlayerXMLElement*)teamList-&gt;GetNthElement(i);
+		if(team == NULL) continue;
+		attributes = team-&gt;GetAttributes();
+		if(attributes)
+		{
+			char *kind = attributes-&gt;getValue(&quot;kind&quot;);
+			char *values = attributes-&gt;getValue(&quot;values&quot;);
+			if(kind)
+			{
+				TeamMapIter pTeam= mTeams.find(string(kind));
+				if(pTeam != mTeams.end())
+				{
+					if(mCurrentProducerType == kInitType)
+					{
+						mTeams.erase(pTeam);	//remove duplicate team on init
+						CTeam *aTeam = new CTeam(values, this);	//insert new team
+						mTeams.insert(TeamPair(string(kind), *aTeam));
+						delete aTeam;
+					}
+				}			
+				else
+				{
+					CTeam *aTeam = new CTeam(values, this);	//insert new team
+					mTeams.insert(TeamPair(string(kind), *aTeam));
+					delete aTeam;
+				}
+				</pre>
+<pre>				pTeam= mTeams.find(string(kind));
+				</pre>
+<pre>				XMLElementSet *shapeList = team-&gt;GetElementsByName(&quot;shape&quot;);
+				if(shapeList != NULL &amp;&amp; pTeam != mTeams.end())
+				{
+					shapeList-&gt;Dispose();
+				}
+			}
+		}
+	}
+}
+</pre>
+<pre>void CFootballConvPlugin::ParseProducer(XMLElementSet *prodList)
+{
+	attributeSet	*attributes(NULL);</pre>
+<pre>	for(int i(0); i &lt; prodList-&gt;size(); i++)
+	{
+		SimPlayerXMLElement *prod = (SimPlayerXMLElement*)prodList-&gt;GetNthElement(i);
+		if(prod == NULL) continue;
+		attributes = prod-&gt;GetAttributes();
+		if(attributes)
+		{
+			char *kind = attributes-&gt;getValue(&quot;kind&quot;);
+			char *name = attributes-&gt;getValue(&quot;name&quot;);
+			if(name &amp;&amp; kind)
+			{
+				ProdMapIter	CompRef= mProdMap.find(string(kind));	//clear old producer
+				if(CompRef != mProdMap.end())
+				{
+					mProdMap.erase(CompRef);
+				}
+				</pre>
+<pre>				CComponentRef*	aComponent = new CComponentRef();	//inert new producer
+				if(aComponent)
+				{
+					aComponent-&gt;IComponentRef(this, (StringPtr)name);
+					mProdMap.insert(ProdPair(string(kind), *aComponent));	
+					aComponent-&gt;Dispose();					
+					aComponent= NULL;
+				}
+			}
+		}
+	}
+}</pre>
+<pre>void CFootballConvPlugin::ParsePlayers(XMLElementSet *pfList)
+{
+	Gsz= pfList-&gt;size();
+	Gplayer= 0;
+	GpfList= pfList;
+}</pre>
+<pre>void CFootballConvPlugin::ParseMorePlayers(void)
+{
+	short pixel(0);
+	char* token;
+	char* delims= FBC_SEPARATOR;
+	//attributeSet	*attributes(NULL);
+	vector&lt;CPlayer&gt;::iterator pi;
+	</pre>
+<pre>	if(Gplayer &lt; Gsz)
+	{
+		SimPlayerXMLElement *pf = (SimPlayerXMLElement*)GpfList-&gt;GetNthElement(Gplayer);
+		if(pf != NULL)
+		{
+			//ry= false;
+			//attributes = pf-&gt;GetAttributes();
+			//if(attributes)
+			{
+				//char *kind = attributes-&gt;getValue(&quot;ID&quot;);	//frame number</pre>
+<pre>				SimPlayerXMLElement *firstchild= pf-&gt;GetFirstChild();
+				if(firstchild-&gt;content)
+				{
+					token= strtok(firstchild-&gt;content, delims);
+					pi= mPlayers.begin();</pre>
+<pre>					while(token != NULL &amp;&amp; pi &lt; mPlayers.end())
+					{
+						pi-&gt;x= atoi(token);
+						token= strtok(NULL, delims);
+						pi-&gt;y= atoi(token);
+						token= strtok(NULL, delims);
+						pi++;
+					}
+				}
+				</pre>
+<pre>				WriteFile(firstFrame, Gplayer==DIAGRAM_FRAMES);
+				firstFrame= false;
+				UpdateLineup();
+			}
+		}
+		Gplayer++;
+	}
+	else
+	{
+		CleanUpXMLSender();
+	}
+/*	attributeSet	*attributes(NULL);
+	</pre>
+<pre>/*	SimPlayerXMLElement *valspec = (SimPlayerXMLElement*)valSpecList-&gt;GetFirstElement();
+	if(valspec == NULL) return;
+	</pre>
+<pre>	attributes = valspec-&gt;GetAttributes();
+	if(attributes)
+	{
+		char *str;
+		str= attributes-&gt;getValue(&quot;min&quot;);
+		if(str)	mMin= atof(str);
+		str= attributes-&gt;getValue(&quot;max&quot;);
+		if(str)	mMax= atof(str);
+		str= attributes-&gt;getValue(&quot;mincolor&quot;);
+		if(str)	Str2RGB((StringPtr)str, &amp;(mMinColor));
+		str= attributes-&gt;getValue(&quot;maxcolor&quot;);
+		if(str)	Str2RGB((StringPtr)str, &amp;(mMaxColor));
+	}*/
+}</pre>
+<pre>void CFootballConvPlugin::CleanUpXMLSender(void)
+{
+	KillXML();
+	if(GpfList)	GpfList-&gt;Dispose();
+	GpfList= NULL;
+	if(dataSet)	dataSet-&gt;Dispose();
+	dataSet= NULL;
+	if(rootElement)	delete rootElement;
+	rootElement= NULL;
+	if(parser)	delete parser;
+	parser= NULL;
+}</pre>
+<pre>void CFootballConvPlugin::WriteFile(bool allInfo, bool removearrows)
+{
+	char CStr[1024];
+	xmlfile= &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;\n&quot;;
+	</pre>
+<pre>	xmlfile+= &quot;&lt;gamelineup&gt;\n&quot;;</pre>
+<pre>		if(allInfo)
+		{
+			xmlfile+= &quot;&lt;background&gt;\n&quot;;
+				xmlfile+= &quot;&lt;img src=\&quot;&quot; + mFilePath + mBkgndPict + mImageFileSuffix + &quot;\&quot;/&gt;\n&quot;;
+			xmlfile+= &quot;&lt;/background&gt;\n&quot;;
+			</pre>
+<pre>			xmlfile+= &quot;&lt;field&gt;\n&quot;;
+				sprintf(CStr, &quot;&lt;corner kind=\&quot;topleft\&quot; x=\&quot;%u\&quot; y=\&quot;%u\&quot;/&gt;\n&quot;, 0, 0);
+				xmlfile+=CStr;
+				sprintf(CStr, &quot;&lt;corner kind=\&quot;topright\&quot; x=\&quot;%u\&quot; y=\&quot;%u\&quot;/&gt;\n&quot;, mImageWidth, 0);
+				xmlfile+=CStr;
+				sprintf(CStr, &quot;&lt;corner kind=\&quot;bottomleft\&quot; x=\&quot;%u\&quot; y=\&quot;%u\&quot;/&gt;\n&quot;, 0, mImageHeight);
+				xmlfile+=CStr;
+				sprintf(CStr, &quot;&lt;corner kind=\&quot;bottomright\&quot; x=\&quot;%u\&quot; y=\&quot;%u\&quot;/&gt;\n&quot;, mImageWidth, mImageHeight);
+				xmlfile+=CStr;
+			xmlfile+= &quot;&lt;/field&gt;\n&quot;;
+		}
+		xmlfile+= &quot;&lt;shapes&gt;\n&quot;;</pre>
+<pre>		if(allInfo || removearrows)
+		{
+			xmlfile+= &quot;&lt;ball &quot;;
+			if(!removearrows)	xmlfile+= &quot;src=\&quot;&quot; + mChalk.mImagePath + &quot;\&quot; &quot;;
+			if(removearrows)	sprintf(CStr, &quot;x=\&quot;%f\&quot; y=\&quot;%f\&quot; w=\&quot;%u\&quot; h=\&quot;%u\&quot;/&gt;\n&quot;, 0, 0, 0, 0);
+			else	sprintf(CStr, &quot;x=\&quot;%f\&quot; y=\&quot;%f\&quot; w=\&quot;%u\&quot; h=\&quot;%u\&quot;/&gt;\n&quot;, XtoF(mChalk.x), YtoF(mChalk.y), mChalk.w, mChalk.h);
+			xmlfile+=CStr;
+		}
+			xmlfile+= &quot;&lt;team kind=\&quot;home\&quot; values=\&quot;none\&quot;&gt;\n&quot;;
+			</pre>
+<pre>			short id(0);
+			for(vector&lt;CPlayer&gt;::const_iterator pi= mPlayers.begin(); pi &lt; mPlayers.end(); pi++)
+			{
+				if(allInfo)	
+					sprintf(CStr, &quot;&lt;shape id=\&quot;%u\&quot; kind=\&quot;external\&quot; x=\&quot;%f\&quot; y=\&quot;%f\&quot; w=\&quot;%u\&quot; h=\&quot;%u\&quot;&gt;\n&quot;, ++id, XtoF(pi-&gt;x), YtoF(pi-&gt;y), pi-&gt;w, pi-&gt;h);
+				else
+					sprintf(CStr, &quot;&lt;shape id=\&quot;%u\&quot; x=\&quot;%f\&quot; y=\&quot;%f\&quot;/&gt;\n&quot;, ++id, XtoF(pi-&gt;x), YtoF(pi-&gt;y));
+				xmlfile+= CStr;
+				if(allInfo)
+				{
+					xmlfile+=  &quot;&lt;img src=\&quot;&quot; + mFilePath + pi-&gt;mImagePath + mImageFileSuffix + &quot;\&quot; /&gt;\n&quot;;
+					xmlfile+= &quot;&lt;/shape&gt;\n&quot;;
+				}
+			}
+		</pre>
+<pre>			xmlfile+= &quot;&lt;/team&gt;\n&quot;;</pre>
+<pre>		xmlfile+= &quot;&lt;/shapes&gt;\n&quot;;</pre>
+<pre>	xmlfile+= &quot;&lt;/gamelineup&gt;\n&quot;;
+}</pre>
+<pre>void CFootballConvPlugin::UpdateLineup(void)
+{
+	UpdateXMLConsumers(NULL);
+}</pre>
+<pre>void CFootballConvPlugin::UpdateXMLConsumers(char *tableName)
+{	
+	for(short i=1; i&lt;=xmlConsumers-&gt;GetNumItems(); i++)
+	{
+		CProducerRef *aRef = (CProducerRef*)xmlConsumers-&gt;NthItem(i);
+		if(aRef/*(tableName == NULL) || (tableName &amp;&amp; (strcmp(tableName,(char*)aRef-&gt;dataName)==0))*/)
+			UpdateXMLConsumer(aRef);
+	}
+}
+</pre>
+<pre>void CFootballConvPlugin::UpdateXMLConsumer(CProducerRef *client)
+{
+	if(!client) return;
+	short numbParam = 1;
+	UnknownDataConstructor 	**data = new UnknownDataConstructor *[numbParam];
+	data[0] = new UnknownDataConstructor((StringPtr)client-&gt;prodName);</pre>
+<pre>	ShellReturnCode retCode = 
+			client-&gt;CallService((StringPtr)kXMLContentChange.c_str(),numbParam,(UnknowData**)data);
+	delete data[0];
+	delete[] data;
+}</pre>
+<pre>static string GetWaterFromStone(char *name, XMLElementSet *fieldList)
+{
+	string theText;
+	SimPlayerXMLElement *fieldDesc = (SimPlayerXMLElement*)fieldList-&gt;GetFirstElement();
+	XMLElementSet *imageNameList = fieldDesc-&gt;GetElementsByName(name);
+	if(imageNameList != NULL)
+	{
+		SimPlayerXMLElement *firstDesc = (SimPlayerXMLElement*)imageNameList-&gt;GetFirstElement();
+		SimPlayerXMLElement *firstchild= firstDesc-&gt;GetFirstChild();
+		theText= firstchild-&gt;content;
+		imageNameList-&gt;Dispose();
+	}
+	</pre>
+<pre>	return theText;
+}</pre>
+<pre>static char* GetCharPtrFromStone(char *name, XMLElementSet *fieldList)
+{
+	char *theText;
+	SimPlayerXMLElement *fieldDesc = (SimPlayerXMLElement*)fieldList-&gt;GetFirstElement();
+	XMLElementSet *imageNameList = fieldDesc-&gt;GetElementsByName(name);
+	if(imageNameList != NULL)
+	{
+		SimPlayerXMLElement *firstDesc = (SimPlayerXMLElement*)imageNameList-&gt;GetFirstElement();
+		SimPlayerXMLElement *firstchild= firstDesc-&gt;GetFirstChild();
+		theText= firstchild-&gt;content;
+		imageNameList-&gt;Dispose();
+	}
+	</pre>
+<pre>	return theText;
+}</pre>
+<pre>#define npos 65535</pre>
+<pre>void CFootballConvPlugin::ParsePlayHeader(XMLElementSet *fieldList)
+{
+	char *CStr;
+	char *token;
+	char *delims= FBC_SEPARATOR;
+	string text;
+	vector&lt;CPlayer&gt;::iterator pi;
+	</pre>
+<pre>	text= GetWaterFromStone(&quot;ph-graphicsformat&quot;, fieldList);	//image suffix
+	if(text.empty())
+		mImageFileSuffix= &quot;&quot;;
+	else
+		mImageFileSuffix= &quot;.&quot; + text;
+	</pre>
+<pre>	mFilePath= GetWaterFromStone(&quot;ph-resourceloc&quot;, fieldList);	//image prefix</pre>
+<pre>	CStr= GetCharPtrFromStone(&quot;ph-lengthframes&quot;, fieldList);	//set up pf vector
+	GframeDelay= atoi(CStr);
+	</pre>
+<pre>	CStr= GetCharPtrFromStone(&quot;ph-numplayers&quot;, fieldList);	//set up pf vector
+	size_t num= atoi(CStr);
+	mPlayers.resize(num);
+	num=0;
+	for(pi= mPlayers.begin(); pi &lt; mPlayers.end(); pi++)
+	{
+		pi-&gt;id= ++num;
+	}</pre>
+<pre>	CStr= GetCharPtrFromStone(&quot;ph-imagenames&quot;, fieldList);	//shape img src
+	token= strtok(CStr, delims);
+	pi= mPlayers.begin();
+	while(pi &lt; mPlayers.end())
+	{
+		unsigned short l;
+		string::iterator si;
+		pi-&gt;mImagePath= token;	//set image name to next token or blank
+		si= pi-&gt;mImagePath.begin();
+		l= pi-&gt;mImagePath.find(&quot;\&quot;&quot;);
+		</pre>
+<pre>		if(l != npos)
+		{
+			si+= l;
+			pi-&gt;mImagePath.erase(si);
+			si= pi-&gt;mImagePath.begin();
+			l= pi-&gt;mImagePath.find(&quot;\&quot;&quot;);
+			if(l != npos)	{
+				si+= l;
+				pi-&gt;mImagePath.erase(si);
+				si= pi-&gt;mImagePath.begin();
+			}
+		}
+		l= pi-&gt;mImagePath.find(&quot; &quot;);
+		if(l != npos)
+		{
+			si+= l;
+			pi-&gt;mImagePath.erase(si);
+		}</pre>
+<pre>		if(token != NULL)	token= strtok(NULL, delims);
+		pi++;
+	}
+	</pre>
+<pre>	CStr= GetCharPtrFromStone(&quot;ph-imagesizes&quot;, fieldList);	//shape w,h
+	token= strtok(CStr, delims);
+	pi= mPlayers.begin();
+	while(token != NULL &amp;&amp; pi &lt; mPlayers.end())
+	{
+		pi-&gt;w= atoi(CStr);
+		token= strtok(NULL, delims);
+		pi-&gt;h= atoi(CStr);
+		token= strtok(NULL, delims);
+		pi++;
+	}</pre>
+<pre>	mBkgndPict= GetWaterFromStone(&quot;ph-bgimage&quot;, fieldList);	//background img src</pre>
+<pre>	text= GetWaterFromStone(&quot;ph-bgimagesize&quot;, fieldList);
+	if(!text.empty())
+	{
+		char numb[8];
+		string::iterator si;
+		si= text.begin();
+		unsigned short n= text.find_first_of(FBC_SEPARATOR);
+		text.copy(numb, n, 0);
+		numb[n]= '\0';
+		si+= n+1;
+		mImageWidth= atoi(numb);
+		mImageHeight= atoi(si);
+		//4 corners or size of component?
+	}
+	</pre>
+<pre>}</pre>
+<pre>void CFootballConvPlugin::ParseEChalk(XMLElementSet *chalkList)
+{
+	string text;
+	string::iterator siter;
+	char num[8];
+	</pre>
+<pre>	mChalk.mImagePath= GetWaterFromStone(&quot;ec-imagesrc&quot;, chalkList);	//mBall img src</pre>
+<pre>	text= GetWaterFromStone(&quot;ec-size&quot;, chalkList);	//mBall h,w
+	if(!text.empty())
+	{
+		siter= text.begin();
+		unsigned short n= text.find_first_of(FBC_SEPARATOR);
+		text.copy(num, n, 0);
+		num[n]= '\0';
+		siter+= n+1;
+		mChalk.w= atoi(num);
+		mChalk.h= atoi(siter);
+	}
+	text= GetWaterFromStone(&quot;ec-place&quot;, chalkList);	//mBall x,y
+	if(!text.empty())
+	{
+		siter= text.begin();
+		unsigned short n= text.find_first_of(FBC_SEPARATOR);
+		text.copy(num, n, 0);
+		num[n]= '\0';
+		siter+= n+1;
+		mChalk.x= atoi(num);
+		mChalk.y= atoi(siter);
+	}
+}
+</pre>
+<pre>ModelReturnCode CFootballConvPlugin::ParseCreationInfo(XMLElementSet *bkgndSet)
+{
+	return ModelReturnOK;
+}</pre>
+<pre>void CFootballConvPlugin::KillXML(void)
+{
+	if(mFieldFile)
+	{
+		delete [] mFieldFile;	//DisposePtr(mFieldFile);
+		mFieldFile= NULL;
+	}
+	firstFrame= true;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::NotifyXMLContentChange(const char *kind, const char *clientName)
+{
+	ShellReturnCode retCode = ModelReturnERR;</pre>
+<pre>	//Add Producer to Map
+	CComponentRef *theProducer(AddXMLProducer(clientName, kind));</pre>
+<pre>	//GetXML
+	if(theProducer)
+	{
+		// GetSizeXMLContent //
+		short numbParam = 2;
+		UnknownDataConstructor 	**data = new UnknownDataConstructor*[numbParam];
+		data[0] = new UnknownDataConstructor((StringPtr)kind);
+		short xmlLen;
+		data[1] = new UnknownDataConstructor(&amp;xmlLen);
+		retCode =	theProducer-&gt;CallService((StringPtr)&quot;GetSizeXMLContent&quot;,numbParam,(UnknowData**)data);
+		//fmt: check why no xml
+		xmlLen = (*((short *)data[1]-&gt;data));
+		short i;
+		for(i = 0; i &lt; numbParam; i++){
+			delete data[i];
+			data[i] = NULL;
+		}
+		delete[] data;</pre>
+<pre>		if(retCode == ShellReturnOK)
+		{
+			numbParam = 2;
+			data = new UnknownDataConstructor *[numbParam];
+			data[0] = new UnknownDataConstructor((StringPtr)kind);
+			char *sstring = (char *)NewPtr(xmlLen+1);	//char	string[512];
+			data[1] = new UnknownDataConstructor(sstring, xmlLen);</pre>
+<pre>			if(xmlLen &gt; 0)
+			{
+				retCode =	theProducer-&gt;CallService((StringPtr)&quot;GetXMLContent&quot;,numbParam,(UnknowData**)data);
+				</pre>
+<pre>				if(retCode == ShellReturnOK)
+				{
+					retCode= ParseXMLFile(sstring, kind);
+				}
+			}</pre>
+<pre>			for( i=0; i&lt;numbParam; i++){
+				if(data[i])
+					delete data[i];
+			}
+			delete[] data;
+			</pre>
+<pre>			DisposePtr(sstring);
+		}</pre>
+<pre>		UpdateLineup();
+		ForgetObject(theProducer);
+	}
+	</pre>
+<pre>	return retCode;
+}</pre>
+<pre>long CFootballConvPlugin::GetXMLContent(short numParam,UnknowData **params)
+{
+	if(!wasExternalDataStartup){
+		return ModelDataNotReady;
+	}
+	</pre>
+<pre>	Str255 aDataName;
+	strcpy((char *)aDataName, (char *)(*((StringPtr *)params[0]-&gt;data)));
+/*	if(strcmp((char *)aDataName, STREventsLog) != 0)
+			return FirestAvailableModeErr;*/
+			</pre>
+<pre>	/*short xmlLen = xmlfile.length()+1;
+	char *xmlText = new char[xmlLen];
+	</pre>
+<pre>	xmlfile.copy(xmlText, xmlfile.length());
+	xmlText[xmlLen] = '\0';*/
+	//StrCatEndXMLMessage(xmlText);
+	</pre>
+<pre>	if(params[1]-&gt;data)
+	{
+		strcpy( (char *)(params[1]-&gt;data), xmlfile.c_str());
+		#ifdef _DEBUG_SITPROD_
+		char debugFileName[256];
+		sprintf(debugFileName,&quot;DebugSitProd.txt&quot;);
+		FILE *aFile = fopen(debugFileName,&quot;a&quot;);
+		if(aFile){
+			fprintf(aFile,&quot;%s\n&quot;,xmlText);
+			fclose(aFile);
+		}
+		#endif
+	}
+	</pre>
+<pre>//	delete [] xmlText;
+	</pre>
+<pre>	return ModelReturnOK;
+}</pre>
+<pre>long CFootballConvPlugin::GetSizeXMLContent(short numParam,UnknowData **params)
+{
+	*((short *)(params[1]-&gt;data)) = xmlfile.length() + 1;
+	</pre>
+<pre>	return ModelReturnOK;
+}
+
+</pre>
+<pre>long CFootballConvPlugin::DoIdle()
+{
+	long	retIdle = CPlugin::DoIdle();
+	</pre>
+<pre>	return retIdle;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::DoStep()
+{
+	if(GpfList &amp;&amp; Gwait-- &lt; 0)
+	{
+		ParseMorePlayers();
+		Gwait= GframeDelay;
+	}
+	</pre>
+<pre>	return(inherited::DoStep());
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::PreformeService(ConstStr serviceName,ConstStr clientName,short numParams,UnknowData **params)
+{
+	ModelReturnCode retMessage(InvalidModelService);
+	</pre>
+<pre>	if (serviceName == kXMLContentChange)
+	{	
+		firstFrame= true;
+		CleanUpXMLSender();
+		retMessage= NotifyXMLContentChange((char *)(*((StringPtr*)params[0]-&gt;data)), clientName);
+	}
+	else if (serviceName == kGetXMLContent)
+	{
+		AddXMLConsumer((StringPtr)clientName);
+		return GetXMLContent(numParams, params);
+	}
+	else if (serviceName == kGetXMLSize)
+	{
+		AddXMLConsumer((StringPtr)clientName);
+		return GetSizeXMLContent(numParams, params);
+	}</pre>
+<pre>	return retMessage;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::QueryService(ConstStr serviceName)
+{
+	if(serviceName == kXMLContentChange)	return ModelReturnOK;
+	if(serviceName == kGetXMLContent)	return ModelReturnOK;
+	if(serviceName == kGetXMLSize)	return ModelReturnOK;
+	</pre>
+<pre>	return InvalidModelService;
+}
+</pre>
+<pre>ModelReturnCode CFootballConvPlugin::PlugReset() 
+{
+	ModelReturnCode retMessage = ModelReturnOK;
+	return retMessage;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::PlugSuspend() 
+{
+	ModelReturnCode retMessage = ModelReturnOK;
+	return retMessage;
+}</pre>
+<pre>ModelReturnCode CFootballConvPlugin::PlugResume() 
+{
+	ModelReturnCode retMessage = ModelReturnOK;</pre>
+<pre>	return retMessage;
+}</pre>
+
+</body>
+
+</html>

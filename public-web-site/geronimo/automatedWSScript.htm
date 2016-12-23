@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Automated Web Service Deployer</title>
+</head>
+<body>
+<h3>Templated Web Services Deployment Script</h3>
+<br>
+This example contains:<br>
+<ul>
+  <li>a bash shell script to deploy a Web Service Client, a Web Service
+on server configurable through property files</li>
+  <li>two property files which should be configured depending on your
+enviorment</li>
+  <li>templates of J2EE Geronimo deployment descriptors, JWSDP
+cofiguration files, and source code which clearly show how each value
+is correlated though all the different files</li>
+  <li>ANT script which (un)deploys, packages and compiles the Web
+Services, and it changes templated files into useable Geronimo files</li>
+  <li>It does <span style="font-style: italic;">not</span> use Eclipse
+WTP, but I suggest you do.&nbsp; Regardless, this is a very
+comprehnsive analysis of Geronimo Deployment Descriptors and WSDL.<br>
+  </li>
+</ul>
+To install and use this:<br>
+<ol>
+  <li><A href="template.zip">download</A> and unzip the source code</li>
+  <li>look at the <code>%CONSTANTS%</code> in the <code>templates/variables.properites</code>
+file in the <code>templates</code>
+directory for a clear correlation of deployment descriptor,
+corfiguration, and Java class values</li>
+  <li>look at <code>run-all.sh</code> and <code>build.xml</code> to
+see all the steps neccessary to build a WSDL from Java Source, build
+Java Source from a WSDL, and to package and deploy a Web Service on
+Geronimo</li>
+  <li>Once you run the <code>ant template</code> and <code>ant template-wsdl</code> ANT tasks from the
+<code>run-all.sh</code> script, you will have fully populated <code>web/</code> and <code>src/</code>
+folders with compilable Java code, JSP page, Web Service and Deployment
+Descriptors.&nbsp; These along with Aaron Mulder's Geronimo Book, <a
+ href="http://chariotsolutions.com/geronimo/web-services.html">chapter
+16</a>, should teach you all you need to get started with Web Services
+on Apache Geronimo.&nbsp; If not, email <a
+ href="mailto:nicodemus_micro_mage@bigfoot.com">me</a> for help.<br>
+  </li>
+</ol>
+To Deploy to Geronimo: <br>
+<ol>
+  <li>install Java 1.4.2_10, Geronimo 1.0, JWSDP 2.0, and ANT 1.6.5,
+and cygwin 1.5 if
+on Windows</li>
+  <li>change the <code>templates/templates/variables.properties</code>
+and <code>build.properties</code> files to conform to your
+environment.&nbsp; The <code>run-all.sh</code>
+script needs some tweaking too</li>
+  <li>start Geronimo and execute the <code>run-all.sh</code> script<br>
+  </li>
+</ol>
+<BR />
+<A href="./webServices.htm">see</A>: for more Web Services help.<BR />
+</body>
+</html>

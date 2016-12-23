@@ -1,0 +1,28 @@
+In Java, this return fails JQuery Ajax GET:
+return Response.status(200).entity(pojoObj).build();
+
+But this works:
+ResponseBuilder rb = Response.status(200).entity(pojoObj);
+return rb.header("Access-Control-Allow-Origin", "*").build();
+
+----
+
+Full class:
+
+@Path("/password")
+public class PasswordStorage {
+	@GET
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response getRole() {
+		Contact pojoObj= new Contact();
+		pojoObj.setRole("manager");
+
+		ResponseBuilder rb = Response.status(200).entity(pojoObj);
+	    return rb.header("Access-Control-Allow-Origin", "*").build();
+	    
+		//fails JQuery: return Response.status(200).entity(pojoObj).build();
+	}
+}
+
+
+http://www.tinyurl.com/ftaylor92

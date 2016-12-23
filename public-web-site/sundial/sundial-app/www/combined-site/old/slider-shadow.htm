@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>sundial-slider</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="./js/three.js"></script>
+	<script src="./js/namespace.js" ></script>
+	<script src="./js/prototype.js" ></script>
+	<script src="./js/shapes.js" ></script>
+	<script defer type="text/javascript" src="./js/sundial-shadow.js"></script>
+</head>
+<body onload="sundialShadowpackage.init()">
+
+	<h2>Three.js Example</h2>
+
+	<noscript>
+		<p style="color: #A00; font-weight: bold">
+			Sorry, but this page requires JavaScript!
+		</p>
+	</noscript>
+
+	<p style="color:#A00; font-weight: bold" id="message"></p>
+
+	<p>
+		<b>Arrow keys rotate the cube about its x- and y-axes.
+		<br>
+		Return key or HOME key sets both rotations to zero.</b>
+	</p>
+	
+	<br/>
+	<label for="xcamera-slider">X-Camera: </label>
+	<input id="xcamera-slider" type="range"  min ="-360" max="360" step ="1" onchange="document.getElementById('xc').value=this.value;sundialShadowpackage.doCamera();" />
+	<input id="xc" type="number" placeholder="0" size="3" />
+
+
+	<label for="xcamera-slider">Y-Camera: </label>
+	<input id="ycamera-slider" type="range"  min ="-360" max="360" step ="1" onchange="document.getElementById('yc').value=this.value;sundialShadowpackage.doCamera();" />
+	<input id="yc" type="number" placeholder="0" size="3" />
+
+	
+	<label for="xcamera-slider">Z-Camera: </label>
+	<input id="xzamera-slider" type="range"  min ="-360" max="360" step ="1" onchange="document.getElementById('zc').value=this.value;sundialShadowpackage.doCamera();" />
+	<input id="zc" type="number" placeholder="0" size="3" />
+
+	<br/>
+	<label for="latitude-slider">AZ: </label>
+	<input id="latitude-slider" type="range"  min ="0.0" max="360.0" step ="0.1" onchange="document.getElementById('lat').value=this.value;sundialShadowpackage.doAz();" />
+	<input id="lat" type="number" placeholder="30.5" size="3" />
+	<label for="longitude-slider">EL: </label>
+	<input id="longitude-slider" type="range"  min ="0.0" max="90.0" step ="0.1" onchange="document.getElementById('lon').value=this.value;sundialShadowpackage.doAz();" />
+	<input id="lon" type="number" placeholder="30.5" size="3" />
+
+	<button onclick="sundialShadowpackage.doLocationName(Number(document.getElementById('lat').value), Number(document.getElementById('lon').value))">get Location Name</button>
+	<input id="placeName" type="text" placeholder="here" size=20 />
+	<br/>
+	<button onclick="sundialShadowpackage.animate();">Rotate</button>
+	<button onclick="sundialShadowpackage.reRender();">Render</button>	
+	<canvas width=640 height=480 id="cnvs" style="background-color:black">
+		canvas didnt load
+	</canvas>
+	<br/>
+</body>
+</html>

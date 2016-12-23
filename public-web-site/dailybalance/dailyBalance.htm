@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>DailyBalance App</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<h3><a href="http://play.google.com/store/apps/details?id=com.fmt&feature=search_result">Daily Balance</a> <em>Julep-Future-Finance(FuFi)</em> App <img src="./icon.png"></h3>
+<br/>
+Look into your Financial Future and receive Daily Balance(s) with Julep.<br/>
+Daily Balance Android App and Web Site begin where <a href="http://www.mint.com">Mint</a>&trade; leaves off.<br/>
+With Daily balance you will never worry if you have enough money in your account again!<br/>
+You will never bounce a check again!<br/>
+You can save and track your savings or your long-term Goals or your short-term Expenses.<br/>
+<br/>
+<b style="color: darkgreen">DailyBalance is highly configurable and easy to start using.</b>
+<br/>
+<br/>
+<h4>There are many ways to use DailyBalance:</h4>
+1) on the web: <a href="http://tinyurl.com/dailybalances">http://tinyurl.com/dailybalances</a><br/><br/>
+2) Use <a href="http://play.google.com/store/apps/details?id=com.fmt&feature=search_result">this<img src="http://www.logoeps.com/wp-content/uploads/2011/06/android-robot-vector.jpg" height="42" width="42" /></a> Android App on your Android phone.  <small>(or use <a href="././DailyBalance-Local.apk">this</a> local version that does not use internet)</small></br><br/>
+<small>
+
+<div style="display: none">
+3) using <a href="http://tomcat.apache.org">tomcat</a>: just drop <a href="./DailyBalance-AWS.war">this</a> file into tomcat, and you can use the <a href="http://localhost:8080/DailyBalance-AWS/props.jsp">web site</a> from your browser.  <strike><small>This site works with the internet to synch data using Amazon SimpleDB, so tomcat works as well as an internet site and any future internet site will have all the data your entered (which can be alot if you find this app useful).</small><small>  To work off-line change lines 23 & 24 of <code>/usr/local/tomcat/webapps/DailyBalance-AWS/props.jsp</code> if you want to use your local file system instead of internet database.</small></strike>  <br/><br/>
+<strike>4) Use <a href="./DailyBalance-AWS.apk">this</a> internet-enabled Android App on your Android Phone to synch between website and phone.<br/>
+<small>To use phone with web, first log onto Web Site to create account.  Then in Androd App select Menu->Edit/Login and enter your same username and password.  Then restart Android app.  Select Menu->Edit Current if there's an initial synch needed.</small></strike>
+</small><br/>
+</div>
+<h5>Getting Started</h5>
+<ol type="1">
+<li>Enter your current Bank account balance, and then you will see that for the foreseeable future* you maintain that same balance, which is obvious and you don't need a computer to tell you that ;-)</li>
+ex.<small><table border="1"><thead><tr><th>Date</th><th>Balance</th><th>Event</th><th>Over</th><th>Savings</th></tr></thead>
+		<tbody>
+		<tr><td>Mon, 14</td><td>$1,840.83</td><td></td><td>$1,840.83</td><td>$0.00</td></tr>
+		<tr><td>Tue, 15</td><td>$1,840.83</td><td></td><td>$1,840.83</td><td>$0.00</td></tr>
+		<tr><td>Wed, 16</td><td>$1,840.83</td><td></td><td>$1,840.83</td><td>$0.00</td></tr>
+		<tr><td>Thu, 17</td><td>$1,840.83</td><td></td><td>$1,840.83</td><td>$0.00</td></tr>
+		</tbody>
+		</table></small>
+<small>*foreseeable future is 30 days by default, but is configurable</small>
+<li>Enter a bill, and you will see your bank balance go down on the date the bill is due each month.  Again, not rocket science :-)</li>
+
+<span style="color:red;">Wait!</span>  That's the secret right there: on any given date you will know exactly what your daily bank balance is (so you won't bounce cheques or run out of money, especailly when the mortgage/rent cheque is due)
+<li>Enter your paycheck, and you'll see your bank balance go up every week.</li>
+<li>There are many, many settings in this application, which you can ignore, or use for total financial peace of mind</li>
+ex.<small><table border="1"><thead><tr><th>Date</th><th>Balance</th><th>Event</th><th>Over</th><th>Savings</th></tr></thead>
+		<tbody>
+		<tr><td>Mon, 14</td><td>$1,840.83</td><td></td><td>$1,840.83</td><td>$50.00</td></tr>
+		<tr><td>Tue, 15</td><td>$1,840.83</td><td></td><td>$1,790.83</td><td>$100.00</td></tr>
+		<tr><td>Wed, 16</td><td>$1,800.83</td><td>Gas Bill</td><td>$1,700.83</td><td>$150.00</td></tr>
+		<tr><td>Thu, 17</td><td>$1,800.83</td><td></td><td>$1,650.83</td><td>$200.00</td></tr>
+		</tbody>
+		</table></small>
+</ol>
+<br/>
+<br/>
+If you have any comments or issues, please email me at <a href="mailto:ftaylor92@bc.edu">ftaylor92@bc.edu</a><br/>
+<br/><br/>
+<b style="color: darkgreen">Enjoy your Mint->Julep!</b>
+
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+</body>
+</html>

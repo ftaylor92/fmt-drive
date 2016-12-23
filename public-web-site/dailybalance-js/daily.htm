@@ -1,0 +1,135 @@
+<!DOCTYPE html> 
+<html> 
+	<head>	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Daily Bank Balances</title> 
+		<meta name="viewport" content="width=device-width, maximum-scale=2, minimum-scale=0.5, initial-scale=0.75"> 
+		<!-- <link rel="stylesheet" href="./jquery/jquery.mobile.css" />
+		<script src="./jquery/jquery.js"></script>
+		<script src="./jquery/jquery.mobile.js"></script> -->
+
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+	<script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+		<script src="./database.js"></script>
+		<script src="./dailybalance.js"></script>
+		<script src="./beans.js"></script>
+		<script src="./edit.js"></script>
+		<script src="./prototype.js"></script>
+		<script src="./menu.js"></script>
+	</head> 
+<body> 
+
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		setUserName($.urlParam('accountName'));
+		if(false) {	//==offline
+			fakeData();
+		} else {
+			setUserName($.urlParam('accountName'));
+			generateTable(document.userAccounts.userName);
+			//incrementAccount();
+			incrementHits();
+		}
+	});
+	
+	function selectMenuGui(mName, mItem) {
+		//alert(mName+ "-"+ mItem);
+		
+		var myselect = $("select#select-choice-2");
+		myselect[0].selectedIndex = 0;
+		myselect.selectmenu("refresh");
+		
+		myselect = $("select#select-choice-3");
+		myselect[0].selectedIndex = 0;
+		myselect.selectmenu("refresh");
+		
+		selectMenu(mName, mItem);
+	}
+</script>
+
+<div data-role="page">
+
+	<div data-role="header" data-position="fixed">
+		<h1>Daily Bank Balances
+		<hidden><a id="addAccountClick" href="addAccount.htm" data-rel="dialog" style="display:none">&nbsp;</a>
+		<a id="addBillClick" href="addBill.htm" data-rel="dialog" style="display:none">&nbsp;</a>
+		<a id="addCreditCardClick" href="addCreditCard.htm" data-rel="dialog" style="display:none">&nbsp;</a>
+		<a id="editCreditCardClick" href="editCreditCards.htm" data-rel="dialog" style="display:none">&nbsp;</a>
+		<a id="editAccountClick" href="editAccount.htm" data-rel="dialog" style="display:none">&nbsp;</a>
+		<a id="editMiscClick" href="editMisc.htm" data-rel="dialog" style="display:none">&nbsp;</a>
+		<a id="editPaycheckClick" href="editPaycheck.htm" data-rel="dialog" style="display:none">&nbsp;</a>
+		<a id="editBillClick" href="editBills.htm" data-rel="dialog" style="display:none">&nbsp;</a>
+		</hidden></h1>
+
+		<div data-role="navbar">
+			<ul>
+				<li><!-- label for="select-choice-2" class="select">Edit:</label -->
+					<select name="select-choice-2" id="select-choice-2" data-mini="true" onchange="selectMenuGui('edit', this.options[this.selectedIndex].value);">
+						<option value="editplaceholder">Edit...</option>
+					   <option value="current" xonclick="selectMenu('edit', 'current');">Current</option>
+					   <option value="paycheck" xonclick="selectMenu('edit', 'paycheck');">Paycheck</option>
+					   <option value="misc" xonclick="selectMenu('edit', 'misc');">Miscelanea</option>
+					   <option value="bill" xonclick="selectMenu('edit', 'bill');">Bills</option>
+					   <option value="creditCard" xonclick="selectMenu('edit', 'creditCard');">Credit Cards</option>
+					   <option value="account" xonclick="selectMenu('edit', 'account');">Accounts</option>
+					</select>
+				</li>
+				<li><!-- label for="select-choice-3" class="select">Add:</label -->
+					<select name="select-choice-3" id="select-choice-3" data-mini="true" onchange="selectMenuGui('add', this.options[this.selectedIndex].value);">
+						<option value="addplaceholder">Add...</option>
+						<option value="bill" xonclick="selectMenu('edit', 'bill');">Bill</option>
+						<option value="creditCard" xonclick="selectMenu('edit', 'creditCard');">Credit Card</option>
+						<option value="account" xonclick="selectMenu('edit', 'account');">Bank Account</option>
+					</select>
+				</li>
+				<li><!-- label for="editCurrentClick" class="select">Current:</label -->
+					<a id="editCurrentClick" href="editCurrent.htm" data-rel="dialog">Edit Current</a>
+				</li>
+			</ul>
+		</div><!-- /navbar -->
+
+	</div><!-- /header -->
+
+	<div data-role="content">	
+
+	<!-- div class="logger">log for testing</div -->
+		<div class="help" style="text-align:center;font-weight:bold;font-size:14pt;color:red;">
+		</div>
+		
+		<div id="dailyBalanceTable" data-role="collapsible" data-collapsed="false">
+			<h3>Daily Balances</h3>
+			<div class="summary">
+				Summary
+			</div>
+		</div>
+		
+		<div data-role="collapsible" data-collapsed="true">
+			<h3>Summary</h3>
+			<div class="edits">
+				Edits
+			</div>
+		</div>
+
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed">		
+	
+		<div data-role="navbar">
+			<ul>
+				<li><a class="ui-btn-active" onclick="gotoPage('daily', $.urlParam('accountName'), $.urlParam('password'));">Daily</a></li>
+				<li><a onclick="gotoPage('summary', $.urlParam('accountName'), $.urlParam('password'));">Summary</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	
+	
+
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+</body>
+</html>

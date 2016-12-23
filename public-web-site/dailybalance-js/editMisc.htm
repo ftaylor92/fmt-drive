@@ -1,0 +1,45 @@
+<html>
+	<head>	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Edit Miscelanea</title> 
+		<link rel="stylesheet" href="./jquery/jquery.mobile.css" />
+		<script src="./jquery/jquery.js"></script>
+		<script src="./jquery/jquery.mobile.js"></script> <!--
+<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script> -->
+		<script src="./database.js"></script>
+		<script src="./dailybalance.js"></script>
+		<script src="./beans.js"></script>
+		<script src="./edit.js"></script>
+	</head> 
+<body> 
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		$('#futureDays').val(document.userAccounts.misc.futureDays);
+		$('#skipAhead').val(document.userAccounts.misc.skipAhead);
+		$('#outstanding').val(document.userAccounts.misc.outstanding);
+		$('#presavings').val(document.userAccounts.misc.presavings);
+		$('#monthlyBudget').val(document.userAccounts.misc.monthlyBudget);
+		$('#weeklyExpenses').val(document.userAccounts.misc.weeklyExpenses);
+		$('#weeklyExpensesGas').val(document.userAccounts.misc.weeklyExpensesGas);
+		$('#bankInterest').val(document.userAccounts.misc.bankInterest);
+		$('#creditCardInterest').val(document.userAccounts.misc.creditCardInterest);
+	});
+</script>
+
+<div style="width: 500px;" data-role="fieldcontain"><label for="futureDays">future Days:</label><input type="number" name="futureDays" id="futureDays" value="31" class="futureDays" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="skipAhead">Skip Ahead:</label><input type="number" name="skipAhead" id="skipAhead" value="0.0" class="skipAhead" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="outstanding">outstanding:</label><input type="number" name="outstanding" id="outstanding" value="0.0" class="outstanding" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="presavings">presavings:</label><input type="number" name="presavings" id="presavings" value="0.0" class="presavings" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="monthlyBudget">monthly Budget:</label><input type="number" name="monthlyBudget" id="monthlyBudget" value="1000.0" class="monthlyBudget" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="weeklyExpenses">weekly Expenses:</label><input type="number" name="weeklyExpenses" id="weeklyExpenses" value="300.00" class="weeklyExpenses" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="weeklyExpensesGas">weeklyExpensesGas:</label><input type="number" name="weeklyExpensesGas" id="weeklyExpensesGas" value="60.0" class="weeklyExpensesGas" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="bankInterest">bankInterest:</label><input type="number" name="bankInterest" id="bankInterest" value="3.0" class="bankInterest" /></div>
+<div style="width: 500px;" data-role="fieldcontain"><label for="creditCardInterest">creditCardInterest:</label><input type="number" name="creditCardInterest" id="creditCardInterest" value="1.0" class="creditCardInterest" /></div>
+
+<button style="width: 100px;" data-inline="true" onclick="editMisc($('input[name=futureDays]').val(), $('input[name=skipAhead]').val(), $('input[name=outstanding]').val(), $('input[name=presavings]').val(), $('input[name=monthlyBudget]').val(), $('input[name=weeklyExpenses]').val(), $('input[name=weeklyExpensesGas]').val(), $('input[name=bankInterest]').val(), $('input[name=creditCardInterest]').val())">Edit</button>
+</body>
+</html>

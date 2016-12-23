@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="org.apache.cordova.motion"
+      version="0.2.6">
+	
+    <name>Motion</name>
+    <description>Cordova Android Motion Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,motion</keywords>
+    <repo>https://git-wip-us.apache.org/repos/asf/cordova-plugin-motion.git</repo>
+    <issue>https://issues.apache.org/jira/browse/CB/component/12320636</issue>
+
+    <js-module src="www/Motion.js" name="Motion">
+        <clobbers target="Motion" />
+    </js-module>
+    
+    <js-module src="www/motioner.js" name="motioner">
+        <clobbers target="navigator.motioner" />
+    </js-module>
+    
+    <!-- firefoxos -->
+    <platform name="firefoxos">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Motioner">
+                <param name="firefoxos-package" value="Motioner" />
+            </feature>
+        </config-file>                                         
+        
+        <js-module src="src/firefoxos/motion.js" name="motion-impl">
+          <runs />
+        </js-module>
+    </platform>
+
+    <!-- android -->
+    <platform name="android">
+	    
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Motioner">
+                <param name="android-package" value="fmt.cordova.android.motion.Motion"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/MotionListener.java" target-dir="src/fmt/cordova/android/motion" />
+    
+    </platform>
+    
+    <!-- amazon-fireos -->
+    <platform name="amazon-fireos">
+	    
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Motioner">
+                <param name="android-package" value="fmt.cordova.android.motion.MotionListener"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/MotionListener.java" target-dir="src/fmt/cordova/android/motion" />
+    
+    </platform>
+    
+    <!-- ubuntu -->
+    <platform name="ubuntu">
+        <header-file src="src/ubuntu/motioner.h" />
+        <source-file src="src/ubuntu/motioner.cpp" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        
+        <config-file target="config.xml" parent="/*">
+            <feature name="Motioner">
+                <param name="ios-package" value="CDVMotioner"/>
+            </feature>
+        </config-file>
+            
+        <header-file src="src/ios/CDVMotioner.h" />
+        <source-file src="src/ios/CDVMotioner.m" />
+        
+        <framework src="CoreMotion.framework" />
+    </platform>
+
+    <!-- blackberry10 -->
+    <platform name="blackberry10">
+        <config-file target="www/config.xml" parent="/widget">
+            <feature name="Motioner" value="Motioner"/>
+        </config-file>
+        <source-file src="src/blackberry10/index.js" target-dir="Motioner" />
+    </platform>
+
+    <!-- wp7 -->
+    <platform name="wp7">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Motioner">
+                <param name="wp-package" value="Motioner"/>
+            </feature>
+        </config-file>
+
+        <config-file target="Properties/WMAppManifest.xml" parent="/Deployment/App/Capabilities">
+            <Capability Name="ID_CAP_SENSORS" />
+        </config-file>
+
+        <source-file src="src/wp/Motioner.cs" />
+    </platform>
+
+    <!-- wp8 -->
+    <platform name="wp8">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Motioner">
+                <param name="wp-package" value="Motioner"/>
+            </feature>
+        </config-file>
+
+        <config-file target="Properties/WMAppManifest.xml" parent="/Deployment/App/Capabilities">
+            <Capability Name="ID_CAP_SENSORS" />
+        </config-file>
+
+        <source-file src="src/wp/Motioner.cs" />
+    </platform>
+
+    <!-- windows8 -->
+    <platform name="windows8">
+        <js-module src="src/windows8/MotionerProxy.js" name="MotionerProxy">
+            <merges target="" />
+        </js-module>
+    </platform>
+
+    <!-- tizen -->
+    <platform name="tizen">
+        <js-module src="src/tizen/MotionerProxy.js" name="MotionerProxy">
+            <runs/>
+        </js-module>
+    </platform>
+</plugin>

@@ -1,0 +1,29 @@
+var notification = device.notifications.createNotification('Calling Google');
+device.ajax(
+    {
+      url: 'http://www.google.com',
+      type: 'GET',
+      headers: {
+        'Content-Type': 'application/xml'
+      }
+    },
+    function onSuccess(body, textStatus, response) {
+      var parsedBody;
+      if(!(body && (parsedBody = JSON.parse(body)))) {
+        var error = {};
+        error.message = 'invalid body format';
+        error.content = body;
+          console.error('error: ',error);
+      }
+      console.info('successfully received http response!');
+      notification.content = 'successfully received http response!';
+      notification.show();
+    },
+    function onError(textStatus, response) {
+      var error = {};
+      error.message = textStatus;
+      error.statusCode = response.status;
+        console.error('error: ',error);
+    });
+	
+	

@@ -1,0 +1,59 @@
+<html>
+<head>
+	<title>Adding Counter to Any Web Page</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+</head>
+<h3>How to Add a Counter to Your Web Page</h3>
+<ol type="1">
+	<li>follow this <a href="./counter-template.htm">template</a></li>
+	<li>That's it.  It's that easy!</li>
+	<li>Works with any HTML web page (or JSP, PHP, etc), because it only uses JavaScript and REST</li>
+</ol>
+<h5>How it Works</h5>
+<ul>
+<li>It uses JQuery, so you have to add the JQuery library in you &lt;head&gt; section of your page, like this:<br/>
+<code>
+
+&lt;head&gt;<br/>
+	<b style="color:blue;">&lt;script src="http://code.jquery.com/jquery-latest.min.js">&lt;/script&gt;</b><br/>
+&lt;/head&gt;
+
+</code>
+</li>
+<li>Then somewhere in you &lt;body&gt; section of your page, you have to put a &lt;div id='conter'&gt;.  This is where the counter will be displayed:<br />
+<code>
+<b style="color:blue;">&lt;div id='counter'&gt;&lt;/div&gt;</b>
+</code>
+</li>
+<li>To glue it all together and get the proper count of hits, add this javascript code:<br />
+<code>
+<b style="color:blue;">&lt;script&gt;<br/>
+	$(document).ready(function() {<br/>
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});<br/>
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);<br/>
+		$.get(counterUrl, function(data, txtstatus, xbr) {<br/>
+			$("#counter").html("&lt;br/&gt;&lt;br/&gt;&lt;small&gt;&lt;em&gt;count: "+ data+"&lt;/em&gt;&lt;/small&gt;");<br/>
+		});<br/>
+	});<br/>
+&lt;/script&gt;
+</b>
+</code>
+</li>
+<li>It identifies your web page by <b style="color:blue;"><code>window.location.href</code></b>, but feel free to replace that with any unique idenifier.</li>
+<li>This code, <b style="color:blue;"><code>&lt;small&gt;&lt;em&gt;count: "+ data+"&lt;/em&gt;&lt;/small&gt;</code></b>, makes your counter look like this, <small><em>count: 314</em></small>, but feel free to change that to any style you prefer.</li>
+
+</ul>
+
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+</html>

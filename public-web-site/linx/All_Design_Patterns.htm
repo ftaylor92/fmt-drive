@@ -1,0 +1,1842 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 11 (filtered)">
+<title>Design Patterns</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#606420;
+	text-decoration:underline;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink="#606420" bgcolor="Beige">
+
+<div class=Section1>
+
+<p class=MsoNormal align=center style='text-align:center'><u><span
+style='font-size:14.0pt'>Design Patterns</span></u><span style='font-size:10.0pt'>         </span><span style='font-size:10.0pt'>May 11, 2007</span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>Fundamental:</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Delegation_pattern"
+title="Delegation pattern">Delegation pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Functional_design" title="Functional design">Functional
+design</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Interface_pattern" title="Interface pattern">Interface
+pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a href="http://en.wikipedia.org/wiki/Proxy_pattern"
+title="Proxy pattern">Proxy pattern</a> – isn’t the same as the real thing, but
+returns a façade while underlying changes can occur, not disturbing the normal
+flow</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Immutable_pattern" title="Immutable pattern">Immutable
+pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Marker_interface_pattern"
+title="Marker interface pattern">Marker interface pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Abstract_factory_pattern"
+title="Abstract factory pattern">Abstract Factory pattern</a> – passes
+instantiated objects of various types</span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>Creational</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Anonymous_subroutine_objects_pattern"
+title="Anonymous subroutine objects pattern">Anonymous subroutine objects
+pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Builder_pattern" title="Builder pattern">Builder
+pattern</a> – builds up different instantiations, via Director, so small pieces
+can build different class objects</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Factory_method_pattern"
+title="Factory method pattern">Factory method pattern</a> – add method to class
+to provide instantiated instance</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Object%20Pool#Object%20Pool">Object
+Pool</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Lazy_initialization_pattern"
+title="Lazy initialization pattern">Lazy initialization pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Prototype_pattern" title="Prototype pattern">Prototype
+pattern</a> – returns something close to what you want, then you can change it
+as necessary  Good for GUI pieces</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Singleton_pattern" title="Singleton pattern">Singleton
+pattern</a> – ensures only one instance of this class ever gets instantiated,
+see static{}.  Good for limited resource connections.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>Structural</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Adapter_pattern" title="Adapter pattern">Adapter
+pattern</a> – allows usage of object of different, incompatible types</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Bridge_pattern" title="Bridge pattern">Bridge
+pattern</a> – allows client to call Proxy method, which bridges to implementation
+without tight coupling to any one implementation</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Composite_pattern" title="Composite pattern">Composite
+pattern</a> – allows different concepts to share the same class</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://www.cmcrossroads.com/bradapp/javapats.html">Connector</a> –
+Acceptor-Connector connects two entities, not letting messages get lost.  Like
+JMS, MOM, FutureResult or Asynchronous patterns</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Container_pattern" title="Container pattern">Container
+pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Decorator_pattern" title="Decorator pattern">Decorator
+pattern</a> – added functionality without subclassing</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Extensibility_pattern"
+title="Extensibility pattern">Extensibility pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Facade_pattern" title="Facade pattern">Facade
+pattern</a> – High-level interface for all underlying implementations</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Flyweight_pattern" title="Flyweight pattern">Flyweight
+pattern</a> – use a simple, small piece repeatedly</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a href="http://en.wikipedia.org/wiki/Proxy_pattern"
+title="Proxy pattern">Proxy pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Pipes_and_filters" title="Pipes and filters">Pipes
+and filters</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Private_class_data_pattern"
+title="Private class data pattern">Private class data pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Dynamic%20Linkage#Dynamic%20Linkage">Dynamic
+Linkage</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Virtual%20Proxy#Virtual%20Proxy">Virtual
+Proxy</a> &nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Cache%20Management#Cache%20Management">Cache
+Management</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>Behavioral</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Chain_of_responsibility_pattern"
+title="Chain of responsibility pattern">Chain of responsibility pattern</a> –
+allows a request to be responded to by a number of listeners</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Command_pattern" title="Command pattern">Command
+pattern</a> – class as function w/same default parameters.  For transactions,
+mutli-layer undos, menu items.</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Event_listener" title="Event listener">Event
+listener</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Interpreter_pattern"
+title="Interpreter pattern">Interpreter pattern</a> – interpret a command,
+decode the string, execute accordingly</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Iterator_pattern" title="Iterator pattern">Iterator
+pattern</a> – glide across sets of objects</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Mediator_pattern" title="Mediator pattern">Mediator
+pattern</a> – allows for loose coupling, by not hard-coding interfaces or
+colleagues</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Memento_pattern" title="Memento pattern">Memento/Snapshot
+pattern</a> – throw a copy into a box, then retrieve it if undo is needed</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Null%20Object#Null%20Object">Null
+Object</a> <span lang=EN> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Observer_pattern" title="Observer pattern">Observer
+pattern</a> – Subscriber, like Swing EventListener, to update when change
+occurs</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a href="http://en.wikipedia.org/wiki/State_pattern"
+title="State pattern">State pattern</a> – repository to find out what state the
+application is in</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Strategy_pattern" title="Strategy pattern">Strategy
+pattern</a> – object and behavior are separated.  Use when objects attributes
+are the same, but differ only in behavior.  Avoids subclassing &amp;
+conditional switch statements</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Template_method_pattern"
+title="Template method pattern">Template method pattern</a> – Define interface
+&amp; common functionality, but let subclasses worry about implementation
+details</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Visitor_pattern" title="Visitor pattern">Visitor
+pattern</a> – external class acts upon other objects, without changing class
+definition</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Single-serving_visitor_pattern"
+title="Single-serving visitor pattern">Single-serving visitor pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Hierarchical_visitor_pattern"
+title="Hierarchical visitor pattern">Hierarchical visitor pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>Concurrency</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Action_at_a_distance_pattern"
+title="Action at a distance pattern">Action at a distance pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/w/index.php?title=Active_Object&amp;action=edit"
+title="Active Object"><span style='color:#CC2200'>Active Object</span></a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Balking_pattern" title="Balking pattern">Balking
+pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Double_checked_locking_pattern"
+title="Double checked locking pattern">Double checked locking pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Guarded_suspension"
+title="Guarded suspension">Guarded suspension</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/w/index.php?title=Half-Sync_Half-Async_pattern&amp;action=edit"
+title="Half-Sync Half-Async pattern"><span style='color:#CC2200'>Half-Sync/Half-Async
+pattern</span></a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/w/index.php?title=Leaders_followers_pattern&amp;action=edit"
+title="Leaders followers pattern"><span style='color:#CC2200'>Leaders/followers
+pattern</span></a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>Event <a
+href="http://en.wikipedia.org/w/index.php?title=Monitor_Object&amp;action=edit"
+title="Monitor Object"><span style='color:#CC2200'>Monitor Object</span></a> –
+Publish-Subscribe subscriber, Listener, like Swing Event Listener</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Read_write_lock_pattern"
+title="Read write lock pattern">Read write lock pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Scheduler_pattern" title="Scheduler pattern">Scheduler
+pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/wiki/Thread_pool_pattern"
+title="Thread pool pattern">Thread pool pattern</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://en.wikipedia.org/w/index.php?title=Thread-Specific_Storage&amp;action=edit"
+title="Thread-Specific Storage"><span style='color:#CC2200'>Thread-Specific
+Storage</span></a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Read/Write%20Lock#Read/Write%20Lock">Read/Write
+Lock</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Producer-Consumer#Producer-Consumer">Producer-Consumer</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Two-Phase#Two-Phase">Two-Phase
+Termination</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>J2EE</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/BusinessDelegate.html">Business Delegate</a>
+– JMS, Asynchronous, Business Logic-EJB tier</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/CompositeEntity.html">Composite
+Entity</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/CompositeView.html">Composite View</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Access Objects</p>
+
+<p class=MsoNormal style='margin-left:1.25in;text-indent:-.25in;background:
+#F8FCFF'><span lang=EN style='font-size:10.0pt;font-family:Wingdings'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a href="http://java.sun.com/blueprints/patterns/DAO.html">Data
+Access Object</a>(DAO) – see DTO</p>
+
+<p class=MsoNormal style='margin-left:1.25in;text-indent:-.25in;background:
+#F8FCFF'><span lang=EN style='font-size:10.0pt;font-family:Wingdings'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Command Beans – see Command design pattern</p>
+
+<p class=MsoNormal style='margin-left:1.25in;text-indent:-.25in;background:
+#F8FCFF'><span lang=EN style='font-size:10.0pt;font-family:Wingdings'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Record Object – represents data structure</p>
+
+<p class=MsoNormal style='margin-left:1.25in;text-indent:-.25in;background:
+#F8FCFF'><span lang=EN style='font-size:10.0pt;font-family:Wingdings'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Uses set-execute-get JavaBean pattern</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://java.sun.com/blueprints/corej2eepatterns/Patterns/DispatcherView.html">Dispatcher
+View</a></span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/FastLaneReader.html">Fast Lane
+Reader</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/FrontController.html">Front
+Controller</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/InterceptingFilter.html">Intercepting
+Filter</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a href="http://java.sun.com/blueprints/patterns/MVC.html">Model-View-Controller</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://java.sun.com/blueprints/corej2eepatterns/Patterns/ServiceActivator.html">Service
+Activator</a></span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/ServiceLocator.html">Service
+Locator</a> – Service Directory – cached, encapsulated Singleton service
+connection and lookup</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://java.sun.com/blueprints/corej2eepatterns/Patterns/ServiceToWorker.html">Service
+to Worker</a></span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/SessionFacade.html">Session
+Facade</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Data <a
+href="http://java.sun.com/blueprints/patterns/TransferObject.html">Transfer
+Object</a>(DTO) – Object to transfer info from App to EJB/Service.  Use one
+object, not multiple, expensive get/set()s on Bean or Service.  DTO has
+get/set()s.  Create by business object/practice.  Inherit from Business entity
+Bean if same attributes.</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN><a
+href="http://java.sun.com/blueprints/corej2eepatterns/Patterns/TransferObjectAssembler.html">Transfer
+Object Assembler</a></span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://java.sun.com/blueprints/patterns/ValueListHandler.html">Value List
+Handler</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a href="http://java.sun.com/blueprints/patterns/ViewHelper.html">View
+Helper</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>Partitioning</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Layered%20Initialization#Layered%20Initialization">Layered
+Initialization</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Decorator#Decorator">Filter</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses.htm#Composite#Composite">Composite</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>GRASP</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Controller#Controller">Controller</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Creator#Creator">Creator</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Expert#Expert">Expert</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Don%27t%20Talk%20to%20Strangers#Don%27t%20Talk%20to%20Strangers">Law
+of Demeter</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Low%20Coupling/High%20Cohesion#Low%20Coupling/High%20Cohesion">Low
+Coupling/High Cohesion</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Polymorphism#Polymorphism">Polymorphism</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Pure%20Fabrication#Pure%20Fabrication">Pure
+Fabrication</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#GUI%20Design%20Patterns#GUI%20Design%20Patterns">GUI
+Design </a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Conversational%20Text#Conversational%20Text">Conversational
+Text&nbsp;</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Direct%20Manipulation#Direct%20Manipulation">Direct
+Manipulation</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Ephemeral%20Feedback#Ephemeral%20Feedback">Ephemeral
+Feedback</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Explorable%20Interface#Explorable%20Interface">Explorable
+Interface</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Data%20Entry%20Form#Data%20Entry%20Form">Form</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Context%20Sensitive%20Menu%20Item#Context%20Sensitive%20Menu%20Item">Disabled
+Irrelevant Things</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Interaction%20Style#Interaction%20Style">Interaction
+Style</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Limited%20Selection%20Size#Limited%20Selection%20Size">Limited
+Selection Size</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Menu#Menu">Selection</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Step-by-Step%20Instructions#Step-by-Step%20Instructions">Step-by-Step
+Instructions</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Dialog#Dialog">Supplementary
+Window</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Window%20Per%20Task#Window%20Per%20Task">Window
+per Task</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Organizational%20Coding%20Patterns#Organizational%20Coding%20Patterns">Organizational
+Coding </a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Accessor%20Method#Accessor%20Method">Accessor
+Method Name</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Anonymous%20Adapter#Anonymous%20Adapter">Anonymous
+Adapter</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Checked%20Versus%20Unchecked%20Exceptions#Checked%20Versus%20Unchecked%20Exceptions">Checked
+vs. Unchecked Exceptions</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Conditional%20Compilation#Conditional%20Compilation">Conditional
+Compilation</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Composed%20Method#Composed%20Method">Composed
+Method</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Convert%20Exceptions#Convert%20Exceptions">Convert
+Exceptions</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Define%20Constants%20in%20Interfaces#Define%20Constants%20in%20Interfaces">Define
+Constants in Interfaces</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Extend%20Super#Extend%20Super">Extend
+Super</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Intention%20Revealing%20Method#Intention%20Revealing%20Method">Intention
+Revealing Method</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#ServerSocket#ServerSocket">ServerSocket</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Socket#Socket">Client
+Socket</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Switch#Switch">Switch</a>
+&nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Symbolic%20Name#Symbolic%20Name">Symbolic
+Constant Name</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Code%20Optimization%20Patterns#Code%20Optimization%20Patterns">Optimization
+Coding Patterns</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Double%20Checked%20Locking#Double%20Checked%20Locking">Double
+Checked Locking&nbsp;</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Hashed%20Adapter%20Objects#Hashed%20Adapter%20Objects">Hashed
+Adapter Objects</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Lazy%20Initialization#Lazy%20Initialization">Lazy
+Initialization</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Lookup%20Table#Lookup%20Table">Lookup
+Table</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Loop%20Unrolling#Loop%20Unrolling">Loop
+Unrolling</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Robustness%20Coding%20Patterns#Robustness%20Coding%20Patterns">Robustness
+Coding </a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Assertion%20Testing#Assertion%20Testing">Assertion
+Testing</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Copy%20Mutable%20Parameters#Copy%20Mutable%20Parameters">Copy
+Mutable Parameters</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Guaranteed%20Cleanup#Guaranteed%20Cleanup">Guaranteed
+Cleanup</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Maximize%20Privacy#Maximize%20Privacy">Maximize
+Privacy</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Return%20New%20Objects%20from%20Accessor%20Method#Return%20New%20Objects%20from%20Accessor%20Method">Return
+New Objects from Accessor</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Testing%20Patterns#Testing%20Patterns">Testing</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Acceptance%20Testing#Acceptance%20Testing">Acceptance
+Testing</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Black%20Box%20Testing#Black%20Box%20Testing">Black
+Box Testing</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Clean%20Room%20Testing#Clean%20Room%20Testing">Clean
+Room Testing</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Integration%20Testing#Integration%20Testing">Integration
+Testing</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Regression%20Testing#Regression%20Testing">Regression
+Testing</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#System%20Testing#System%20Testing">System
+Testing</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#Unit%20Testing#Unit%20Testing">Unit
+Testing</a> &nbsp; </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses2.htm#White%20Box%20Testing#White%20Box%20Testing">White
+Box Testing</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Transaction%20Patterns#Transaction%20Patterns">Transaction
+</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#ACID%20Transaction#ACID%20Transaction">ACID
+Transaction</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Audit%20Trail#Audit%20Trail">Audit
+Trail</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Composite%20Transaction#Composite%20Transaction">Composite
+Transaction</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Two%20Phase%20Commit#Two%20Phase%20Commit">Two
+Phase Commit</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Distributed%20Architecture%20Patterns#Distributed%20Architecture%20Patterns">Distributed
+Architecture </a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Demilitarized%20Zone#Demilitarized%20Zone">Demilitarized
+Zone</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Mobile%20Agent#Mobile%20Agent">Mobile
+Agent </a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Object_Replication#Object_Replication">Object
+Replication</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Broker#Broker">Object
+Request Broker</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Process%20Pair#Process%20Pair">Process
+Pair</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#High%20Availability#High%20Availability">Prompt
+Repair</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Redundant%20Independant%20Objects#Redundant%20Independant%20Objects">Redundant
+Independent Objects</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Shared_Object#Shared_Object">Shared
+Object</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Distributed%20Computing%20Patterns#Distributed%20Computing%20Patterns">Distributed
+Computing </a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Connection%20Multiplexing#Connection%20Multiplexing">Connection
+Multiplexing</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Heartbeat#Heartbeat">Heartbeat
+</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Heavyweight/Lightweight%20Object#Heavyweight/Lightweight%20Object">Heavyweight/Lightweight
+Object</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Mailbox#Mailbox">Mailbox</a>
+</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Object%20Identifier#Object%20Identifier">Object
+Identifier</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Protection_Proxy#Protection_Proxy">Protection
+Proxy</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Publish-Subscribe#Publish-Subscribe">Publish-Subscribe</a>
+– entities can listen to single-point broadcast</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Registry#Registry">Registry</a>
+</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Retransmission#Retransmission">Retransmission</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Distributed%20Concurrency%20Patterns#Distributed%20Concurrency%20Patterns">Concurrency
+</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Cache%20Consistency#Cache%20Consistency">Cache
+Consistency</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Deep%20Transaction#Deep%20Transaction">Deep
+Transaction Nesting</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Lock%20File#Lock%20File">Lock
+File</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Optimistic_Concurrency#Optimistic_Concurrency">Optimistic
+Concurrency</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Session%20Object#Session%20Object">Session
+Object</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Static%20Locking%20Order#Static%20Locking%20Order">Static
+Locking Order</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Thread_Pool#Thread_Pool">Thread
+Pool </a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Temporal%20Patterns#Temporal%20Patterns">Temporal
+</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Temporal%20Property#Temporal%20Property">Temporal
+Property</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Time%20Server#Time%20Server">Time
+Server</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Versioned%20Object#Versioned%20Object">Versioned
+Object</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Database%20Patterns#Database%20Patterns">Database
+</a></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#CRUD#CRUD">CRUD</a>
+</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#isDirty#isDirty">isDirty</a>
+</p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Lazy_Retrival#Lazy_Retrival">Lazy
+Retrieval</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Persistence%20Layer#Persistence%20Layer">Persistence
+Layer</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Stale%20Object#Stale%20Object">Stale
+Object</a> </p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a
+href="http://www.mindspring.com/~mgrand/pattern_synopses3.htm#Type%20Conversion#Type%20Conversion">Type
+Conversion</a></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol;color:blue'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'>Integration Styles</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/FileTransferIntegration.html">File
+Transfer</a></span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/SharedDataBaseIntegration.html">Shared
+Database</a></span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/EncapsulatedSynchronousIntegration.html">Remote
+Procedure Invocation</a></span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/Messaging.html">Messaging</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol;color:blue'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'>Messaging Systems </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageChannel.html">Message
+Channel</a> – publish-subscribe messaging</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/Message.html">Message</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/PipesAndFilters.html">Pipes
+and Filters</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageRouter.html">Message
+Router</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageTranslator.html">Message
+Translator</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageEndpoint.html">Message
+Endpoint</a> – Service endpoint</span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol;color:blue'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'>Messaging Channels </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/PointToPointChannel.html">Point-to-Point
+Channel</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/PublishSubscribeChannel.html">Publish-Subscribe
+Channel</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/DatatypeChannel.html">Datatype
+Channel</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/InvalidMessageChannel.html">Invalid
+Message Channel</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/DeadLetterChannel.html">Dead
+Letter Channel</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/GuaranteedMessaging.html">Guaranteed
+Delivery</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/ChannelAdapter.html">Channel
+Adapter</a> – External app can publish to a message channel: invokes functionality
+inside app</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessagingBridge.html">Messaging
+Bridge</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageBus.html">Message Bus</a>
+- MQ</span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol;color:blue'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'>Message Construction </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/CommandMessage.html">Command
+Message</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/DocumentMessage.html">Document
+Message</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/EventMessage.html">Event
+Message</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/RequestReply.html">Request-Reply</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/ReturnAddress.html">Return
+Address</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/CorrelationIdentifier.html">Correlation
+Identifier</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageSequence.html">Message
+Sequence</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageExpiration.html">Message
+Expiration</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/FormatIndicator.html">Format
+Indicator</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol;color:blue'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'>Message Routing </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/ContentBasedRouter.html">Content-Based
+Router</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/Filter.html">Message Filter</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/DynamicRouter.html">Dynamic
+Router</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/RecipientList.html">Recipient
+List</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/Sequencer.html">Splitter</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/Aggregator.html">Aggregator</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/Resequencer.html">Resequencer</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/DistributionAggregate.html">Composed
+Msg. Processor</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/BroadcastAggregate.html">Scatter-Gather</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/RoutingTable.html">Routing
+Slip</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/ProcessManager.html">Process
+Manager</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageBroker.html">Message
+Broker</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol;color:blue'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'>Message Transformation </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/EnvelopeWrapper.html">Envelope
+Wrapper</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/DataEnricher.html">Content
+Enricher</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/ContentFilter.html">Content
+Filter</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/StoreInLibrary.html">Claim
+Check</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/Normalizer.html">Normalizer</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/CanonicalDataModel.html">Canonical
+Data Model</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol;color:blue'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'>Messaging Endpoints </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessagingGateway.html">Messaging
+Gateway</a> – front Service interface, hides app backend functionality</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessagingMapper.html">Messaging
+Mapper</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/TransactionalClient.html">Transactional
+Client</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/PollingConsumer.html">Polling
+Consumer</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/EventDrivenConsumer.html">Event-Driven
+Consumer</a> – waits for messages.</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/CompetingConsumers.html">Competing
+Consumers</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageDispatcher.html">Message
+Dispatcher</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageSelector.html">Selective
+Consumer</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/DurableSubscription.html">Durable
+Subscriber</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/IdempotentReceiver.html">Idempotent
+Receiver</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessagingAdapter.html">Service
+Activator</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:Symbol;color:blue'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'>System Management </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/ControlBus.html">Control Bus</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/Detour.html">Detour</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/WireTap.html">Wire Tap</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageHistory.html">Message
+History</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/MessageStore.html">Message
+Store</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/SmartProxy.html">Smart Proxy</a>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/TestMessage.html">Test
+Message</a> </span></p>
+
+<p class=MsoNormal style='margin-left:.75in;text-indent:-.25in;background:#F8FCFF'><span
+lang=EN style='font-size:10.0pt;font-family:"Courier New";color:blue'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:blue'><a
+href="http://www.enterpriseintegrationpatterns.com/ChannelPurger.html">Channel
+Purger</a></span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html> 
+<html> 
+	<head>	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Daily Bank Balances</title> 
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<!-- link rel="stylesheet" href="./jquery.mobile.css" />
+		<script src="./jquery.js"></script>
+		<script src="./jquery.mobile.js"></script -->
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+		<script src="./database.js"></script>
+		<script src="./dailybalance.js"></script>
+		<script src="./beans.js"></script>
+		<script src="./edit.js"></script>
+		<script src="./prototype.js"></script>
+		<script src="./menu.js"></script>
+	</head> 
+<body> 
+
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+		setUserName($.urlParam('accountName'));
+		if(false) {	//==offline
+			fakeData();
+		} else {
+			setUserName($.urlParam('accountName'));
+			generateTable(document.userAccounts.userName);
+			//loadAccountsTest(document.userAccounts.userName);
+			//incrementAccount();
+			incrementHits();
+		}
+	});
+</script>
+
+<div data-role="page">
+
+	<div data-role="header" data-position="fixed">
+			<h1>Daily Bank Balances
+			<hidden><a id="addAccountClick" href="addAccount.htm" data-rel="dialog">&nbsp;</a>
+			<a id="addBillClick" href="addBill.htm" data-rel="dialog">&nbsp;</a>
+			<a id="addCreditCardClick" href="addCreditCard.htm" data-rel="dialog">&nbsp;</a>
+			<a id="editCreditCardClick" href="editCreditCards.htm" data-rel="dialog">&nbsp;</a>
+			<a id="editAccountClick" href="editAccount.htm" data-rel="dialog">&nbsp;</a>
+			<a id="editMiscClick" href="editMisc.htm" data-rel="dialog">&nbsp;</a>
+			<a id="editPaycheckClick" href="editPaycheck.htm" data-rel="dialog">&nbsp;</a>
+			<a id="editBillClick" href="editBills.htm" data-rel="dialog">&nbsp;</a>
+			</hidden></h1>
+
+			<div data-role="navbar">
+			<ul>
+<li><label for="select-choice-min" class="select">Edit:</label>
+<select name="select-choice-min" id="select-choice-1" data-mini="true" onmouseup="selectMenu('edit', this);">
+   <option value="current">Current</option>
+   <option value="paycheck">Paycheck</option>
+   <option value="misc">Miscelanea</option>
+   <option value="bill">Bills</option>
+   <option value="creditCard">Credit Cards</option>
+   <option value="account">Accounts</option>
+</select> </li>
+				
+				<li><label for="select-choice-0" class="select">Add:</label>
+<select name="select-choice-0" id="select-choice-1" data-mini="true" onmouseup="selectMenu('add', this);">
+   <option value="bill">Bill</option>
+   <option value="creditCard">Credit Card</option>
+   <option value="account">Account</option>
+</select></li>
+<li><a id="editCurrentClick" href="editCurrent.htm" data-rel="dialog">Edit Current</a></li>
+			</ul>
+		</div><!-- /navbar -->
+
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<div id="dailyBalanceTable" data-role="collapsible" data-collapsed="false">
+			<h3>Daily Balances</h3>
+			<div class="summary">
+				Summary
+			</div>
+		</div>
+		
+		<div data-role="collapsible" data-collapsed="true">
+			<h3>Summary</h3>
+			<div class="edits">
+				Edits
+			</div>
+		</div>
+
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed">		
+	
+		<div data-role="navbar">
+			<ul>
+				<li><a class="ui-btn-active" onclick="gotoPage('daily', $.urlParam('accountName'));">Daily</a></li>
+				<li><a onclick="gotoPage('summary', $.urlParam('accountName'));">Summary</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	
+	
+
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="./database.js"></script>
+</head>
+<body>
+<p>
+       <div id='update-target'>
+         <a href="#">Click here to load addresses</a>
+         <ol></ol>
+       </div>
+     </p>
+
+
+<a href='http://dl.dropbox.com/u/688127/public-web-site/dailybalance/budget.xml'>budget</a>
+<script>
+//file = fopen(getScriptPath("/home/ftaylor92/Desktop/Dropbox/Private/finances/dailyBalance-eclipse/DailyBalance-AWS/budget.xml"), 0);
+
+//alert("before");
+
+/*$.ajax({
+                 type: "GET",
+                 url: "http://dl.dropbox.com/u/688127/public-web-site/dailybalance/budget.xml",
+                 dataType: "xml",
+                 success: function(xml) {
+					//alert("success");
+                     $(xml).find('label').each(function(){
+                         var id_text = $(this).attr('id')
+                         var name_text = $(this).find('name').text()
+
+                         $('<li></li>')
+                             .html(name_text + ' (' + id_text + ')')
+                             .appendTo('#update-target ol');
+                     }); //close each(
+                 }
+             });*/
+
+/*file = fopen("/home/ftaylor92/Desktop/Dropbox/Private/finances/dailyBalance-eclipse/DailyBalance-AWS/budget.xml", 0);
+file_length = flength(file);
+alert(file_length);
+content = fread(file, file_length);
+alert(file_length);
+*/
+
+/*$.get("http://dl.dropbox.com/u/688127/public-web-site/dailybalance/budget.xml", function(response,status,xhr) {
+  alert("response");
+}, "xml");*/
+
+
+$.ajax( { url: "https://api.mongolab.com/api/1/databases/dailybalance/collections/dailybalances?apiKey=4faf2a26e4b020a46b49e5ed",
+    type: "GET",
+	async: true,
+	beforeSend: function(x) {
+		if(x && x.overrideMimeType) {
+		x.overrideMimeType("application/json;charset=UTF-8");
+		}
+ 	},
+	timeout: 10000,
+	processData: false,
+	accept: "application/json",
+	contentType: "application/json",
+	dataType: "json",
+	success: function(data, txtstatus, xbr){
+    	alert("success2"+data);  
+		var jData= eval(data);
+		//alert(jData[0].x);
+	},
+ 	error: function(data, txtstatus, xbr){
+    	alert("error2"+ data);
+    	var ao= eval(data);
+ 	}
+ } );
+
+var account= new Object();
+account.userName= "fmtTwo";
+account.budget= new Object();
+account.budget.balance= 1010.10;
+account.budget.name= "chase";
+
+$.ajax( { url: "https://api.mongolab.com/api/1/databases/dailybalance/collections/dailybalances?apiKey=4faf2a26e4b020a46b49e5ed",
+          data: JSON.stringify( account ),
+          type: "POST",
+          contentType: "application/json" } );
+
+/*$.ajax( { url: "https://api.mongolab.com/api/1/databases/dailybalance/collections/dailybalances?apiKey=4faf2a26e4b020a46b49e5ed",
+          data: JSON.stringify( [ { "x" : 8 }, { "y" : 9 }, { "z" : 10 } ] ),
+          type: "POST",
+          contentType: "application/json" } );
+*/
+</script>
+
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>Three.js Example</title>
+<script src="./js/three.js"></script>
+<script defer type="text/javascript">
+
+/*  Show a pyramid with five differently colored sides using Three.js.
+ *  The pyramid geometry is constructed directly.
+ *  The cube can be rotated using the arrow keys.  The home key
+ *  or the return key will reset the rotation to zero.  WebGL
+ *  will be used if available.  If not, the program will attempt
+ *  to use the canvas 2D API.
+ */
+
+var renderer;  // A three.js WebGL or Canvas renderer.
+var scene;     // The 3D scene that will be rendered, containing the cube.
+var camera;    // The camera that takes the picture of the scene.
+
+var pyramid; // The three.js object that represents the pyramid.
+
+var rotateX = 0.4;   // rotation of cube about the x-axis
+var rotateY = -.1;  // rotation of cube about the y-axis
+
+var SCREEN_WIDTH = window.innerWidth - 100;
+var SCREEN_HEIGHT = window.innerHeight - 100;
+
+var container, mesh, geometry, plane;
+
+var windowHalfX = window.innerWidth / 2;
+var windowHalfY = window.innerHeight / 2;
+
+/*  This function is called by the init() method.  Its purpose is
+ *  to add objects to the scene.  The scene, camera, and renderer
+ *  objects have already been created.
+ */
+function createWorld() {
+	//	console.debug();
+
+    camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 100000);
+    camera.position.x = 1200;
+    camera.position.y = 1000;
+    camera.lookAt({
+        x: 0,
+        y: 0,
+        z: 0
+    });
+
+    scene = new THREE.Scene();
+    
+    var groundMaterial = new THREE.MeshPhongMaterial({
+        color: 0x6C6C6C
+    });
+    plane = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), groundMaterial);
+    plane.rotation.x = -Math.PI / 2;
+    plane.receiveShadow = true;
+
+    scene.add(plane);
+
+    // LIGHTS
+    scene.add(new THREE.AmbientLight(0x666666));
+
+    var light;
+
+    light = new THREE.DirectionalLight(0xdfebff, 1.75);
+    light.position.set(300, 400, 50);
+    light.position.multiplyScalar(1.3);
+
+    light.castShadow = true;
+    light.shadowCameraVisible = true;
+
+    light.shadowMapWidth = 512;
+    light.shadowMapHeight = 512;
+
+    var d = 200;
+
+    light.shadowCameraLeft = -d;
+    light.shadowCameraRight = d;
+    light.shadowCameraTop = d;
+    light.shadowCameraBottom = -d;
+
+    light.shadowCameraFar = 1000;
+    light.shadowDarkness = 0.2;
+
+    scene.add(light);
+    
+    var boxgeometry = new THREE.CubeGeometry(100, 100, 100);
+    var boxmaterial = new THREE.MeshLambertMaterial({
+        color: 0x0aeedf
+    });
+    var cube = new THREE.Mesh(boxgeometry, boxmaterial);
+    cube.castShadow = true;
+    cube.position.x = 0;
+    cube.position.y = 100;
+    cube.position.z = 0;
+
+    //scene.add(cube);
+
+//star - start
+	var starPoints = [];
+	
+	starPoints.push( new THREE.Vector3 (   0,  50, 1 ) );		//top of star, 50->70 goes higher
+	//starPoints.push( new THREE.Vector2 (  10,  10 ) );
+	//starPoints.push( new THREE.Vector2 (  40,  10 ) );
+	//starPoints.push( new THREE.Vector2 (  20, -10 ) );
+	//starPoints.push( new THREE.Vector2 (  30, -50 ) );
+	starPoints.push( new THREE.Vector3 (   10, -40, 1 ) );		//bottom of star leg, -20->-40 goes lower
+	//starPoints.push( new THREE.Vector2 ( -30, -50 ) );
+	//starPoints.push( new THREE.Vector2 ( -20, -10 ) );
+	//starPoints.push( new THREE.Vector2 ( -40,  10 ) );
+	starPoints.push( new THREE.Vector3 ( -10,  -40, 1 ) );
+	
+	var starShape = new THREE.Shape( starPoints );
+
+	var extrusionSettings = {
+		size: 30, height: 4, curveSegments: 3,
+		bevelThickness: 1, bevelSize: 2, bevelEnabled: true,
+		material: 0, extrudeMaterial: 1
+	};
+	
+	var starGeometry = new THREE.ExtrudeGeometry( starShape, extrusionSettings );
+	
+	var materialFront = new THREE.MeshLambertMaterial( { color: 0xffff00 } );
+	var materialSide = new THREE.MeshLambertMaterial( { color: 0xff8800 } );
+	var materialArray = [ materialFront, materialSide ];
+	var starMaterial = new THREE.MeshLambertMaterial(materialArray);
+	
+	var star = new THREE.Mesh( starGeometry, starMaterial );
+	star.position.set(0,50,0);
+
+star.castShadow = true;
+star.receiveShadow = true;
+star.overdraw = true;
+	scene.add(star);
+//star - end
+}
+
+/**
+ *  The render fucntion creates an image of the scene from the point of view
+ *  of the camera and displays it in the canvas.  This is called at the end of
+ *  init() to produce the initial view of the cube, and it is called each time
+ *  the user presses an arrow key, return, or home.
+ */
+function render() {
+    //renderer.render(scene, camera);
+    camera.lookAt(scene.position);
+    renderer.render(scene, camera);
+}
+
+/**
+ *  An event listener for the keydown event.  It is installed by the init() function.
+ */
+function doKey(evt) {
+    var rotationChanged = true;
+	switch (evt.keyCode) {
+	    case 37: rotateY -= 0.05; break;        // left arrow
+	    case 39: rotateY +=  0.05; break;       // right arrow
+	    case 38: rotateX -= 0.05; break;        // up arrow
+	    case 40: rotateX += 0.05; break;        // down arrow
+	    case 13: rotateX = rotateY = 0; break;  // return
+	    case 36: rotateX = rotateY = 0; break;  // home
+	    default: rotationChanged = false;
+	}
+	if (rotationChanged) {
+       pyramid.rotation.set(rotateX,rotateY,0);	
+       render();
+	   evt.preventDefault();
+	}
+}
+
+function createFromCanvas() {
+ try {
+        var theCanvas = document.getElementById("cnvs");
+        if (!theCanvas || !theCanvas.getContext) {
+            document.getElementById("message").innerHTML = 
+                             "Sorry, your browser doesn't support canvas graphics.";
+            return;
+        }
+        try {  // try to create a WebGLRenderer
+            if (window.WebGLRenderingContext) {
+                renderer = new THREE.WebGLRenderer( { 
+                   canvas: theCanvas, 
+                   antialias: true
+                } );
+				renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+				renderer.domElement.style.position = "relative";
+				renderer.shadowMapEnabled = true;
+				renderer.shadowMapSoft = true;
+            } 
+        }
+        catch (e) {
+        }
+        if (!renderer) { // If the WebGLRenderer couldn't be created, try a CanvasRenderer.
+            renderer = new THREE.CanvasRenderer( { canvas: theCanvas } );
+            renderer.setSize(theCanvas.width,theCanvas.height);
+            document.getElementById("message").innerHTML =
+                          "WebGL not available; falling back to CanvasRenderer.";
+        }
+        renderer.setClearColor(0x220033);  // dark violet background
+		renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		renderer.domElement.style.position = "relative";
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+//        *scene = new THREE.Scene();
+//        camera = new THREE.PerspectiveCamera(45, theCanvas.width/theCanvas.height, 0.1, 100);
+//        camera.position.z = 4;*
+        createWorld();
+        render();
+        document.addEventListener("keydown", doKey, false);
+     }
+     catch (e) {
+        document.getElementById("message").innerHTML = "Sorry, an error occurred: " + e;
+     }	
+}
+
+function createWebGl() {
+if(false) {
+	try {
+
+		// RENDERER
+		renderer = new THREE.WebGLRenderer();
+		renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		renderer.domElement.style.position = "relative";
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+
+		container = document.createElement('div');
+		document.body.appendChild(container);
+
+		container.appendChild(renderer.domElement);
+		window.addEventListener('resize', onWindowResize, false);
+
+     } catch (e) {
+        document.getElementById("message").innerHTML = "Sorry, an error occurred on second renderer: " + e;
+     }
+}
+	createWorld();
+}
+
+/**
+ *  This function is called by the onload event so it will run after the
+ *  page has loaded.  It creates the renderer, canvas, and scene objects,
+ *  calls createWorld() to add objects to the scene, and renders the
+ *  initial view of the scene.  If an error occurs, it is reported.
+ */
+function init() {
+
+	createFromCanvas();
+
+	createWebGl();
+}
+
+</script>
+</head>
+<body onload="init()">
+
+<h2>Three.js Example</h2>
+
+<noscript>
+<p style="color: #A00; font-weight: bold">Sorry, but this page requires JavaScript!</p>
+</noscript>
+
+<p style="color:#A00; font-weight: bold" id="message"></p>
+
+<p><b>Arrow keys rotate the cube about its x- and y-axes.<br>
+Return key or HOME key sets both rotations to zero.</b></p>
+
+<canvas width=640 height=480 id="cnvs" style="background-color:black">canvas didnt load</canvas>    
+<script>
+var eee= new Object();
+eee.keyCode= 37;
+//document.getElementById('cnvs').addEventListener("click", doKey, false);
+
+
+function onWindowResize() {
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    webglRenderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function animate() {
+    var timer = Date.now() * 0.0002;
+    camera.position.x = Math.cos(timer) * 1000;
+    camera.position.z = Math.sin(timer) * 1000;
+    requestAnimationFrame(animate);
+    render();
+}
+
+
+</script>
+
+<button onclick="animate()">Rotate</button><br/>
+</body>
+</html>

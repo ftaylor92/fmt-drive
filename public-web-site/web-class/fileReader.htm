@@ -1,0 +1,39 @@
+<html>
+<head>
+	<script type="text/javascript" src="loadXml.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheet-1.css" />
+	
+</head>
+<body>
+<script type="text/javascript">
+xmlDoc=loadXMLDoc("shoppingCart.xml");
+
+var i= 0;
+var carts= xmlDoc.getElementsByTagName("shoppingCart");
+for (i=0;i<carts.length;i++)
+  { 
+	  document.write("<h2>parentNodeName: "+ carts[i].parentNode.nodeName+ "</h2><br/>");
+	  document.write("<h3>NodeName: "+ carts[i].nodeName+ "</h2><br/>");
+
+	  document.writeln("<table border='1' class='cart'>");
+	  document.writeln("<thead><th>type</th><th>name</th><th>quantity</th><th>price</th></thead>");
+	  var items= carts[i].getElementsByTagName("item");
+	  for(j=0;j<items.length;j++) {
+		var anItem= items[j];
+		document.writeln("<tr>");
+	  	//document.write("<td>"+ anItem.nodeName+ "</td>");
+	  	document.write("<td>"+ anItem.attributes.getNamedItem("type").nodeValue+ "</td>");
+		document.write("<td>"+ anItem.getElementsByTagName("name")[0].childNodes[0].nodeValue)+ "</td>";
+	  	document.write("<td>"+ anItem.getElementsByTagName("quantity")[0].childNodes[0].nodeValue)+ "</td>";
+	  	document.write("<td>$"+ anItem.getElementsByTagName("price")[0].childNodes[0].nodeValue)+ "</td>";
+		document.writeln("</tr>");
+		
+	  }
+  }
+document.writeln("</table>");
+
+
+</script>
+</body>
+
+</html>

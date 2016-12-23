@@ -1,0 +1,38 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#include&quot;CConsumerRef.h&quot;</pre>
+<pre>Boolean IterFindProducer(CProducerRef *aRef, RefInfo *info)
+{
+	Boolean	exists(FALSE);
+	char	refName[256];
+	DataBuf	aBuf;
+	aBuf.buf = (char *)refName;
+	aBuf.len = 256;
+	aRef-&gt;GetDiscriptionText(&amp;aBuf);
+	int name= strcmp((char *)info-&gt;componentName, (char *)refName);
+	exists= (name == 0);
+	return( exists );
+}</pre>
+<pre>Boolean	CProducerRef::IProducerRef(CBureaucrat*anOwner, StringPtr name)
+{	
+	if(name)
+		strcpy((char *)prodName, (char *)name);
+	return IComponentRef((CBureaucrat*)anOwner,name);
+}</pre>
+<pre>void CProducerRef::Dispose()
+{
+	inherited::Dispose();
+}</pre>
+
+</body>
+
+</html>

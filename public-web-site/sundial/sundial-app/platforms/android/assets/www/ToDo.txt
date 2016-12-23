@@ -1,0 +1,15 @@
+three.js/WebGl
+	-sundial shapes, light=sun, shadow
+	-click on earth - lat/long graphic
+	-see: http://threejs.org/examples/#canvas_geometry_earth
+
+check out Celtic book again
+
+camera - to check on shadow angle
+	
+query/click on earth
+
+Cordova pages should not get js libs from internet
+
+remove unused cordova plugin ls
+try Apple iPhone App on Robin's phone

@@ -1,0 +1,56 @@
+<html>
+<head><title>Animated Sundial</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+
+<h3>Animated Sundial</h3>
+
+<script>
+	var dataArray= new Array();
+
+	function NavyData(ddate,Time,AzimuthAngle,ElevationRefracted,Declination,MeanAnomaly,MeanLongitude,JulianDay) {
+		this.ddate= ddate;
+		this.Time= Time;
+		this.AzimuthAngle= AzimuthAngle;
+		this.ElevationRefracted= ElevationRefracted;
+		this.Declination= Declination;
+		this.MeanAnomaly= MeanAnomaly;
+		this.MeanLongitude= MeanLongitude;
+		this.JulianDay= JulianDay;
+	}
+
+	function getAzEl() {
+		//var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		var azElUrl= "http://localhost:8080/full-j2EE/rest/sundial";
+		//"https://rest-db-jsp-servlet-jersey.herokuapp.com/rest/sundial";
+		//"http://www.nrel.gov/midc/apps/solpos.pl?syear=1997&smonth=9&sday=25&eyear=1997&emonth=9&eday=25&step=10&stepunit=1&latitude=-26.25&longitude=28.00&timezone=2.0&press=1013.0&temp=15&aspect=180&tilt=0&solcon=1367&sbwid=7.6&sbrad=31.7&sbsky=0.04&interval=0&field=2&field=11&field=6&field=21&field=22&field=19&zip=0"
+
+		$.get(azElUrl, function(data, txtstatus, xbr) {
+			//$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+			var dataArray= (""+ data).split(',');
+			var angles= new Array();
+			var c= 0;
+			for(var i= 8; i < dataArray.length; i+= 8) {
+				var navy= new NavyData(dataArray[i], dataArray[i+1], dataArray[i+2], dataArray[i+3], dataArray[i+4], dataArray[i+5], dataArray[i+6], dataArray[i+7]);
+				console.log("response: "+ navy.ddate+","+navy.Time+","+navy.AzimuthAngle+","+navy.ElevationRefracted+"\n");
+				angles[c++]= navy;
+			}
+		});
+	}
+
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+
+		getAzEl();
+	});
+</script>
+<div id='counter'></div>
+
+</body>
+</html>

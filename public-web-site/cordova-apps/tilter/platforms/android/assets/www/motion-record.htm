@@ -1,0 +1,152 @@
+<html>
+<head>
+	<title>3D with sine cosine and tangent</title>
+	<script type="text/javascript" src="./js/namespace.js"></script>
+	<script type="text/javascript" src="./js/shapes.js"></script>
+	<script type="text/javascript" src="./js/prototype.js"></script>
+	<script type="text/javascript" src="./js/three-dimension.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<!-- script src="./js/motion.js"></script -->
+
+	<script type="text/javascript" charset="utf-8">
+	var entry= null;
+	var fs= null;
+	var data= "motion-";
+
+   /* cordova.exec(function(winParam) {},
+                 function(error) {},
+                 "motion",
+                 "getMotion",
+                 ["firstArgument", "secondArgument", 42, false]);
+*/
+
+		var watchAcc= null;
+		var recordMotion= false;
+
+		document.addEventListener("deviceready", onDeviceReady, false);
+
+		function onDeviceReady() {
+		    var options = { frequency: 1024 };
+			options = { frequency: 64 };
+		    watchAcc = navigator.accelerometer.watchAcceleration(onSuccessAcc, onErrorAcc, options);
+	        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+
+		}
+
+    function gotFS(fileSystem) {
+		fs= fileSystem;
+        fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+		entry= fileEntry;
+        fileEntry.createWriter(gotFileAppender, fail);
+        //fileEntry.createWriter(win, fail);
+    }
+
+	function appendData(dta) {
+		data= dta;
+		entry.createWriter(gotFileAppender, fail);
+	}
+
+    function gotFileWriter(writer) {
+        writer.onwriteend = function(evt) {
+            console.log("contents of file now 'some sample text'");
+            writer.truncate(11);
+            writer.onwriteend = function(evt) {
+                console.log("contents of file now 'some sample'");
+                writer.seek(4);
+                writer.write(" different text");
+                writer.onwriteend = function(evt){
+                    console.log("contents of file now 'some different text'");
+                }
+            };
+        };
+        writer.write("some sample text");
+    }
+
+	function gotFileAppender(writer) {
+		writer.onwrite = function(evt) {
+			console.log("write success");
+		};
+		writer.seek(writer.length);
+    	writer.write(data);
+
+	}
+
+	function win(writer) {
+		writer.onwrite = function(evt) {
+			writer.seek(writer.length);
+				writer.write("appended text");
+			};
+		console.log("write success");
+	};
+
+
+    function fail(error) {
+        console.log(error.code);
+    }
+
+		function onSuccessAcc(acceleration) {
+			setInputs("level", acceleration.ogx,acceleration.ogy,acceleration.ogz);
+			setInputs("m", acceleration.mx,acceleration.my,acceleration.mz);
+			setInputs("g", acceleration.gx,acceleration.gy,acceleration.gz);
+			setInputs("gy", acceleration.gyx,acceleration.gyy,acceleration.gyz);
+			setInputs("or", acceleration.orx,acceleration.ory,acceleration.orz);
+			setInputs("r", acceleration.rx,acceleration.ry,acceleration.rz);
+			levelLine();
+			appendData(", pts:"+acceleration.mx+","+acceleration.my+","+acceleration.mz);
+		}
+		function onErrorAcc(accelerationError) {
+		    alert('Compass error: ' + accelerationError.code);
+		}
+		
+		function setInputs(t,x,y,z) {
+			document.getElementById(t+'-x').value= x;
+			document.getElementById(t+'-y').value= y;
+			document.getElementById(t+'-z').value= z;
+		}
+	</script>
+</head>
+<body>
+	<h2>2D to 3D with Sine, Cosine and Tangent</h2>
+	<div id="sundialInputs">
+		X: <input type="number" id="level-x" size="2" required="true" value=0.1 />
+		Y: <input type="number" id="level-y" size="2" required="true" value=9.9 />
+		Z: <input type="number" id="level-z" size="2" required="true" value=0.1 />
+
+		X: <input type="number" id="m-x" size="2" required="true" value=0.1 />
+		Y: <input type="number" id="m-y" size="2" required="true" value=9.9 />
+		Z: <input type="number" id="m-z" size="2" required="true" value=0.1 />
+
+		X: <input type="number" id="g-x" size="2" required="true" value=0.1 />
+		Y: <input type="number" id="g-y" size="2" required="true" value=9.9 />
+		Z: <input type="number" id="g-z" size="2" required="true" value=0.1 />
+
+		X: <input type="number" id="gy-x" size="2" required="true" value=0.1 />
+		Y: <input type="number" id="gy-y" size="2" required="true" value=9.9 />
+		Z: <input type="number" id="gy-z" size="2" required="true" value=0.1 />
+
+		X: <input type="number" id="or-x" size="2" required="true" value=0.1 />
+		Y: <input type="number" id="or-y" size="2" required="true" value=9.9 />
+		Z: <input type="number" id="or-z" size="2" required="true" value=0.1 />
+
+		X: <input type="number" id="r-x" size="2" required="true" value=0.1 />
+		Y: <input type="number" id="r-y" size="2" required="true" value=9.9 />
+		Z: <input type="number" id="r-z" size="2" required="true" value=0.1 />
+		<button onclick="levelLine()">Update</button><br/>
+	</div>
+	<hr/>
+	<canvas id="twoDimensionalCanvas" width="457" height="468" style="border:1px solid #000000;">
+		Upgrade to <a href="http://www.mozilla.org/en-US/firefox">Firefox web browser</a> to use &lt;canvas&gt; tag.
+	</canvas>
+
+	<button onclick="recordMotion= false">Stop Recording</button>
+	<button onclick="recordMotion= true;recordpackage.start();">Start Recording</button>
+
+	<script>
+		projection();
+	</script>
+
+</body>
+</html>

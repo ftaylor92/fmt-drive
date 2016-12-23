@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Geronimo Source</title>
+</head>
+<body>
+<H3>Geronimo JavaWorld Source</H3>
+These jars contain working source files for the 3rd(<a href="page3.zip">JSP
+jar</a>), 4th(<a href="page4.zip">DB jar</a>) and 5th(<a
+ href="page5.zip">EJB jar</a>) pages of JavaWorld's <a
+ href="http://www.javaworld.com/javaworld/jw-12-2004/jw-1213-geronimo.html">"A
+first look at Apache Geronimo" article</a>.<br>
+The included files assume you are using Tomcat and a postgres Database
+Pool with Geronimo. &nbsp;<br>
+<br>
+<span style="text-decoration: underline;">postgres Database Pool:</span><br>
+To set up postgres to use Geronimo, I followed the example from section
+6.3.1 of <a
+ href="http://chariotsolutions.com/geronimo/database-console.html#database-console-new-jdbc">Aaron
+Mulder's Geronimo Book</a>. &nbsp;<br>
+Before I setup the datbase pool, I downloaded and installed
+postgres8.1.3 and put downloaded the postgresql-8.1-404.jdbc3.jar file
+into Geronimo's repository folder (under
+repository/postgres/jars).&nbsp; I then created a candydb database and
+a candy table in the candydb database for test data in this example.<br>
+<br>
+<span style="text-decoration: underline;">Ant</span> deployment<br>
+Changing the "ghome" property in the build.xml file and typing "ant
+ear" from the command line, then deploying the ear file to Geronimo is
+all you'll have to do to use this example.<BR />
+<BR />
+<A href="./webServices.htm">see</A>: for more Web Services help.<BR />
+Contact <A href="mailto:nicodemus_micro_mage@bigfoot.com">Me</A><BR />
+</body>
+</html>

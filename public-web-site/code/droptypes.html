@@ -1,0 +1,217 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#include&quot;droptypes.h&quot;
+#include&quot;CTypedFile.h&quot;
+#include&quot;DropConsts.h&quot;
+#include&quot;frankutils.h&quot;</pre>
+<pre>DropSlot* DropSlot::Copy(void)
+{
+	DropSlot*	newSlot= new DropSlot();
+	</pre>
+<pre>	newSlot-&gt;name= name;
+	newSlot-&gt;place= place;
+	newSlot-&gt;UN= UN;
+	newSlot-&gt;mMin= mMin;
+	newSlot-&gt;mMax= mMax;
+	newSlot-&gt;itsColor= itsColor;
+	newSlot-&gt;mVisitors= mVisitors;
+	newSlot-&gt;menuArrow= menuArrow;</pre>
+<pre>	return(newSlot);
+}</pre>
+<pre>DropSlot&amp; DropSlot::operator=(const DropSlot&amp; oldSlot)
+{
+	name= oldSlot.name;
+	place= oldSlot.place;
+	UN= oldSlot.UN;
+	mMin= oldSlot.mMin;
+	mMax= oldSlot.mMax;
+	itsColor= oldSlot.itsColor;
+	mVisitors= oldSlot.mVisitors;
+	menuArrow= oldSlot.menuArrow;
+	</pre>
+<pre>	return(*this);
+}</pre>
+<pre>DropSlot::DropSlot(const DropSlot&amp; oldSlot)
+{
+	name= oldSlot.name;
+	place= oldSlot.place;
+	UN= oldSlot.UN;
+	mMin= oldSlot.mMin;
+	mMax= oldSlot.mMax;
+	itsColor= oldSlot.itsColor;
+	mVisitors= oldSlot.mVisitors;
+	menuArrow= oldSlot.menuArrow;
+}</pre>
+<pre>DropSlot::DropSlot() : mMin(0), mMax(0), UN(0), mVisitors(NULL), mPopupMenu(NULL), mShownPlayer(0)
+{
+	mVisitors = new PlayerArray(0);
+	if(mVisitors)	mVisitors-&gt;reserve(8);
+	</pre>
+<pre>	SetRect(&amp;menuArrow, 0,0,0,0);
+}</pre>
+<pre>DropSlot::~DropSlot()
+{
+	if(mVisitors)
+	{
+		for(PlayerArrayConstIter p= mVisitors-&gt;begin(); p != mVisitors-&gt;end(); ++p)
+		{
+			delete(*p);
+		}</pre>
+<pre>		delete mVisitors;
+		mVisitors = NULL;
+	}</pre>
+<pre>	if(mPopupMenu)
+		mPopupMenu-&gt;Dispose();
+}</pre>
+<pre>#if 0
+void 	DropSlot::Write(CTypedFile *aFile)
+{
+	aFile-&gt;PutRectItem(DROP_SLOT_PLACE, &amp;place);
+	aFile-&gt;PutShortItem(DROP_SLOT_COLOR, itsColor.red);
+	aFile-&gt;PutShortItem(DROP_SLOT_COLOR, itsColor.green);
+	aFile-&gt;PutShortItem(DROP_SLOT_COLOR, itsColor.blue);
+	aFile-&gt;PutCodeItem(DROP_SLOT_END);
+}</pre>
+<pre>void	DropSlot::IFromFile(CTypedFile *aFile)
+{
+	static Str255	producerName, tableName, interruption;
+	static long		order;</pre>
+<pre>	short	item;
+	do switch (item = aFile-&gt;GetItem())
+	{
+		case DROP_SLOT_COLOR:
+			itsColor.red= aFile-&gt;GetShort();
+			item =aFile-&gt;GetItem();
+			itsColor.green= aFile-&gt;GetShort();
+			item =aFile-&gt;GetItem();
+			itsColor.blue= aFile-&gt;GetShort();
+			break;
+		case DROP_SLOT_PLACE:
+			aFile-&gt;GetRect(&amp;place);
+			break;
+		case DROP_SLOT_END:
+			break;
+		default:
+			/* error accured */
+			Failure(kSilentErr, 0);
+	} while (item != DROP_SLOT_END);
+}
+#endif</pre>
+<pre>void	DropSlot::SetTopPlayer(int id)
+{
+	Player *aPlayer;
+	int sz(mVisitors-&gt;size());</pre>
+<pre>	for(int i(0); i &lt; sz; i++)
+	{
+		aPlayer= mVisitors-&gt;at(i);
+		if( aPlayer-&gt;id == id &amp;&amp; aPlayer-&gt;id &gt;= PLAYER_BASE_DIVIDER )
+		{
+			mShownPlayer= i;
+			break;
+		}
+	}
+}</pre>
+<pre>void	DropSlot::SetTopPlayer(Player *topDog)
+{
+	Player *aPlayer;
+	int sz(mVisitors-&gt;size());</pre>
+<pre>	for(int i(0); i &lt; sz; i++)
+	{
+		aPlayer= mVisitors-&gt;at(i);
+		if( aPlayer-&gt;id == topDog-&gt;id &amp;&amp; aPlayer-&gt;id &gt;= PLAYER_BASE_DIVIDER )
+		{
+			mShownPlayer= i;
+			break;
+		}
+	}
+}</pre>
+<pre>short	DropSlot::NumVisitors(void)
+{
+	short	realPlayers(0);
+	</pre>
+<pre>	for(PlayerArrayConstIter p= mVisitors-&gt;begin(); p != mVisitors-&gt;end(); ++p)
+	{
+		if( (*p)-&gt;id &gt;= PLAYER_BASE_DIVIDER )
+			realPlayers++;
+	}
+	</pre>
+<pre>	return realPlayers;
+}</pre>
+<pre>Player	*DropSlot::GetTopPlayer(void)
+{
+	ResetTopPlayer();
+	return( mVisitors-&gt;at(mShownPlayer) );
+}</pre>
+<pre>void DropSlot::ResetTopPlayer(void)
+{
+	Player* aPlayer= mVisitors-&gt;at(mShownPlayer);
+	if(aPlayer-&gt;id &lt; PLAYER_BASE_DIVIDER)
+	{
+		int sz(mVisitors-&gt;size());
+		for(int i(0); i &lt; sz; i++)
+		{
+			aPlayer= mVisitors-&gt;at(i);
+			if( aPlayer-&gt;id &gt;= PLAYER_BASE_DIVIDER )
+			{
+				mShownPlayer= i;
+				break;
+			}
+		}
+	}
+}</pre>
+<pre>void	DropSlot::SetShownPlayer(short i)
+{
+	if(i &lt; mVisitors-&gt;size())
+		mShownPlayer= i;
+}
+</pre>
+<pre>Player	*DropSlot::GetFirstFreePlayer(void)
+{
+	for(PlayerArrayConstIter p= mVisitors-&gt;begin(); p != mVisitors-&gt;end(); ++p)
+	{
+		if( (*p)-&gt;id &lt; PLAYER_BASE_DIVIDER )
+			return(*p);
+	}
+	</pre>
+<pre>	return(GetTopPlayer());
+}</pre>
+<pre>void Player::SetID(const int newID/*, const string baseURL, const CPlugin* plug*/)
+{
+	if(id &gt;= PLAYER_BASE_DIVIDER)
+		KillPicture(pic);</pre>
+<pre>	//currBase= NULL;
+	textField.clear();
+	</pre>
+<pre>	id= newID;</pre>
+<pre>	if(currBase)	currBase-&gt;ResetTopPlayer();</pre>
+<pre>	if(newID &gt;= PLAYER_BASE_DIVIDER)
+		currBase-&gt;SetTopPlayer(newID);
+}</pre>
+<pre>Player::Player() : pic(NULL), currBase(NULL), totem(0), salary(0L), injured(FALSE), id(0), RIMSlot(0)
+{
+	ClearString(G);
+	ClearString(AB);
+	ClearString(H);
+	ClearString(RBI);
+	ClearString(AVG);
+	ClearString(R);
+	ClearString(ERA);
+	ClearString(IP);
+}</pre>
+<pre>Player::~Player()
+{
+	if(pic)	KillPicture(pic);
+}</pre>
+
+</body>
+
+</html>

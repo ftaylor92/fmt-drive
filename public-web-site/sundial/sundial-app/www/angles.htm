@@ -1,0 +1,66 @@
+<html>
+<head><title>Angles in HTML5</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+
+<h3>Angles in HTML5</h3>
+<ul>
+	<li><a href="./combined-site/menu-minimal.htm">Sundial Combined Minimimal Site</a></li>
+	<li><a href="./compass-works.htm">Compass - Cordova</a></li>
+
+<hr/>
+	<li><a href="./animation.htm">Sundial Animation</a></li>
+	<li><a href="./sundial.htm">sundial</a></li>
+	<li><a href="./browser.htm">Browser</a></li>
+	<li><a href="./shadow.htm">Shadow-rotate - Three.js</a></li>
+	<li><a href="./sincostan.htm">Sine-Cosine</a></li>
+	<li><a href="./3d.htm">Rotate Page</a></li>
+	<li><a href="./azel.htm">AzEl data</a></li>
+	<li><a href="./canvas-color.htm">HTML5 canvas with colors</a></li>
+
+
+	<li><a href="./jerome/threejsboilerplate/index.html">Jerome</a></li>
+	<li><a href="./webGl/index.html">Shape Rotation - WebGL</a></li>
+
+	<li><a href="./three-js/cube.htm">cube - Three.js</a></li>
+	<li><a href="./three-js/pyramid.htm">pyramid - Three.js</a></li>
+	<li><a href="./three-js/shadow-rotate.htm">Shadow - Three.js</a></li>
+
+	<li><a href="./GET.txt">Az-El from Navy webservice</a></li>
+
+<li><a href="http://www.davidcolarusso.com/astro/">David Colarusso</a></li>
+<li><a href="http://blog.thematicmapping.org/2013/09/creating-webgl-earth-with-threejs.html">Rotating Earth</a></li>
+<li><a href="http://www.rmg.co.uk/make-your-own/sundial">Build Your Own Sundial</a></li>
+<li><a href="http://www.anycalculator.com/horizontalsundial.htm">Horizontal Sundial</a></li>
+
+	<li><a href="./shape-rotation.htm">Rotate around X-axis</a></li>
+	<li><a href="./Dial.xhtml">Dial</a></li>
+	<li><a href="./SudAfriq.htm">South Africa</a></li>
+	<li><a href="./compass.htm">Compass - Cordova</a></li>
+	<li><a href="./protractor.htm">Protractor - Cordova</a></li>
+
+	<li><a href="./sundial_v1.htm">sundial2</a></li>
+	<li><a href="./sundial_v2.htm">sundial3</a></li>
+	<li><a href="./sundial_v3.htm">sundial4</a></li>
+
+	<li><a href="./sun.htm">Sun</a></li>
+	<li><a href="./sun_v2.htm">Sun2</a></li>
+</ul>
+
+<script>
+	$(document).ready(function() {
+		navigator.compass.getCurrentHeading(onCompassSuccess, onCompassError);
+
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+
+</body>
+</html>

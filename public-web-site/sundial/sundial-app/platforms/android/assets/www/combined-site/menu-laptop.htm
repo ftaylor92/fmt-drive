@@ -1,0 +1,266 @@
+<html>
+	<head>
+		<title>Sundial Experiments</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="shortcut icon" href="./img/icon.ico"/>
+		<meta name="viewport" content="width=device-width, maximum-scale=2, minimum-scale=0.5, initial-scale=0.75"> 
+		<script src="./js/jquery.js"></script>
+		<link rel="stylesheet" href="./js/jquery.mobile.css" />
+
+		<script src="./js/jquery-latest.min.js"></script>
+		<script src="./js/three.js"></script>
+
+		<script src="./js/util.js" ></script>
+		<script src="./js/datetime.js" ></script>
+		<!-- observer requires util.js for parsecol -->
+		<script src="./js/observer.js" ></script>
+		<script src="./js/sun.js" ></script>
+		<script src="./js/moon.js" ></script>
+		<script src="./js/sun2.js" ></script>
+		<script src="./js/moon2.js" ></script>
+		<script src="./js/planets.js" ></script>
+		<script src="./js/stars.js" ></script>
+		<script src="./js/separation.js" ></script>
+		<script src="./js/math.js" ></script>
+
+		<script src="./js/namespace.js" ></script>
+		<script src="./js/prototype.js" ></script>
+		<script src="./js/astro-wrapper.js" ></script>
+		<script src="./js/shapes.js" ></script>
+		<script src="./js/sundial.js"></script>
+
+		<!-- script src="./js/navy.js"></script -->
+		<script src="./js/scratch.js"></script>
+		<script src="./js/riseset.js"></script>
+
+		<script src="./js/hayes-extended.js" ></script>
+
+		<script src="./js/android.js" ></script>
+		<script src="./js/broadcaster.js" ></script>
+
+		<script src="./js/time-select.js" ></script>
+		<script src="./js/riseset.js" ></script>
+		<script src="./js/sundial-shadow.js"></script>
+		<script src="./js/compass.js"></script>
+		<script src="./js/protractor.js"></script>
+		<script src="./js/sundial-location.js"></script>
+		
+		<script src="./js/jquery.mobile.js"></script>
+		<script>
+
+			var isMinimalSite= false;
+
+			//$(function(){
+			$(document).ready(function() {
+				$("#protractorHtml").load("./protractor.htm", function() {
+					$("#locationHtml").load("./slider-location.htm", function() {
+						$("#yearlyHtml").load("./rise-set+noon.htm", function() {
+							$("#historyHtml").load("./historical.htm", function() {
+								$("#moreInfoHtml").load("./linx-ack.htm", function() {
+									$("#precisionHtml").load("./precision.htm", function() {
+										$("#watchHtml").load("./time-compass.htm", function() {
+											$("#compassClockHtml").load("./compass-sun.htm", function() {
+												$("#compassHtml").load("./compass.htm", function() {
+													var twoDdivName= "#twoDSundialHtml";
+													if(androidpackage.isAndroid()) {
+														twoDdivName= "#mobile-twoDSundialHtml";
+													}
+													$(twoDdivName).load("./sundial-cmp.htm", function() {
+														$("#sundialCompareHtml").load("./sundial-comparison.htm", function() {
+															//sundialShadowpackage.setInitial();
+
+															$("#threeDSundialHtml").load("./slider-shadow+animation.htm", function() {
+															$("#stonehengeHtml").load("./stonehenge.htm", function() {
+
+
+															$("#timeHtml").load("./time-slider+clock+sundial.htm", function() {
+
+																broadcastpackage.allPackages = new Array();
+																broadcastpackage.allBroadObj = new Object();
+
+																broadcastpackage.addBroadcaster("sundialTimepackage");
+																broadcastpackage.addBroadcaster("risesetpackage");
+																broadcastpackage.addBroadcaster("sundialLocationpackage");
+																broadcastpackage.addBroadcaster("sundialShadowpackage");
+																broadcastpackage.addBroadcaster("sundialTwopackage");
+																broadcastpackage.addBroadcaster("compasspackage");
+
+																var broadObj = new Object();
+																broadObj.date = new Date();
+
+																//for sundialLocationpackage
+																sundialLocationpackage.init();
+
+																broadcastpackage.setupAll(broadObj);
+																
+																//-----
+																var msg= document.getElementById("mobile-twoDSundialHtml");
+																if(androidpackage.isAndroid()) {
+																	msg.innerHTML= 'try tinyurl.com/sundial-experiments in <a href="http://tinyurl.com/sundial-experiments">browser</a> or Desktop computer for a richer experience'; //androidpackage.getBrowserPlatform();//
+																} else {
+																	msg.innerHTML= 'try <a href="http://dl.dropboxusercontent.com/u/688127/public-web-site/linx/android.htm">Android App</a> or <a href="http://dl.dropboxusercontent.com/u/688127/public-web-site/sundial/sundial-app/www/combined-site/menu-minimal.htm">Mobile website</a>'; //androidpackage.getBrowserPlatform();//"Sundial Experiments Ready";																	
+																}
+																/*if(androidpackage.isAndroid()) {
+																	$( "#section-twoDSundialHtml" ).hide();
+																	$( "#section-sundialCompareHtml" ).hide();
+																} else {
+																	$( "#mobile-twoDSundialHtml" ).hide();																	
+																}*/
+
+																//-----
+
+																// test for presence of geolocation
+																console.log("check geo");
+																if (navigator && navigator.geolocation) {
+																	console.log("geo");
+																	navigator.geolocation.getCurrentPosition(geo_success, geo_error);
+																} else {
+																	console.log("no geo");
+																	error('Geolocation is not supported.');
+																	geo_error(null);
+																}
+
+																function geo_success(position) {
+																	console.log("geo-success: " + position.coords.latitude);
+																	var broadObj = new Object();
+																	broadObj.latitude = position.coords.latitude;
+																	broadObj.longitude = position.coords.longitude;
+																	broadcastpackage.broadcastToAll(broadObj, "");
+																}
+
+																function geo_error(position) {
+																	console.log("geo-error");
+																	console.log("geo-success");
+																	var broadObj = new Object();
+																	broadObj.latitude = 42.5109955;
+																	broadObj.longitude = -71.0382657;
+																	broadObj.placeName = "Wakefield";
+																	broadcastpackage.broadcastToAll(broadObj, "");
+																}
+																});
+																});
+															});
+														});
+													});
+												});
+											});
+										});
+									});
+								});
+							});
+						});
+					});
+				});
+
+				/*
+
+				 */
+
+			});
+		</script>
+	</head>
+
+	<body>
+		<div data-role="page" data-theme="a">
+			<div data-role="header">
+				<h1>SunDial Experiments</h1>
+				<!-- div data-role="controlgroup" data-type="horizontal" -->
+				<!-- a href="index.html" data-icon="gear" class="ui-btn-right">Time</a>
+				<a href="index.html" data-icon="gear">Date</a -->
+				<!-- /div -->
+				<!-- div data-role="navbar">
+				<ul>
+				<li><a href="index.html">Contacts List</a></li>
+				<li><a href="form.html">New Entry</a></li>
+				</ul>
+				</div -->
+
+				<!-- select data-mini="true" class="ui-bar" data-icon="star" data-iconpos="left">
+				<option value="volvo">Volvo</option>
+				<option value="saab">Saab</option>
+				<option value="mercedes">Mercedes</option>
+				<option value="audi">Audi</option>
+				</select -->
+
+			</div>
+
+			<div data-role="content">
+				<div id="mobile-twoDSundialHtml"><span style="text-align:center;font-weight:bold;font-size:14pt;color:red;">Loading Universe...</span></div>
+				<!-- div data-role="collapsible-set" data-inset="false" -->
+				<div data-role="collapsible" data-collapsed="true">
+					<h2>change Time &amp; Date</h2>
+					<div id="timeHtml"></div>
+				</div>
+
+				<div data-role="collapsible" data-collapsed="true">
+					<h2>change Location</h2>
+					<div id="locationHtml"></div>
+				</div>
+
+				<div id="section-twoDSundialHtml" data-role="collapsible" data-collapsed="false">
+					<h2>Current Sundial</h2>
+					<div id="twoDSundialHtml"></div>
+				</div>
+
+				<div data-role="collapsible" data-collapsed="true">
+					<h2>3D Sundial</h2>
+					<div id="threeDSundialHtml"></div>
+				</div>
+
+				<div id= "section-sundialCompareHtml" data-role="collapsible" data-collapsed="true">
+					<h2>Sundial Comparisons</h2>
+					<div id="sundialCompareHtml"></div>
+				</div>
+
+				<div data-role="collapsible" data-collapsed="true">
+					<h2>Throughout Year</h2>
+					<div id="yearlyHtml"></div>
+				</div>
+
+				<div data-role="collapsible">
+					<h2>Stonehenge</h2>
+					<div id="stonehengeHtml"></div>
+				</div>
+
+				<div data-role="collapsible">
+					<h2>Historical</h2>
+					<!-- label for="slider-0">Input slider:</label>
+					<input data-role="none" type="range" name="slider" id="slider-0" value="25" min="0" max="100"  / -->
+					<div id="historyHtml"></div>
+				</div>
+
+				<div data-role="collapsible">
+					<h2>Protractor Angles</h2>
+					<div id="protractorHtml"></div>
+				</div>
+
+				<div data-role="collapsible">
+					<h2>using the Sun as a Compass</h2>
+					<div id="watchHtml"></div>
+				</div>
+
+				<div data-role="collapsible">
+					<h2>using a Compass as a Clock</h2>
+					<div id="compassClockHtml"></div>
+				</div>
+
+				<div data-role="collapsible">
+					<h2>Compass &amp; GPS Satellite</h2>
+					<div id="compassHtml"></div>
+				</div>
+
+				<div data-role="collapsible">
+					<h2>Changes thru the Seasons</h2>
+					<div id="precisionHtml"></div>
+				</div>
+
+				<div data-role="collapsible">
+					<h2>Acknowledgements &amp; More Info</h2>
+					<div id="moreInfoHtml"></div>
+				</div>
+
+				<!-- /div -->
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,649 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">#include
+&lt;CObject.h&gt;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">#include
+&quot;CDraggableList.h&quot;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">#include
+I_CMouseTask<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">#include
+I_Graph<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">#include
+I_LongQD<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">#include
+&lt;CPlugin.h&gt;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">#include
+&quot;Utils.h&quot;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">SUBCLASS(CMoveItemDragger,public,CMouseTask)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">public:<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>void IMoveItemDragger(CDraggableList *aList);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">virtual void BeginTracking(LongPt *startPt);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">virtual void KeepTracking(LongPt *currPt,LongPt
+*prevPt,LongPt *startPt);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">virtual void EndTracking(LongPt *currPt,LongPt
+*prevPt,LongPt *startPt);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">private:<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>void DrawTrack(Cell aCell);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">short selStart,selEnd;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">CDraggableList *itsList;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">Cell prevCell;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">};<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">void
+CMoveItemDragger::IMoveItemDragger(CDraggableList *aList)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">IMouseTask(0);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">itsList = aList;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">RgnHandle sel = itsList-&gt;GetSelection();<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">Rect aRect;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">GetRgnBox(sel,&amp;aRect);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">selStart = aRect.top;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">selEnd = aRect.bottom - 1;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">void
+CMoveItemDragger::DrawTrack(Cell aCell)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(aCell.v &lt; selStart || aCell.v &gt;
+selEnd){<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">LongRect cellRect;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">PenMode(patXor);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">itsList-&gt;GetCellRect(aCell,&amp;cellRect);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(aCell.v &gt; selEnd)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-fareast-font-family:&quot;MS Mincho&quot;">cellRect.top
+= cellRect.bottom - 3;<o:p>
+</o:p>
+</span></font></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">else<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>cellRect.bottom = cellRect.top + 3;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">LPaintRect(&amp;cellRect);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">PenNormal();<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">void
+CMoveItemDragger::BeginTracking(LongPt *startPt)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">itsList-&gt;FindHitCell(startPt, &amp;prevCell);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">void
+CMoveItemDragger::KeepTracking(LongPt *currPt, LongPt *prevPt, LongPt *startPt)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">Cell newCell;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">LongRect bounds;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">itsList-&gt;GetBounds(&amp;bounds);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(PtInLongRect(currPt,&amp;bounds))<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">itsList-&gt;FindHitCell(currPt, &amp;newCell);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">else{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">newCell = prevCell;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(currPt-&gt;v &lt; bounds.top)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>newCell.v = 0;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">else if(currPt-&gt;v &gt;= itsList-&gt;bounds.bottom)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>newCell.v = itsList-&gt;GetRowCount();<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">}<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>if (EqualPt(prevCell,newCell))<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">return;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">DrawTrack(prevCell);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">itsList-&gt;AutoScroll(currPt);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">DrawTrack(newCell);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">prevCell = newCell;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">void
+CMoveItemDragger::EndTracking(LongPt *currPt, LongPt *prevPt, LongPt *startPt)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">DrawTrack(prevCell);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(prevCell.v &lt; selStart || prevCell.v
+&gt; selEnd)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">itsList-&gt;ItemMoved(prevCell);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">/*******************************************************************/<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">//extern
+short gClicks;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">void
+CDraggableList::DoClick( Point hitPt, short modifierKeys, long when)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">Cell<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>hitCell = {-1,-1};<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">LongPt<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>pt;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">QDToFrame( hitPt, &amp;pt);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if (CPlugin::GetCurrentPlugin(this)-&gt;gClicks
+&lt; 2 &amp;&amp; PtInLongRect(&amp;pt,&amp;bounds) &amp;&amp; GetModifierKeys()
+== 0){<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">FindHitCell( &amp;pt, &amp;hitCell);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(!IsSelected(hitCell))<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>SelectCell(hitCell,FALSE,TRUE);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">CMoveItemDragger *aTask = new
+CMoveItemDragger;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">aTask-&gt;IMoveItemDragger(this);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">LongRect pinRect = bounds;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">TrackMouse(aTask, &amp;pt, &amp;pinRect);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">ForgetObject( aTask);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">}else<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">inherited::DoClick(hitPt,modifierKeys,when);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">void
+CDraggableList::ItemMoved(Cell toCell)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">RgnHandle sel = GetSelection();<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">Rect aRect;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">GetRgnBox(sel,&amp;aRect);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">short selStart = aRect.top;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">short selEnd = aRect.bottom - 1;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">short insertionOffset;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(toCell.v &lt; selStart)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">insertionOffset = 1;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">else if(toCell.v &gt; selEnd)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">insertionOffset = 2;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">else<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">return;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">CList *selList = new CList;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">selList-&gt;IList();<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">CList *theList = (CList *)itsArray;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">Cell selectedCell = {0,0};<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">while(GetSelect(TRUE, &amp;selectedCell)){<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">selList-&gt;Prepend(theList-&gt;NthItem(selectedCell.v
++ 1));<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">selectedCell.v++;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">DeselectAll(FALSE);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">CObject *toObject = theList-&gt;NthItem(toCell.v
++ 1);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(toObject == NULL)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">toObject = theList-&gt;LastItem();<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(!selList-&gt;Includes(toObject)){<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">long numSel = selList-&gt;GetNumItems();<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">Cell aCell = {0,0};<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">for(long i = 1;i &lt;= numSel;i++){<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>CObject *theObject = selList-&gt;NthItem(i);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>theList-&gt;Remove(theObject);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>long toOffset = theList-&gt;Offset(toObject) + insertionOffset;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>theList-&gt;InsertAtIndex(&amp;theObject,toOffset);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>aCell.v = toOffset - 1;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>SelectCell(aCell,TRUE,FALSE);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">Notify(NULL);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">ForgetObject(selList);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">&nbsp;<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">void
+CDraggableList::RemoveArray(void)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">{<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if(itsArray){<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">LongPt<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>toPt = {0,0};<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">if (itsArray-&gt;GetNumItems() &gt; 0)<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:2"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ScrollTo(&amp;toPt, FALSE);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">CancelDependency(itsArray);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">DeselectAll(TRUE);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">DeleteRow(GetRowCount(),0);<o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;">}<o:p>
+</o:p>
+</span></font></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><span style="mso-tab-count:1"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Courier">itsArray = NULL;<span style="mso-tab-count:
+1">&nbsp; </span><o:p>
+</o:p>
+</font></span></p>
+<p class="MsoPlainText"><span style="mso-fareast-font-family:&quot;MS Mincho&quot;"><font face="Courier">}<o:p>
+</o:p>
+</font></span></p>
+
+</body>
+
+</html>

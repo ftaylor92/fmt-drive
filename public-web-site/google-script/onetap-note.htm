@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>OneTap</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.75"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<center><h2>OneTap Note<img src="./icon.png"/>Android App</h2></center>
+<br/>
+
+<p><a href="http://market.android.com/details?id=com.fmt.note.onetap&feature=more_from_developer">One-Tap Note</a> allows you to create notes with one tap of your android, then just speaking or typing what you want noted.  <span style="font-variant:small-caps;">Period.  That&#39;s It.</span></p>
+
+<p>It saves your note as a Google Drive Document, so you have all the resources and security of Google&trade; Drive (to print, copy, share, bookmark, view online, etc.)</p>
+
+<p>You may view your ToDo note from the One-Tap Note app or from creating a short-cut to it on your phone using <a href="https://play.google.com/store/search?q=google+drive">Google Drive app</a> widget.</p>
+
+<p>You can take notes anytime, even when not connected to internet because all notes taken offline are saved in the app&#39;s database and synched to your Google Document ToDo list later.</p>
+<br/>
+<hr/>
+<br/><br/>
+
+<span style="font-variant:small-caps;text-decoration:underline">For Developers:</span>
+<p><a href="http://market.android.com/details?id=com.fmt.note.onetap&feature=more_from_developer">One-Tap Note android app</a> accesses a <a href="https://script.google.com">Google Script</a> to insert note into a <a href="https://www.google.com/intl/en_US/drive/start/index.html?authuser=0">Google Drive</a> document.</p>
+
+<p>Here is the <a href="https://script.google.com/macros/s/AKfycbywXoeRosZUPWdTQeD0FSSeuDfJhR3vBL6RVdos2LiHcys2OwWn/exec">Create Document Script</a>.  Here is the <a href="https://script.google.com/macros/s/AKfycbygYeZq2E6AjV-2lTHljjZuBbc-59UX6QzVq3guucBhqKfMKjU/exec">Insert Note Script</a>.  You can copy this script and modify it to do different things.  You can change the One-Tap Note app widgets to use your new Google Script by changing the One-Tap Note app&#39;s &quot;Insert Script URL&quot; Preference.</p>
+
+<p>The Google Drive ToDo Document that you create and modify has a unique ID, which you'll need in set in the One-Tap Note app&#39;s &quot;Google Drive Document ID&quot; Preference.</p>
+
+<p>Calling the Insert Note Google Script is similar to using this <a href="./post-google-drive.htm">web site</a> or using this Google Script UI <a href="https://script.google.com/macros/s/AKfycbygYeZq2E6AjV-2lTHljjZuBbc-59UX6QzVq3guucBhqKfMKjU/exec">web site</a>.  For an auto-javascript version of this site, see this <a href="./post-google-drive-auto.htm">web site</a>.</p>
+<br/>
+About Google Drive <a href="./about-apis.htm#docIds">Document IDs</a> and <a href="./about-apis.htm#driveApis">APIs</a>
+<br/><br/>
+<hr/>
+<br/><br/>
+<a href="https://play.google.com/store/search?q=google+drive"><img src="http://www.gadgetgeek.in/wp-content/uploads/2012/04/Google-Drive-Image.jpg"></img></a>
+<script>
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: false, contentType: "application/json; charset=utf-8", dataType:"json"});
+
+		var counterUrl="https://fmt-bookmarks.herokuapp.com/rest/counter?site="+ encodeURIComponent(window.location.href);
+		$.get(counterUrl, function(data, txtstatus, xbr) {
+			$("#counter").html("<br/><br/><small><em>count: "+ data+"</em></small>");
+		});
+	});
+</script>
+<div id='counter'></div>
+</body>
+</html>

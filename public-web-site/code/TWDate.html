@@ -1,0 +1,314 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>package impacts</title>
+</head>
+
+<body>
+
+<pre>package impacts.common.sim.messageupdater;
+ </pre>
+<pre>// Java import statements.
+import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.text.ParseException;</pre>
+<pre>// External project import statements
+import impacts.tkar.util.GCCSmFormats;</pre>
+<pre>// Internal project import statements</pre>
+<pre>/**
+ * TW Date class for conversions and formatting
+ */
+class TWDate extends GCCSmFormats
+{
+	private GregorianCalendar mDate = new GregorianCalendar( java.util.TimeZone.getTimeZone( &quot;GMT&quot; ) );
+	</pre>
+<pre>	public TWDate()
+	{
+		mDate.setTimeZone( java.util.TimeZone.getTimeZone( &quot;GMT&quot; ) );
+	}
+	</pre>
+<pre>	/**
+	 * contructs a date with given information
+	 * @param dayTime string in the format ddHHMM[:ss]
+	 * @param month three character month string
+	 * @param year year string.  On two digit years, if more than 50, then assume 20th century, otherwise assume 21st century
+	 */
+	public TWDate( final String dayTime, final String month, final String year )
+	{
+		setDate( dayTime, month, year );
+		mDate.setTimeZone( java.util.TimeZone.getTimeZone( &quot;GMT&quot; ) );
+	}
+	</pre>
+<pre>	/* constructs a TWDate from date in a Date object
+	 * @param date date data in Date object
+	 */
+	public TWDate( final Date date )
+	{
+		mDate.setTime( date );
+		mDate.setTimeZone( java.util.TimeZone.getTimeZone( &quot;GMT&quot; ) );
+	}
+	</pre>
+<pre>	/**
+	 * stores date with given information
+	 * @param dayTime string in the format ddHHMM[:ss]
+	 * @param month three character month string
+	 * @param year year string.  On two digit years, if more than 50, then assume 20th century, otherwise assume 21st century
+	 */
+	public void setDate( final String dayTime, final String month, final String year )
+	{
+		if( null != dayTime &amp;&amp; dayTime.length() &gt; 0 )
+		{
+			mDate.set( Calendar.DAY_OF_MONTH, Integer.parseInt( dayTime.substring( 0, 2 ) ) );
+			mDate.set( Calendar.HOUR_OF_DAY, Integer.parseInt( dayTime.substring( 2, 4 ) ) );
+			mDate.set( Calendar.MINUTE, Integer.parseInt( dayTime.substring( 4, 6 ) ) );
+			if( ':' == dayTime.charAt(6) )
+			{
+				mDate.set( Calendar.SECOND, Integer.parseInt( dayTime.substring( 7, 9 ) ) );
+			}
+			else
+			{
+				mDate.set( Calendar.SECOND, 0 );
+			}
+		}
+		</pre>
+<pre>		if( null != month &amp;&amp; month.length() &gt; 0 )
+		{
+			mDate.set( Calendar.MONTH, monthToNum( month ) );
+		}
+		</pre>
+<pre>		if( null != dayTime &amp;&amp; dayTime.length() &gt; 0 )
+		{
+			// make into 4 digit year, if smaller than 100, NOT Y2k compliant
+			//On two digit years, if more than 50, then assume 20th century, otherwise assume 21st century
+			int yr4 = Integer.parseInt( year );
+			if( yr4 &lt;= 50 )
+			{
+				yr4 += 2000;
+			}
+			if( yr4 &gt; 50 &amp;&amp; yr4 &lt; 100)
+			{
+				yr4 += 1900;
+			}
+			</pre>
+<pre>			mDate.set( Calendar.YEAR, yr4 );
+		}
+	}</pre>
+<pre>	/**
+	 * returns date as java.util.Date class
+	 * @return this as java.util.Date class
+	 */
+	public Date getDate()
+	{
+		return mDate.getTime();
+	}
+	</pre>
+<pre>	/**
+	 * returns date as seconds
+	 * @return this as seconds after January 1, 1970, 0:00:00 GMT
+	 */
+	public long getSeconds()
+	{
+		return mDate.getTimeInMillis() / 1000;
+	}</pre>
+<pre>	/**
+	 * returns date as ddHHMMZ
+	 * @return this as ddHHMMZ string
+	 */
+	public String getDayHourMin()
+	{
+		java.text.SimpleDateFormat timeFormat = new java.text.SimpleDateFormat();
+		timeFormat.applyPattern( &quot;ddHHmm'Z'&quot;);
+		timeFormat.setTimeZone( java.util.TimeZone.getTimeZone( &quot;GMT&quot; ) );
+    	timeFormat.setLenient(false);
+		</pre>
+<pre>		return timeFormat.format( getDate() ).toUpperCase();
+	}
+	</pre>
+<pre>	/**
+	 * returns month as MMM
+	 * @return month as MMM string
+	 */
+	public String getMonth()
+	{
+		java.text.SimpleDateFormat timeFormat = new java.text.SimpleDateFormat();
+		timeFormat.applyPattern( &quot;MMM&quot;);
+		timeFormat.setTimeZone( java.util.TimeZone.getTimeZone( &quot;GMT&quot; ) );
+    	timeFormat.setLenient(false);
+		</pre>
+<pre>		return timeFormat.format( getDate() ).toUpperCase();
+	}
+	</pre>
+<pre>	/**
+	 * return four digit year
+	 * @return year string
+	 */
+	public String getYear()
+	{
+		java.text.SimpleDateFormat timeFormat = new java.text.SimpleDateFormat();
+		timeFormat.applyPattern( &quot;yyyy&quot;);
+		timeFormat.setTimeZone( java.util.TimeZone.getTimeZone( &quot;GMT&quot; ) );
+    	timeFormat.setLenient(false);
+		</pre>
+<pre>		return timeFormat.format( getDate() ).toUpperCase();
+	}</pre>
+<pre>	/**
+	 * returns two digit year
+	 * @return last two digits of year as string
+	 */
+	public String get2Year()
+	{
+		java.text.SimpleDateFormat timeFormat = new java.text.SimpleDateFormat();
+		timeFormat.applyPattern( &quot;yy&quot;);
+		timeFormat.setTimeZone( java.util.TimeZone.getTimeZone( &quot;GMT&quot; ) );
+    	timeFormat.setLenient(false);
+		</pre>
+<pre>		return timeFormat.format( getDate() ).toUpperCase();
+	}
+	</pre>
+<pre>	/**
+	 * subtracts two TWDates
+	 * @param dateOne aDate
+	 * @param dateTwo date to subtract from dateOne
+	 * @return the number of seconds later dateTwo is from dateOne
+	 */
+	 public static long subtract( final TWDate dateOne, final TWDate dateTwo )
+	 {
+	 	final long seconds = dateOne.getSeconds() - dateTwo.getSeconds();
+		</pre>
+<pre>		return seconds;
+	 }
+	 </pre>
+<pre>	/**
+	 * substracts seconds from this date
+	 * @param seconds number of seconds to subtract
+	 */
+	 public void subtract( final long seconds )
+	 {
+		long thisTime = getSeconds();
+		</pre>
+<pre>		mDate.setTimeInMillis( ( thisTime - seconds ) * 1000 );
+	 }
+	 </pre>
+<pre>	 /**
+	  * given a DDHHMM[:SS] string, return how many seconds it represents
+	  * @param dayTime DDHHMM[:SS] string up to 99 days
+	  * @return number of seconds this represents
+	  * @throws ParseException if ddHHMM[:ss] is not fully filled in
+	  */
+	 public static long differential( final String dayTime ) throws ParseException
+	 {
+	 		final int strlen = dayTime.length();
+			</pre>
+<pre>			if ( strlen &lt; 6 )
+			{
+				throw new ParseException( &quot;ddHHMM field not complete&quot;, strlen );
+			}</pre>
+<pre>	 		long dateChange = Integer.parseInt( dayTime.substring( 0, 2 ) ) * 24 * 60 * 60;//days
+			dateChange += Integer.parseInt( dayTime.substring( 2, 4 ) ) * 60 * 60;		//hours
+			dateChange += Integer.parseInt( dayTime.substring( 4, 6 ) ) * 60;			//minutes
+	 		if( strlen &gt; 6 &amp;&amp; ':' == dayTime.charAt(6) )
+			{
+				dateChange += Integer.parseInt( dayTime.substring( 7, 9 ) );
+			}</pre>
+<pre>	 		return dateChange;
+	 }
+	 </pre>
+<pre>	 /**
+	 * adds seconds from this date
+	 * @param seconds number of seconds to add
+	 */
+	 public void add( final long seconds )
+	 {
+		long thisTime = getSeconds();
+		</pre>
+<pre>		mDate.setTimeInMillis( ( thisTime + seconds ) * 1000 );
+	 }
+	 </pre>
+<pre>	 /**
+	  * adds a number of seconds to the passed in date (without effecting the original date), and returns it
+	  * @param date date to add to
+	  * @param seconds seconds to add to date
+	  * @return date with added seconds
+	  */
+	 public static TWDate add ( final TWDate date, final long seconds )
+	 {
+	 	TWDate addDate = (TWDate)date.clone();
+		addDate.add( seconds );
+		</pre>
+<pre>		return addDate;
+	 }
+	 </pre>
+<pre>	 protected Object clone()
+	 {
+	 	TWDate copyDate = new TWDate( this.getDate() );
+		</pre>
+<pre>		return copyDate;
+	 }
+	 	 		</pre>
+<pre>	/**
+	 * converts month string to number
+	 * @param month month as string
+	 * @return number of month, from 0 - 11, where 0 == JAN, -1 is error
+	 */
+	public static short monthToNum( final String month )
+	{
+		final String shortName = month.substring( 0, 3 ).toUpperCase();</pre>
+<pre>		if( shortName.equals(&quot;JAN&quot;) )
+		{
+			return 0;
+		}
+		if( shortName.equals(&quot;FEB&quot;) )
+		{
+			return 1;
+		}
+		if( shortName.equals(&quot;MAR&quot;) )
+		{
+			return 2;
+		}
+		if( shortName.equals(&quot;APR&quot;) )
+		{
+			return 3;
+		}
+		if( shortName.equals(&quot;MAY&quot;) )
+		{
+			return 4;
+		}
+		if( shortName.equals(&quot;JUN&quot;) )
+		{
+			return 5;
+		}
+		if( shortName.equals(&quot;JUL&quot;) )
+		{
+			return 6;
+		}
+		if( shortName.equals(&quot;AUG&quot;) )
+		{
+			return 7;
+		}
+		if( shortName.equals(&quot;SEP&quot;) )
+		{
+			return 8;
+		}
+		if( shortName.equals(&quot;OCT&quot;) )
+		{
+			return 9;
+		}
+		if( shortName.equals(&quot;NOV&quot;) )
+		{
+			return 10;
+		}
+		if( shortName.equals(&quot;DEC&quot;) )
+		{
+			return 11;
+		}</pre>
+<pre>		return -1;	//error
+	}
+}</pre>
+
+</body>
+
+</html>

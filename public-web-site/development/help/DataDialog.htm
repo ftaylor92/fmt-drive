@@ -1,0 +1,27 @@
+<HTML>
+<BODY>
+<PRE>
+Dialogbox to display and edit data:
+
+DetailView {
+    final parent;
+
+    WorldView data; 
+    EnumType currType;
+    int currID;
+
+    public void setData(Object data);
+    public Object getData();
+    public boolean validateData();
+    public void applyFieldsToData();
+    public void setupGUI();
+    public void setEditable(boolean editable);
+    
+    public static class ValidationException extends Exception {
+        public ValidationException(String field, String reason)
+        public String getField();
+    }
+}
+</PRE>
+</BODY>
+</HTML>

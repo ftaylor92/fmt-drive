@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+ <html> 
+	<head>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	</head>
+<body>
+<div id="ajaxError"></div>
+
+<script>
+function getXMLHttpRequestObject()
+{
+  var xmlhttp;
+  /*@cc_on
+  @if (@_jscript_version >= 5)
+    try {
+      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+      try {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (E) {
+        xmlhttp = false;
+      }
+    }
+  @else
+  xmlhttp = false;
+  @end @*/
+  if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+    try {
+      xmlhttp = new XMLHttpRequest();
+    } catch (e) {
+      xmlhttp = false;
+    }
+  }
+  return xmlhttp;
+}
+var http = new getXMLHttpRequestObject();
+ 
+var url = "http://localhost:8080/password/rest/password";
+url="https://fmt-password.herokuapp.com/rest/password";
+var parameters = "?username=ftaylor92&site=com.fmt.bookmarks&password=matt88";
+http.open("POST", url, true);
+ 
+//Send the proper header information along with the request
+//http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http.setRequestHeader("Content-type", "application/json");
+//http.setRequestHeader("Content-length", parameters.length);
+//http.setRequestHeader("Connection", "close");
+ 
+http.onreadystatechange = function() {//Handler function for call back on state change.
+    //if(http.readyState == 4) {
+//if (http.status=="200" || http.status=="201" )
+        alert(http.status);
+		alert(http.responseText);
+    //}
+}
+http.send(parameters);
+
+
+
+
+</script>
+</body>

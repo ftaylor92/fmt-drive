@@ -1,0 +1,12 @@
+<christmasList>       
+	<item color="blue" model="Trek" >
+		<name>bIKE</name>
+	
+
+	</item>
+	<item>
+		
+	</item>
+
+	<item color="blue" thing="bike" />
+</christmasList> 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Form to create a new resource</title>
+</head>
+<body>
+ <form action="http://localhost:8080/password/rest/password" method="POST">
+ <label for="username">ID</label>
+ <input name="username" />
+ <br/>
+ <label for="password">Summary</label>
+ <input name="password" />
+ <br/>
+<input type="hidden" name="site" value="com.fmt.bookmarks" />
+<input type="hidden" name="role" value="user" />
+ <br/>
+ <input type="submit" value="Create Account" />
+ </form>
+</body>
+</html>

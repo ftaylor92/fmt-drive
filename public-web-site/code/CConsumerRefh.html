@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#ifndef __CCONSUMERREFH__
+#define __CCONSUMERREFH__</pre>
+<pre>#include &quot;CRefObject.h&quot;
+#include&lt;string.h&gt;
+#include&quot;XMLStuff.h&quot;
+//#include&quot;CHitMapPlugin.h&quot;
+#include&quot;frankutils.h&quot;</pre>
+<pre>class CProducerRef;
+class CScoreBoardPlugin;</pre>
+<pre>struct RefInfo{
+	StringPtr	componentName;
+};</pre>
+<pre>Boolean IterFindProducer(CProducerRef *aRef, RefInfo *info);</pre>
+<pre>SUBCLASS(CProducerRef, public, CComponentRef)
+public:
+	Boolean	IProducerRef(CBureaucrat *anOwner,StringPtr name);
+	void	Dispose();
+	void AddXMLElement(SimPlayerXMLElement*);
+	void BuildTickerFromTree(SimPlayerXMLElement*);</pre>
+<pre>	Str255		prodName;
+};</pre>
+<pre>#endif</pre>
+
+</body>
+
+</html>

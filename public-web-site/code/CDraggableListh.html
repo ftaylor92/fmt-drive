@@ -1,0 +1,26 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>
+#if !defined(_H_CDraggableList)
+#define _H_CDraggableList</pre>
+<pre>#include I_CDialogArrayPane</pre>
+<pre>CLASS_BY_NAME(CDraggableList,public,CDialogArrayPane)
+public:
+	virtual void ItemMoved(Cell toCell);
+	virtual void DoClick( Point hitPt, short modifierKeys, long when);
+			void RemoveArray(void);
+};</pre>
+<pre>#endif</pre>
+
+</body>
+
+</html>

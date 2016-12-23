@@ -1,0 +1,105 @@
+<html>
+<head>
+	<title>Installation</title>
+</head>
+<body bgcolor="OldLace">
+<h3>Windows Install</h3>
+make System restore Point<br/>
+Microsoft Office or <a href="http://www.openoffice.org">OpenOffice</a><br/>
+Roxio CD Burning software<br/>
+Anti-virus, anti-spyware<br/>
+<a href="http://www.cygwin.org">Cygwin</a> and <a href="http://cronw.sourceforge.net">cron</a><br/>
+Kate's Printer software<br/>
+Backup methodology-Start-Accessories-System Tools-Backup<br/>
+<a href="http://www.grigsoft.com/download-windiff.htm">WinDiff</a><br/>
+<a href="http://www.sharewareplaza.com/MReplace-download_40520.html">mReplace</a><br/>
+<a href="http://www.wincvs.org">WinCVS</a><br/>
+Tweak UI<br/>
+<br/>
+<h3>Linux Install</h3>
+
+<h6>How to install Linux on Dell Inspiron 1100</h6>
+
+<ol>
+<li>Install RedHat Enterprise Linux 4 (RHEL4)
+<li>create ftaylor92 user and make taylors group.  Use him, not root</li>
+<li>chown /usr/local/bin/ and /usr/local/lib to taylors group (chgrp taylors), and chmod bin 777</li>
+<li>put Terminal, LogOut, 4xDesktops, Firefox and Battery Monitor on top MenuBar</li>
+<li>put alias.sh, path.sh and env-vars.sh into ~/.dotfiles/ and call them in .bashrc w/. $HOME/.dotfiles/alias.sh...</li>
+</ol>
+
+<a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialMP3.html">Lame</a>:<br/>
+download tar file<br/>
+./configure<br/>
+make <br/>
+make install<br/>
+<br/>
+<a href="http://nostatic.org/grip">Grip</a>:<br/>
+Downloaded tar file, then read instructions in README (./configure, make, make
+install)<br/>
+<br/>
+<a href="http://www.mplayerhq.hu/design7/dload.html">MPlayer</a>:<br/>
+<pre>followed svn instructions on web site
+svn checkout
+svn://svn.mplayerhq.hu/mplayer/trunk mplayer
+cd mplayer
+svn update
+./configure --enable-gui --enable-menus
+make
+make install
+possibly download skins
+possibly cp C:/WINDOWS/Fonts/arial.ttf to /usr/local/share/mplayer/subfont.ttf
+
+see: ~/doc/audio.txt file for audio and video instructions
+
+Subversion:
+downloaded and unpacked tar file
+
+OpenOffice
+downloaded RPMs
+cd /OO/RPMS/
+rpm -ivhU *.rpm
+
+maven:
+installed, then ran compile and package to download pieces
+
+7) Display drivers: from
+http://www.geocities.com/randomnumbergenerator2001/#bios_info
+install A32 driver from CD iso, then type I1100A32
+Then set monitor properly from Display Control Panel
+</pre>
+8) Wireless card instructions <a href="http://dl.getdropbox.com/u/688127/public-web-site/linux-wireless.htm">here</a><br/>
+<br/>
+9) NTFS disk support: <a href="./linux-ntfs.htm">here</a><br/>
+
+<h3>All Systems</h3>
+<a href="http://www.openoffice.org">OpenOffice</a><br/>
+<a href="http://www.imagemagick.org">ImageMagick</a><br/>
+Photoshop or <a href="http://www.gimp.org">GIMP</a><br/>
+Mozilla <a href="http://www.mozilla.com/firefox/">FireFox</a> browser: bookmarks and search bar plugins<br/>
+<a href="http://filezilla-project.org">FTP</a> Transfer</br>
+<a href="http://www.avg.com">AVG</a> Anti-Virus</br>
+<h5>A/V</h5>
+<a href="http://www.winamp.com">WinAmp</a><br/>
+<a href="http://www.mameworld.net/mameclassic">Mame</a> <a href="http://mameclassic.mameworld.info">Classic</a>: and roms.  run <code>mame.exe -cc</code>, then edit <code>mame.ini w/mouse=1 and volume=-20</code><br/>
+<a href="http://www.rockbox.org">Rockbox</a>, then add 6 files (*.5e,5f,6e,6f,6h,6j) from mame/roms/pacman.zip to /.rockbox/pacman/ on iPod 5thGen<br/>
+<a href="http://cdexos.sourceforge.net">CD-Ex</a><br/>
+<a href="http://massid3lib.sourceforge.net">mp3 Tag Tools</a><br/>
+<h5>Programming</h5>
+<a href="http://java.sun.com">Java SDK</a><br/>
+<a href="http://www.crimsoneditor.com">Crimson</a> Editor<br/>
+<a href="http://ant.apache.org">Ant</a><br/>
+<a href="http://maven.apache.org">Maven</a><br/>
+<a href="http://maven.apache.org">Eclipse</a><br/>
+<a href="http://subversion.tigris.org">SubVersion</a><br/>
+<a href="http://www.postgresql.org">Postgres</a><br/>
+<a href="http://geronimo.apache.org">Geronimo</a> server<br/>
+<h8>Java Libraries</h8>
+<a href="http://ws.apache.org/axis2">Axis2</a><br/>
+<a href="http://logging.apache.org/log4j/1.2/index.html">log4j</a><br/>
+<a href="http://checkstyle.sourceforge.net">checkStyle</a><br/>
+<a href="http://www.junit.org">JUnit</a><br/>
+<a href="http://xstream.codehaus.org">xstream</a><br/>
+<a href="http://jalopy.sourceforge.net/">jalopy</a>
+</body>
+</html>

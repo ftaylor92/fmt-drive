@@ -1,0 +1,238 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<pre>#ifndef _H_DataFormats_
+#define _H_DataFormats_</pre>
+<pre>#include &lt;string.h&gt;			// strcmp()</pre>
+<pre>#include &quot;TableResources.h&quot;</pre>
+<pre>#define	invalidCODE	-1</pre>
+<pre>#if memcheck
+	static const short	kMaxColHdrLen(32);
+	static const short	kMaxItemCodeLen(32);
+	static const short	kMaxItemDataLen(256);	// increased to accommodate URLs
+	static const short	kMaxRowLabelLen(64);
+	static const short	kMaxTableNameLen(264);
+#else
+	#define	kMaxColHdrLen (32)
+	#define	kMaxItemCodeLen (32)
+	#define	kMaxItemDataLen (256)	/* increased to accommodate URLs*/
+	#define kMaxRowLabelLen (64)
+	#define	kMaxTableNameLen (264)
+#endif
+SUBCLASS(CColumnHeader,public,CObject)
+public:
+	char		code[kMaxColHdrLen];//title
+	Boolean		treatAsNumbers;
+	</pre>
+<pre>	CColumnHeader(const char* aTitle, Boolean isNumber = FALSE);
+	void	Dispose();//alexa 4/11/99
+};</pre>
+<pre>SUBCLASS(CTableHeader, public, CList) //list of CColumnHeader
+public:
+	Boolean	GetTreatAsNumbers(const char* aCode);
+	Boolean	GetTreatAsNumbers(short index);
+	void	SetTreatAsNumbers(short index, Boolean numeric);
+	void	GetNthTitleString(short indexInList, char* aStr);
+	</pre>
+<pre>	Boolean	GetColIndex(const char* aCode, short&amp; index);
+	</pre>
+<pre>	void	Dispose();//alexa 4/11/99
+};</pre>
+<pre>SUBCLASS(CItemData,public,CObject)
+public:
+	char		code[kMaxItemCodeLen];</pre>
+<pre>protected:
+	char*	data;</pre>
+<pre>	PicHandle	mImageH;
+	Boolean	mClickable;</pre>
+<pre>public:
+	CItemData(const char* aCode, const char* aStr = NULL, Boolean clickable = FALSE);
+	void	Dispose();//alexa 4/11/99
+	</pre>
+<pre>	Boolean operator==(const CItemData&amp; itemData)
+	{
+		return strcmp(data, itemData.data) ? FALSE : TRUE;
+	}
+	Boolean operator!=(const CItemData&amp; itemData)
+	{
+		return operator==(itemData) ? FALSE : TRUE;
+	}
+	Boolean operator&lt;(const CItemData&amp; itemData)
+	{
+		return (strcmp(data, itemData.data) &lt; 0) ? TRUE : FALSE;
+	}
+	</pre>
+<pre>	void			SetString(const char* aString);
+	const char*	GetString(void) const	{ return data; }
+	void			SetNumericValue(double val);
+	double		GetNumericValue(void) const;
+	Boolean		IsNumeric(void) const;
+	Boolean		IsDash(void) const;
+	Boolean		IsClickable(void) const { return mClickable; }
+	Boolean		IsURL(void) const;
+	</pre>
+<pre>	void			SetURL(const char* url) { SetString(url); }
+	const char*	GetURL(void) const	{ return data; }
+	</pre>
+<pre>	void			SetItemDataImage(PicHandle h);
+	const PicHandle	GetItemDataImage(void) const { return mImageH; }
+	</pre>
+<pre>	void			SetClickable(Boolean torf) { mClickable = torf; }
+	</pre>
+<pre>protected:
+	void			DnitItemData(void);
+};</pre>
+<pre>SUBCLASS(CRowItem,public,CList) //list of CItemData
+public:
+	char	rowLabel[kMaxRowLabelLen];
+	Boolean	selected;
+	</pre>
+<pre>			CRowItem();
+	void	Dispose();//alexa 4/11/99</pre>
+<pre>	CItemData	*GetData(const char* aCode);
+	CItemData	*GetData(short colIndex);
+	</pre>
+<pre>	void		GetDataStr(const char* aCode, char* aStr);
+	void		GetDataStr(short colIndex, char* aStr); // van ennek valami ertelme ???</pre>
+<pre>	Boolean	GetClickable(short colIndex);
+	Boolean	IsURL(short colIndex);</pre>
+<pre>	void			SetURL(short col, const char* url);
+	const char*	GetURL(short col);</pre>
+<pre>	void		SetItemDataImage(short colIndex, PicHandle imageH);
+	PicHandle	GetItemDataImage(short colIndex);</pre>
+<pre>	void	GetRowLabel(char* aStr) const;
+	void	SetRowLabel(const char* newLabel);
+};</pre>
+<pre>class CRowItemsTable;</pre>
+<pre>class CRowItemsTableIter
+{
+public:
+	CRowItemsTableIter() : mRowColTable(NULL), mRow(0), mCol(0) {}</pre>
+<pre>	CRowItemsTableIter(CRowItemsTable* rit, short row, short col) : mRowColTable(NULL), mRow(row), mCol(col)
+	{
+		mRowColTable = rit;
+	}
+	CRowItemsTableIter(const CRowItemsTableIter&amp; ritIter) : mRowColTable(NULL), mRow(ritIter.mRow), mCol(ritIter.mCol)
+	{
+		mRowColTable = ritIter.mRowColTable;
+	}</pre>
+<pre>	Boolean operator==(const CRowItemsTableIter&amp; ritIter)
+	{
+		return (	mRowColTable == ritIter.mRowColTable &amp;&amp;
+				mRow == ritIter.mRow &amp;&amp;
+				mCol == ritIter.mCol	);
+	}
+	Boolean operator!=(const CRowItemsTableIter&amp; ritIter)
+	{
+		return operator==(ritIter) ? FALSE : TRUE;
+	}</pre>
+<pre>	CRowItemsTableIter&amp; operator=(const CRowItemsTableIter&amp; ritIter)
+	{
+		if (this != &amp;ritIter)
+		{
+			mRowColTable = ritIter.mRowColTable;
+		</pre>
+<pre>			mRow = ritIter.mRow;
+			mCol = ritIter.mCol;
+		}
+		</pre>
+<pre>		return *this;
+	}</pre>
+<pre>	CItemData*	operator*() const;</pre>
+<pre>	CRowItemsTableIter&amp; operator++()
+	{
+		IncrementRowCol();
+		return *this;
+	}</pre>
+<pre>	CRowItemsTableIter	operator++(int)
+	{
+		CRowItemsTableIter	tmp = *this;
+		IncrementRowCol();
+		return tmp;
+	}
+	</pre>
+<pre>	CRowItemsTableIter&amp; operator--()
+	{
+		DecrementRowCol();
+		return *this;
+	}</pre>
+<pre>	CRowItemsTableIter	operator--(int)
+	{
+		CRowItemsTableIter	tmp = *this;
+		DecrementRowCol();
+		return tmp;
+	}</pre>
+<pre>	void	GetRowCol(short&amp; row, short&amp; col) const
+	{
+		row = mRow;
+		col = mCol;
+	}</pre>
+<pre>protected:
+	void	IncrementRowCol(void);
+	void	DecrementRowCol(void);</pre>
+<pre>public:
+	CRowItemsTable*	mRowColTable;
+	</pre>
+<pre>	short	mRow;
+	short	mCol;
+};
+</pre>
+<pre>SUBCLASS(CRowItemsTable,public,CObject)
+private:
+	CTableHeader	*header;
+	CList			*items; //list of CRowItem;
+	char			title[kMaxTableNameLen];
+	Boolean			mTreatDashAsNbr;</pre>
+<pre>public:	
+	CRowItemsTable(CTableHeader	*aHeader, CList *anItemsList, const char* aTitle = NULL);
+	CRowItemsTable();
+	void			Dispose();
+	</pre>
+<pre>	void			SortByCode(const char* keyCode, SortOrder order);
+	CRowItem		*GetRow(short index);//index is zero based!!!
+	short			CompareItems(CRowItem *itemA, CRowItem *itemB, const char* keyCode);
+	CTableHeader	*GetHeader(void) { return header; }</pre>
+<pre>	void			GetColumnHeader(short index, char* aStr) const;//index is zero based!!!</pre>
+<pre>	Boolean		IsColumnNumeric(short index);
+	void			GetTitle(char* aStr) const;
+	void			GetRowLabel(short index, char* aStr);//index is zero based!!!
+	void			SetRowLabel(short index, const char* newLabel);//index is zero based!!!
+	void			GetCell(short row, short col, char* aStr);
+	void			CheckNumericalColumns();
+	</pre>
+<pre>	Boolean 		GetColIndex(const char* aCode, short&amp; index)
+	{
+		return (header) ? header-&gt;GetColIndex(aCode, index) : FALSE;
+	}
+	</pre>
+<pre>	void			TreatDashAsNbr(Boolean torf) { mTreatDashAsNbr = torf; }
+	Boolean		TreatDashAsNbr(void) const { return mTreatDashAsNbr; }
+	</pre>
+<pre>	Boolean		IsURL(short row, short col);</pre>
+<pre>	void			SetURL(short row, short col, const char* url);
+	const char*	GetURL(short row, short col);</pre>
+<pre>	void			SetItemDataImage(short row, short col, PicHandle	imageH);
+	PicHandle		GetItemDataImage(short row, short col);
+	</pre>
+<pre>	CItemData*	GetItemData(short row, short col);</pre>
+<pre>	short		GetNumRows(void) { return items ? items-&gt;GetNumItems() : 0; }
+	short		GetNumCols(void) { return header ? header-&gt;GetNumItems() : 0; }
+	</pre>
+<pre>	void			InsertRows(short firstRow, short rowCnt);
+	</pre>
+<pre>	CRowItemsTableIter	Begin(void) { return CRowItemsTableIter(this, 0, 0); }
+	CRowItemsTableIter	End(void)	 { return CRowItemsTableIter(this, GetNumRows(), 0); }
+};</pre>
+<pre>#endif		// _H_DataFormats_</pre>
+
+</body>
+
+</html>
