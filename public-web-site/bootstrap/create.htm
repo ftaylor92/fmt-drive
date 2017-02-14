@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css3/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    
+    <div class="container">
+
+      <form class="form-signin" action="http://localhost:5000/create" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        
+        <div class="form-group">
+        <label for="type">User Type:</label>
+        <select class="form-control" id="type">
+            <option>Babysitter</option>
+            <option>Parent</option>
+        </select>
+        </div>
+        
+        <label class="checkbox-inline"><input name="age" type="checkbox" value="false">I am 18</label>
+        
+        <input name="name" type="text" class="input-block-level" placeholder="Your Name">
+        <input name="password" type="password" class="input-block-level" placeholder="Password">
+        <input name="username" type="email" class="input-block-level" placeholder="Email address">
+        <input name="street" type="text" class="input-block-level" placeholder="Street">
+        <input name="city" type="text" class="input-block-level" placeholder="City">
+        <input name="state" type="text" class="input-block-level" placeholder="State">
+        <input name="zip" type="number" class="input-block-level" placeholder="Zip">
+
+        <button class="btn btn-large btn-primary" type="submit">Create Account</button>
+      </form>
+
+    </div> <!-- /container -->
+    
+    <script src="./js3/jquery.min.js"></script>
+    <script src="js3/bootstrap.min.js"></script>
+  </body>
+</html>
+
